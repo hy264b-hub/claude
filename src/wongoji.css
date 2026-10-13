@@ -37,6 +37,12 @@
     --wg-caption-char: '花樣年華';
     --wg-caption-user: '雪泥鴻爪';
 
+    /* ── 원고지 첫 줄(제목 줄) 글귀 ─────────────────────────
+       한글과 띄어쓰기만 쓰면 한 칸에 한 자씩 맞춰 들어갑니다.
+       예) '부치지 못한 편지', '어느 오후', '회신'              */
+    --wg-row-char: '그대에게';
+    --wg-row-user: '답장';
+
     /* 띠 위 여백에 인쇄된 이름 (토큰 수가 뒤에 붙습니다) */
     --wg-paper-label: '原稿用紙';
 
@@ -323,16 +329,45 @@ body {
 }
 
 /* 날짜 — 이름 위 줄 */
-#chat .mes .timestamp {
-    order: -1;
-    /* 날짜는 칸에 맞추지 않고 명조로 촘촘하게 */
+/* 날짜 — 원고지 아래 여백에 인쇄된 작은 글씨 */
+#chat .mes .ch_name > .flex-container > .flex-container > .timestamp {
+    position: absolute;
+    top: calc(100% + 9px);
+    right: -1px;
+    width: auto !important;
+    max-width: none !important;
     font-family: var(--wg-title) !important;
-    font-size: calc(var(--wg-cell) * 0.5) !important;
+    font-size: 12px !important;
     font-weight: 700;
-    letter-spacing: 0.04em !important;
+    line-height: 16px !important;
+    letter-spacing: 0.06em !important;
     word-spacing: 0.1em;
-    color: var(--wg-ink-body);
-    padding-right: calc(var(--wg-cell) * 0.15) !important;
+    white-space: nowrap !important;
+    color: var(--wg-ink-soft);
+}
+
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container > .timestamp {
+    right: auto;
+    left: -1px;
+}
+
+/* 첫째 줄 — 원고지의 제목 줄. 한 칸에 한 자씩 */
+#chat .mes .ch_name > .flex-container > .flex-container::before {
+    content: var(--wg-row-char);
+    order: -1;
+    display: block;
+    align-self: stretch;
+    position: relative;
+    top: 0.055em;
+    font-weight: 400;
+    word-spacing: calc(var(--wg-cell) - var(--wg-cell-font) * 0.27 - var(--wg-track));
+    color: var(--wg-ink-soft);
+    white-space: normal;
+    word-break: keep-all;
+}
+
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container::before {
+    content: var(--wg-row-user);
 }
 
 #chat .mes .mes_timer {
