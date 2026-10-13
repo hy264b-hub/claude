@@ -1,0 +1,905 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@700;800&family=Nanum+Pen+Script&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+/* ==========================================================================
+   원고지 · Wongoji — SillyTavern theme
+   문학의 절제된 아름다움, 원고지 위에 쓰인 대화.
+
+   아래 :root 변수만 바꿔도 대부분의 인상을 조정할 수 있습니다.
+   ========================================================================== */
+
+:root {
+    /* 종이와 잉크 */
+    --wg-paper: #ece8df;          /* 책상 위의 종이 (배경) */
+    --wg-sheet: #fbfaf6;          /* 본문 원고 (메시지 카드) */
+    --wg-sheet-user: #f4f7fc;     /* 유저 원고 — 아주 옅은 하늘빛 */
+    --wg-band: #fdfcf9;           /* 원고지 띠 (캐릭터) */
+    --wg-band-user: #dfeaf7;      /* 원고지 띠 (유저) — 일력의 하늘색 */
+    --wg-ink: #24221e;            /* 먹 */
+    --wg-ink-soft: #5f5a51;       /* 옅은 먹 */
+    --wg-ink-faint: #9a9488;      /* 연필 */
+    --wg-rule: #2a2824;           /* 메시지 구분선 */
+
+    /* 원고지 칸 — 차분한 청보라 잉크 */
+    --wg-grid: rgba(96, 112, 178, 0.30);
+    --wg-grid-strong: rgba(80, 94, 160, 0.65);
+
+    /* 본문 괘선. 끄고 싶다면 transparent 로 */
+    --wg-ruled: rgba(96, 112, 178, 0.13);
+
+    /* 강조 */
+    --wg-quote: #34428a;          /* “대사” */
+    --wg-em: #6e6455;             /* *지문·속마음* */
+    --wg-accent: #8f9bd3;         /* 마스킹 테이프, 포커스 */
+
+    /* 서체 */
+    --wg-serif: 'Gowun Batang', 'Nanum Myeongjo', 'Noto Serif KR', serif;
+    --wg-title: 'Nanum Myeongjo', 'Gowun Batang', 'Noto Serif KR', serif;
+    --wg-hand: 'Nanum Pen Script', 'Gowun Batang', cursive;
+    --wg-mono: 'IBM Plex Mono', 'D2Coding', ui-monospace, monospace;
+
+    /* 본문 글자 크기와 행간 */
+    --wg-text: calc(var(--mainFontSize) * 1.07);
+    --wg-lh: calc(var(--wg-text) * 1.85);
+
+    /* 메시지 머리(원고지 띠 + 폴라로이드) 치수 */
+    --wg-cell: 30px;              /* 원고지 한 칸 */
+    --wg-name-size: 22px;         /* 이름 글자 크기 (칸보다 작게) */
+    --wg-pad: 30px;               /* 구분선과 띠 사이 */
+    --wg-side: 18px;              /* 좌우 여백 */
+    --wg-photo: 104px;            /* 폴라로이드 사진 크기 */
+    --wg-frame: 8px;              /* 폴라로이드 테두리 */
+    --wg-chin: 30px;              /* 폴라로이드 아래 여백 */
+    --wg-tilt: -4deg;
+
+    --mainFontFamily: var(--wg-serif);
+    --monoFontFamily: var(--wg-mono);
+}
+
+@media (max-width: 600px) {
+    :root {
+        --wg-cell: 24px;
+        --wg-name-size: 18px;
+        --wg-pad: 22px;
+        --wg-side: 10px;
+        --wg-photo: 80px;
+        --wg-frame: 6px;
+        --wg-chin: 24px;
+    }
+}
+
+/* ----------------------------------------------------------------------------
+   종이 — 배경과 바탕
+   ---------------------------------------------------------------------------- */
+
+body {
+    background-color: var(--wg-paper);
+    font-family: var(--wg-serif);
+    text-shadow: none;
+}
+
+#bg1 {
+    background-color: var(--wg-paper) !important;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .32 0 0 0 0 .27 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") !important;
+    background-size: 220px 220px !important;
+    background-repeat: repeat !important;
+    opacity: 1 !important;
+}
+
+#chat {
+    background-color: transparent;
+    text-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 0 6px;
+    scrollbar-color: var(--wg-ink-faint) transparent;
+}
+
+::selection {
+    background: rgba(143, 155, 211, 0.35);
+    color: var(--wg-ink);
+}
+
+/* ----------------------------------------------------------------------------
+   상단 메뉴 — 책의 머리말처럼 이중 괘선
+   ---------------------------------------------------------------------------- */
+
+#top-bar {
+    background-color: var(--wg-sheet);
+    box-shadow: none;
+    border-bottom: 3px double var(--wg-rule);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+#top-settings-holder .drawer-icon {
+    color: var(--wg-ink);
+}
+
+#top-settings-holder .drawer-icon.closedIcon {
+    opacity: 0.45;
+}
+
+#top-settings-holder .drawer-icon.closedIcon:hover,
+#top-settings-holder .drawer-icon.openIcon {
+    opacity: 1;
+}
+
+/* ----------------------------------------------------------------------------
+   메시지 — 원고지 띠 · 폴라로이드 · 원고
+   .mesAvatarWrapper 를 풀어(display: contents) 아바타·번호·타이머를
+   .mes 기준으로 배치합니다.
+   ---------------------------------------------------------------------------- */
+
+#chat .mes {
+    --wg-band-h: calc(var(--wg-cell) * 4);
+    --wg-pol-w: calc(var(--wg-photo) + var(--wg-frame) * 2);
+    --wg-pol-h: calc(var(--wg-photo) + var(--wg-frame) + var(--wg-chin));
+    --wg-pol-top: calc(var(--wg-pad) - var(--wg-cell) * 0.45);
+    /* 띠가 폴라로이드 쪽에서 들어가는 정도 */
+    --wg-band-near: calc(var(--wg-side) + var(--wg-pol-w) * 0.55);
+    --wg-band-far: var(--wg-side);
+    /* 이름 글자를 칸 가운데에 앉히는 자간 */
+    --wg-track: calc(var(--wg-cell) - var(--wg-name-size));
+
+    display: block;
+    position: relative;
+    padding: calc(var(--wg-pad) + var(--wg-band-h) + 10px) var(--wg-side) 38px;
+    margin: 0;
+    border-top: 1px solid var(--wg-rule);
+    background: transparent;
+    color: var(--wg-ink);
+    overflow: visible;
+}
+
+#chat .mes:first-child {
+    margin-top: 14px;
+}
+
+#chat .mes.last_mes {
+    margin-bottom: 0;
+}
+
+/* 원고지 띠 */
+#chat .mes::before {
+    content: '';
+    position: absolute;
+    top: var(--wg-pad);
+    left: var(--wg-band-near);
+    right: var(--wg-band-far);
+    height: var(--wg-band-h);
+    box-sizing: border-box;
+    border-top: 1px solid var(--wg-grid-strong);
+    border-bottom: 1px solid var(--wg-grid-strong);
+    background-color: var(--wg-band);
+    background-image:
+        linear-gradient(90deg, var(--wg-grid) 1px, transparent 1px),
+        linear-gradient(var(--wg-grid) 1px, transparent 1px);
+    background-size: var(--wg-cell) var(--wg-cell);
+    background-position: right -1px top -1px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 폴라로이드 아래 손글씨 이름 — 아바타와 같은 상자를 같은 각도로 */
+#chat .mes::after {
+    content: attr(ch_name);
+    position: absolute;
+    top: var(--wg-pol-top);
+    left: var(--wg-side);
+    width: var(--wg-pol-w);
+    height: var(--wg-pol-h);
+    box-sizing: border-box;
+    padding: calc(var(--wg-photo) + var(--wg-frame)) 8px 0;
+    transform: rotate(var(--wg-tilt));
+    text-align: center;
+    font-family: var(--wg-hand);
+    font-size: calc(var(--wg-chin) * 0.78);
+    line-height: calc(var(--wg-chin) * 0.95);
+    color: var(--wg-ink-soft);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    z-index: 3;
+}
+
+#chat .mes .mesAvatarWrapper {
+    display: contents;
+}
+
+/* 폴라로이드 */
+#chat .mes .avatar {
+    position: absolute;
+    top: var(--wg-pol-top);
+    left: var(--wg-side);
+    width: var(--wg-pol-w);
+    height: var(--wg-pol-h);
+    box-sizing: border-box;
+    padding: var(--wg-frame) var(--wg-frame) var(--wg-chin);
+    flex: none;
+    background: #fffefb;
+    border-radius: 2px;
+    transform: rotate(var(--wg-tilt));
+    box-shadow:
+        0 1px 1px rgba(36, 34, 30, 0.10),
+        0 6px 14px -4px rgba(36, 34, 30, 0.28);
+    z-index: 2;
+    transition: transform var(--animation-duration-2x) ease;
+}
+
+#chat .mes .avatar:hover {
+    transform: rotate(0deg) scale(1.03);
+}
+
+/* 마스킹 테이프 */
+#chat .mes .avatar::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--wg-frame) * -1.4);
+    left: 50%;
+    width: 46%;
+    height: calc(var(--wg-frame) * 2.4);
+    transform: translateX(-50%) rotate(3deg);
+    background: rgba(170, 182, 228, 0.55);
+    box-shadow: 0 0 0 0.5px rgba(80, 94, 160, 0.15);
+    z-index: 1;
+}
+
+#chat .mes .avatar img {
+    width: var(--wg-photo);
+    height: var(--wg-photo);
+    border-radius: 0;
+    border: 0;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+    object-fit: cover;
+    filter: saturate(0.88) contrast(1.02);
+}
+
+/* 띠 위의 작은 글씨들: 번호 · 날짜 · 생성 시간 · 토큰 */
+#chat .mes .mesIDDisplay,
+#chat .mes .timestamp,
+#chat .mes .mes_timer,
+#chat .mes .tokenCounterDisplay {
+    position: absolute;
+    height: var(--wg-cell);
+    line-height: var(--wg-cell);
+    margin: 0;
+    padding: 0 8px;
+    font-family: var(--wg-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--wg-ink-soft);
+    opacity: 1;
+    white-space: nowrap;
+    text-align: right;
+    z-index: 1;
+}
+
+#chat .mes .mesIDDisplay {
+    top: var(--wg-pad);
+    right: var(--wg-band-far);
+    font-weight: 500;
+    color: var(--wg-ink);
+}
+
+#chat .mes .timestamp {
+    top: calc(var(--wg-pad) + var(--wg-cell));
+    letter-spacing: 0.02em;
+    right: var(--wg-band-far);
+}
+
+#chat .mes .mes_timer,
+#chat .mes .tokenCounterDisplay {
+    left: calc(var(--wg-side) + var(--wg-pol-w) + 6px);
+    color: var(--wg-ink-faint);
+    text-align: left;
+}
+
+#chat .mes .mes_timer {
+    top: var(--wg-pad);
+}
+
+#chat .mes .tokenCounterDisplay {
+    top: calc(var(--wg-pad) + var(--wg-cell));
+}
+
+/* 이름 — 원고지 칸마다 한 글자씩 */
+#chat .mes .mes_block,
+#chat .mes .ch_name,
+#chat .mes .ch_name > .flex-container,
+#chat .mes .ch_name > .flex-container > .flex-container {
+    position: static;
+}
+
+#chat .mes .name_text {
+    position: absolute;
+    top: calc(var(--wg-pad) + var(--wg-cell) * 3);
+    right: calc(var(--wg-band-far) + var(--wg-cell) - var(--wg-track) / 2);
+    max-width: calc(100% - var(--wg-side) - var(--wg-pol-w) - var(--wg-band-far) - var(--wg-cell) - 6px);
+    height: var(--wg-cell);
+    line-height: var(--wg-cell);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--wg-title);
+    font-size: var(--wg-name-size);
+    font-weight: 800;
+    letter-spacing: var(--wg-track);
+    color: var(--wg-ink);
+    text-align: right;
+    z-index: 1;
+}
+
+#chat .mes .mes_ghost {
+    position: absolute;
+    top: calc(var(--wg-pad) + var(--wg-cell) * 2);
+    right: calc(var(--wg-band-far) + 8px);
+    height: var(--wg-cell);
+    line-height: var(--wg-cell);
+    color: var(--wg-ink-faint);
+    font-size: 12px;
+    z-index: 1;
+}
+
+#chat .mes .mes_block {
+    padding: 0;
+    width: 100%;
+    overflow: visible;
+}
+
+#chat .mes .ch_name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 0;
+    gap: 0;
+}
+
+#chat .mes .ch_name > .flex-container {
+    flex: none;
+    height: 0;
+}
+
+/* 메시지 버튼 — 띠 아래 가운데, 연필로 적은 듯 */
+#chat .mes .mes_buttons,
+#chat .mes .mes_edit_buttons {
+    justify-content: center;
+    align-self: center;
+    float: none;
+    gap: 2px;
+    margin: 0 0 8px;
+}
+
+#chat .mes .mes_button,
+#chat .mes .extraMesButtons > div {
+    color: var(--wg-ink);
+    filter: none;
+    opacity: 0.38;
+    padding: 4px 7px;
+    font-size: 13px;
+}
+
+#chat .mes .mes_button:hover,
+#chat .mes .extraMesButtons > div:hover {
+    opacity: 1;
+}
+
+#chat .mes .mes_edit_buttons .menu_button {
+    background: transparent;
+    border: 1px solid rgba(36, 34, 30, 0.25);
+    border-radius: 999px;
+    color: var(--wg-ink);
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+    opacity: 0.75;
+    filter: none;
+}
+
+#chat .mes .mes_edit_buttons .menu_button:hover {
+    opacity: 1;
+    background: var(--wg-sheet);
+}
+
+/* 원고 — 본문 카드 */
+#chat .mes .mes_text {
+    position: relative;
+    margin: 0;
+    padding: calc(var(--wg-lh) * 0.6) clamp(18px, 4%, 30px);
+    background-color: var(--wg-sheet);
+    background-image: linear-gradient(transparent calc(var(--wg-lh) - 1px), var(--wg-ruled) calc(var(--wg-lh) - 1px), var(--wg-ruled) var(--wg-lh));
+    background-size: 100% var(--wg-lh);
+    background-position: 0 calc(var(--wg-lh) * 0.6 - var(--wg-lh) * 0.16);
+    background-attachment: local;
+    border: 1px solid rgba(36, 34, 30, 0.14);
+    border-radius: 14px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 2px 10px -6px rgba(36, 34, 30, 0.25);
+    font-family: var(--wg-serif);
+    font-size: var(--wg-text);
+    font-weight: 400;
+    line-height: var(--wg-lh);
+    color: var(--wg-ink);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    overflow-x: auto;
+    text-shadow: none;
+}
+
+#chat .mes .mes_text:empty {
+    display: none;
+}
+
+#chat .mes .mes_text p {
+    margin: 0 0 var(--wg-lh);
+}
+
+#chat .mes .mes_text p:last-child,
+#chat .mes .mes_text > :last-child {
+    margin-bottom: 0;
+}
+
+#chat .mes .mes_text br {
+    margin: 0;
+}
+
+#chat .mes .mes_text q {
+    color: var(--wg-quote);
+}
+
+#chat .mes .mes_text em,
+#chat .mes .mes_text i {
+    color: var(--wg-em);
+    font-style: normal;
+}
+
+#chat .mes .mes_text q em,
+#chat .mes .mes_text q i {
+    color: inherit;
+}
+
+#chat .mes .mes_text strong {
+    font-weight: 700;
+    color: var(--wg-ink);
+}
+
+#chat .mes .mes_text u {
+    color: inherit;
+    text-decoration-color: var(--wg-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+}
+
+#chat .mes .mes_text hr {
+    border: 0;
+    height: var(--wg-lh);
+    margin: 0;
+    opacity: 1;
+    background: none;
+    text-align: center;
+}
+
+#chat .mes .mes_text hr::after {
+    content: '＊ ＊ ＊';
+    display: block;
+    line-height: var(--wg-lh);
+    font-size: 0.8em;
+    letter-spacing: 0.6em;
+    color: var(--wg-ink-faint);
+}
+
+#chat .mes .mes_text blockquote {
+    margin: 0 0 var(--wg-lh);
+    padding: 0 0 0 1.1em;
+    border-left: 2px solid var(--wg-accent);
+    background: none;
+    color: var(--wg-ink-soft);
+}
+
+#chat .mes .mes_text h1,
+#chat .mes .mes_text h2,
+#chat .mes .mes_text h3,
+#chat .mes .mes_text h4 {
+    font-family: var(--wg-title);
+    font-weight: 800;
+    line-height: var(--wg-lh);
+    margin: 0 0 var(--wg-lh);
+    font-size: 1.05em;
+    letter-spacing: 0.02em;
+}
+
+#chat .mes .mes_text h1 {
+    font-size: 1.25em;
+}
+
+#chat .mes .mes_text code {
+    font-family: var(--wg-mono);
+    font-size: 0.88em;
+    background: rgba(143, 155, 211, 0.14);
+    border: 0;
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+    color: var(--wg-ink);
+}
+
+#chat .mes .mes_text pre {
+    margin: 0 0 var(--wg-lh);
+    line-height: 1.6;
+}
+
+#chat .mes .mes_text pre code {
+    display: block;
+    padding: 12px 14px;
+    background: #f1eee7;
+    border: 1px solid rgba(36, 34, 30, 0.12);
+    border-radius: 8px;
+    text-shadow: none;
+}
+
+#chat .mes .mes_text img {
+    border-radius: 4px;
+    max-width: 100%;
+}
+
+#chat .mes .mes_text table {
+    border-collapse: collapse;
+    background: var(--wg-sheet);
+}
+
+#chat .mes .mes_text th,
+#chat .mes .mes_text td {
+    border: 1px solid var(--wg-grid);
+    padding: 2px 10px;
+}
+
+#chat .mes .mes_text a {
+    color: var(--wg-quote);
+    text-decoration-color: var(--wg-accent);
+    text-underline-offset: 3px;
+}
+
+/* 편집 중 — 카드는 비우고 입력창이 원고가 됩니다 */
+#chat .mes .mes_text:has(.edit_textarea) {
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+}
+
+#chat .mes .edit_textarea {
+    margin: 0;
+    padding: calc(var(--wg-lh) * 0.6) clamp(18px, 4%, 30px);
+    background: var(--wg-sheet);
+    border: 1px solid var(--wg-accent);
+    border-radius: 14px;
+    box-shadow: 0 0 0 3px rgba(143, 155, 211, 0.18);
+    font-family: var(--wg-serif);
+    font-size: var(--wg-text);
+    line-height: var(--wg-lh);
+    color: var(--wg-ink);
+}
+
+/* 생각(추론) 블록 — 원고 위에 끼운 쪽지 */
+#chat .mes .mes_reasoning_details {
+    margin: 0 0 10px;
+    padding: 6px 14px;
+    background: rgba(223, 234, 247, 0.55);
+    border: 1px dashed var(--wg-grid-strong);
+    border-radius: 10px;
+}
+
+#chat .mes .mes_reasoning_summary {
+    font-family: var(--wg-mono);
+    font-size: 12px;
+    color: var(--wg-ink-soft);
+}
+
+#chat .mes .mes_reasoning {
+    font-family: var(--wg-serif);
+    font-size: calc(var(--mainFontSize) * 0.93);
+    line-height: 1.8;
+    color: var(--wg-ink-soft);
+    padding: 6px 0 4px;
+}
+
+/* 스와이프 */
+#chat .mes .swipe_left,
+#chat .mes .swipe_right {
+    color: var(--wg-ink);
+    font-size: 15px;
+    opacity: 0.45;
+    filter: none;
+}
+
+#chat .mes .swipe_left:hover,
+#chat .mes .swipe_right:hover {
+    opacity: 1;
+}
+
+#chat .mes .swipe_left {
+    left: var(--wg-side);
+    bottom: 8px;
+}
+
+#chat .mes .swipeRightBlock {
+    right: var(--wg-side);
+    bottom: 8px;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 4px;
+}
+
+#chat .mes .swipes-counter {
+    font-family: var(--wg-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--wg-ink-soft);
+    margin: 0;
+    min-width: 0;
+    height: auto;
+}
+
+/* ----------------------------------------------------------------------------
+   유저 메시지 — 좌우를 뒤집어 맞은편 페이지처럼
+   ---------------------------------------------------------------------------- */
+
+#chat .mes[is_user="true"] {
+    --wg-tilt: 4deg;
+}
+
+#chat .mes[is_user="true"]::before {
+    left: var(--wg-band-far);
+    right: var(--wg-band-near);
+    background-color: var(--wg-band-user);
+    background-position: left -1px top -1px;
+}
+
+#chat .mes[is_user="true"]::after,
+#chat .mes[is_user="true"] .avatar {
+    left: auto;
+    right: var(--wg-side);
+}
+
+#chat .mes[is_user="true"] .mesIDDisplay,
+#chat .mes[is_user="true"] .timestamp {
+    right: auto;
+    left: var(--wg-band-far);
+    text-align: left;
+}
+
+#chat .mes[is_user="true"] .mes_timer,
+#chat .mes[is_user="true"] .tokenCounterDisplay {
+    left: auto;
+    right: calc(var(--wg-side) + var(--wg-pol-w) + 6px);
+    text-align: right;
+}
+
+#chat .mes[is_user="true"] .name_text {
+    right: auto;
+    left: calc(var(--wg-band-far) + var(--wg-cell) + var(--wg-track) / 2);
+    text-align: left;
+}
+
+#chat .mes[is_user="true"] .mes_ghost {
+    right: auto;
+    left: calc(var(--wg-band-far) + 8px);
+}
+
+#chat .mes[is_user="true"] .mes_text {
+    background-color: var(--wg-sheet-user);
+}
+
+/* 시스템 메시지 — 폴라로이드 없이 간결하게 */
+#chat .mes[is_system="true"] .mes_text {
+    background-color: transparent;
+    background-image: none;
+    border-style: dashed;
+    box-shadow: none;
+    color: var(--wg-ink-soft);
+}
+
+/* 아바타 숨김 설정을 켠 경우 — 띠만 남깁니다 */
+body.hideChatAvatars #chat .mes::after {
+    display: none;
+}
+
+body.hideChatAvatars #chat .mes {
+    --wg-band-near: var(--wg-side);
+}
+
+/* 선택(삭제 모드) */
+#chat .mes.selected {
+    background-color: rgba(178, 74, 58, 0.08);
+}
+
+#chat .mes .del_checkbox {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 5;
+}
+
+/* 컨텍스트 경계 표시 */
+#chat .mes.lastInContext {
+    border-top: 1px dashed var(--wg-accent) !important;
+}
+
+/* ----------------------------------------------------------------------------
+   하단 입력창 — 원고 한 장을 아래에 깔아 둔 모습
+   ---------------------------------------------------------------------------- */
+
+#form_sheld {
+    margin-top: 0;
+}
+
+#send_form {
+    background-color: var(--wg-sheet);
+    border: 0;
+    border-top: 3px double var(--wg-rule);
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 4px 4px 6px;
+}
+
+#send_form:has(#send_textarea:focus-visible) {
+    outline: none;
+    border-color: var(--wg-rule);
+}
+
+#send_textarea {
+    font-family: var(--wg-serif);
+    font-size: var(--mainFontSize);
+    line-height: 1.75;
+    color: var(--wg-ink);
+    text-shadow: none;
+    padding: 8px 10px;
+    background-image: linear-gradient(transparent calc(100% - 1px), rgba(96, 112, 178, 0.35) calc(100% - 1px));
+    --progColor: var(--wg-accent);
+}
+
+#send_textarea::placeholder {
+    color: var(--wg-ink-faint);
+    font-style: normal;
+}
+
+#leftSendForm > div,
+#rightSendForm > div:not(.mes_stop),
+#send_form .mes_stop {
+    color: var(--wg-ink);
+    opacity: 0.55;
+}
+
+#leftSendForm > div:hover,
+#rightSendForm > div:hover {
+    opacity: 1;
+    filter: none;
+}
+
+/* ----------------------------------------------------------------------------
+   패널 · 팝업 — 같은 종이 위에서
+   ---------------------------------------------------------------------------- */
+
+.drawer-content,
+#left-nav-panel,
+#right-nav-panel,
+.popup,
+#character_popup,
+#WorldInfo,
+.options-content,
+.list-group,
+#extensionsMenu {
+    background-color: var(--wg-sheet);
+    color: var(--wg-ink);
+    text-shadow: none;
+    border-color: rgba(36, 34, 30, 0.16);
+    box-shadow: 0 10px 30px -12px rgba(36, 34, 30, 0.35);
+}
+
+.menu_button,
+.menu_button_icon,
+.right_menu_button {
+    color: var(--wg-ink);
+}
+
+.menu_button {
+    background-color: rgba(36, 34, 30, 0.05);
+    border: 1px solid rgba(36, 34, 30, 0.16);
+    filter: none;
+}
+
+.menu_button:hover {
+    background-color: rgba(143, 155, 211, 0.20);
+}
+
+.text_pole,
+textarea,
+select,
+input[type="text"],
+input[type="number"],
+input[type="search"] {
+    background-color: #ffffff;
+    color: var(--wg-ink);
+    border: 1px solid rgba(36, 34, 30, 0.18);
+    text-shadow: none;
+}
+
+.list-group-item:hover,
+.options-content a:hover {
+    background-color: rgba(143, 155, 211, 0.18);
+}
+
+#extensions_settings .inline-drawer-toggle.inline-drawer-header,
+#extensions_settings2 .inline-drawer-toggle.inline-drawer-header,
+#user-settings-block h4,
+.standoutHeader {
+    background-image: none;
+    background-color: rgba(143, 155, 211, 0.16);
+    border: 0;
+    border-bottom: 1px solid var(--wg-grid-strong);
+    border-radius: 4px 4px 0 0;
+    color: var(--wg-ink);
+}
+
+#extensions_settings .inline-drawer-toggle.inline-drawer-header:hover,
+#extensions_settings2 .inline-drawer-toggle.inline-drawer-header:hover,
+.standoutHeader.inline-drawer-header:hover {
+    filter: none;
+    background-color: rgba(143, 155, 211, 0.26);
+}
+
+.standoutHeader ~ .inline-drawer-content {
+    background-color: rgba(255, 255, 255, 0.55);
+}
+
+#extensionsMenu > .extension_container > div,
+#extensionsMenu > div:not(.extension_container),
+.options-content a,
+.list-group-item {
+    opacity: 0.8;
+}
+
+h1, h2, h3, h4, h5,
+.standoutHeader {
+    font-family: var(--wg-title);
+    letter-spacing: 0.01em;
+}
+
+#toast-container > .toast-success { border-left: 4px solid #6f8f6a !important; }
+#toast-container > .toast-info { border-left: 4px solid var(--wg-accent) !important; }
+#toast-container > .toast-warning { border-left: 4px solid #c39a4a !important; }
+#toast-container > .toast-error { border-left: 4px solid #b24a3a !important; }
+
+#toast-container > div {
+    background-color: var(--wg-sheet);
+    color: var(--wg-ink);
+    border: 1px solid rgba(36, 34, 30, 0.18);
+    box-shadow: 0 8px 20px -10px rgba(36, 34, 30, 0.4);
+    opacity: 1;
+}
+
+/* ----------------------------------------------------------------------------
+   스크롤바
+   ---------------------------------------------------------------------------- */
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(36, 34, 30, 0.22);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ----------------------------------------------------------------------------
+   움직임 줄이기
+   ---------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    #chat .mes .avatar,
+    #chat .mes .avatar:hover {
+        transition: none;
+        transform: rotate(var(--wg-tilt));
+    }
+}
