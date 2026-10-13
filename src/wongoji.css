@@ -2338,3 +2338,14 @@ body.hideChatAvatars #chat .mes .ch_name > .flex-container > .flex-container > .
         height: 34px;
     }
 }
+/* 꽃 장식과 버튼 줄 사이를 띄웁니다 */
+#chat .mes .mes_buttons,
+#chat .mes .mes_edit_buttons {
+    padding-top: 12px;
+}
+@media (max-width: 600px) {
+    #chat .mes .mes_buttons,
+    #chat .mes .mes_edit_buttons {
+        padding-top: 10px;
+    }
+}
