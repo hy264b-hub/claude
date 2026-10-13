@@ -33,7 +33,19 @@
     --wg-print: #6d7f91;          /* 칸 테두리 */
     --wg-print-line: rgba(109, 127, 145, 0.55);
     --wg-print-faint: rgba(109, 127, 145, 0.20);
-    --wg-wash: #e4e9ee;           /* 청회색 바탕 (인용, 머리띠) */
+    --wg-wash: #e4e9ee;           /* 청회색 바탕 (인용) */
+
+    /* 패널(설정·캐릭터 목록·월드 인포 등)은 옅은 회색 */
+    --wg-ui-wash: #f1f1f1;
+    --wg-ui-hover: #e8e8e8;
+    --wg-ui-line: #d4d4d4;
+
+    /* 밝은 바탕에서 쓰도록, 어두운 테마용 '흰색 반투명' 값을 먹색 반투명으로 바꿉니다.
+       (SillyTavern 기본 스타일이 비활성 글자 등에 이 값을 씁니다) */
+    --white20a: rgba(28, 30, 33, 0.16);
+    --white30a: rgba(28, 30, 33, 0.38);
+    --white50a: rgba(28, 30, 33, 0.55);
+    --white70a: rgba(28, 30, 33, 0.7);
 
     /* 강조 */
     --wg-quote: #1c1e21;          /* “대사” — 먹 */
@@ -60,7 +72,8 @@
     --wg-mono: 'IBM Plex Mono', 'D2Coding', ui-monospace, monospace;
 
     /* 본문: 글자 크기와 행간 */
-    --wg-text: calc(var(--mainFontSize) * 0.97);
+    /* 테마의 기본 글자 크기(Font Scale)는 0.8 — 본문은 그만큼 보정해 이전 크기를 유지합니다 */
+    --wg-text: calc(var(--mainFontSize) * 1.21);
     --wg-lh: calc(var(--wg-text) * 1.85);
     --wg-measure: clamp(14px, 6%, 44px);  /* 본문 좌우 여백 */
 
@@ -81,9 +94,9 @@
     --wg-tilt: -4deg;
 
     /* 상단 메뉴 · 입력창 아이콘 */
-    --topBarIconSize: calc(var(--mainFontSize) * 0.95);
+    --topBarIconSize: calc(var(--mainFontSize) * 1.19);
     --topBarBlockPadding: 16px;
-    --bottomFormIconSize: calc(var(--mainFontSize) * 1.35);
+    --bottomFormIconSize: calc(var(--mainFontSize) * 1.4);
 
     --mainFontFamily: var(--wg-serif);
     --monoFontFamily: var(--wg-mono);
@@ -99,7 +112,7 @@
         --wg-photo: 100px;
         --wg-frame: 5px;
         --wg-chin: 22px;
-        --topBarIconSize: calc(var(--mainFontSize) * 1.05);
+        --topBarIconSize: calc(var(--mainFontSize) * 1.31);
         --bottomFormIconSize: calc(var(--mainFontSize) * 1.5);
     }
 }
@@ -1175,8 +1188,41 @@ body.hideChatAvatars #chat .mes {
 }
 
 /* ----------------------------------------------------------------------------
-   패널 · 팝업 — 같은 종이 위에서
+   패널 · 팝업 — 같은 종이 위에서. 옅은 회색 선과 바탕만, 그림자 없음
    ---------------------------------------------------------------------------- */
+
+/* 그림자 — 글자와 이미지 모두 없앱니다 */
+body,
+body * {
+    text-shadow: none !important;
+}
+
+img,
+.avatar,
+.avatar img,
+.bg_example,
+.character_select .avatar img,
+.group_select .avatar img,
+.menu_button,
+.menu_button_icon,
+.drawer-content,
+.popup,
+#character_popup,
+#WorldInfo,
+.options-content,
+.list-group,
+#extensionsMenu,
+#toast-container > div {
+    box-shadow: none !important;
+}
+
+.mes_button,
+.extraMesButtons > div,
+.inline-drawer-icon,
+.custom-drawer-icon,
+.drawer-icon {
+    filter: none !important;
+}
 
 .drawer-content,
 #left-nav-panel,
@@ -1189,9 +1235,7 @@ body.hideChatAvatars #chat .mes {
 #extensionsMenu {
     background-color: var(--wg-paper);
     color: var(--wg-ink);
-    text-shadow: none;
-    border-color: rgba(28, 30, 33, 0.16);
-    box-shadow: 0 10px 30px -14px rgba(28, 30, 33, 0.4);
+    border-color: var(--wg-ui-line);
 }
 
 .menu_button,
@@ -1201,13 +1245,13 @@ body.hideChatAvatars #chat .mes {
 }
 
 .menu_button {
-    background-color: rgba(28, 30, 33, 0.04);
-    border: 1px solid rgba(28, 30, 33, 0.16);
+    background-color: var(--wg-ui-wash);
+    border: 1px solid var(--wg-ui-line);
     filter: none;
 }
 
 .menu_button:hover {
-    background-color: var(--wg-wash);
+    background-color: var(--wg-ui-hover);
 }
 
 .text_pole,
@@ -1218,18 +1262,57 @@ input[type="number"],
 input[type="search"] {
     background-color: #ffffff;
     color: var(--wg-ink);
-    border: 1px solid rgba(28, 30, 33, 0.18);
-    text-shadow: none;
+    border: 1px solid var(--wg-ui-line);
 }
 
+/* 기본 스타일이 글자·아이콘에 거는 검은 그림자 필터도 걷어 냅니다 */
+.dragClose,
+.ch_fav_icon,
+.mes_edit_buttons,
+.mes_img_swipe_counter,
+.draggable,
+.zoomed_avatar,
+#completion_prompt_manager #completion_prompt_manager_list li.completion_prompt_manager_prompt span span span,
+#completion_prompt_manager .completion_prompt_manager_header_advanced span {
+    filter: none !important;
+}
+
+/* 선택 상자(월드 선택 등) — 어두운 반투명 바탕 대신 흰 종이 */
+.select2-container .select2-selection--multiple,
+.select2-container .select2-selection--single,
+.select2-search__field {
+    background-color: #ffffff !important;
+    border-color: var(--wg-ui-line) !important;
+    color: var(--wg-ink);
+}
+
+.select2-container .select2-selection--multiple .select2-selection__choice,
+.select2-container .select2-selection--single .select2-selection__choice {
+    background-color: var(--wg-ui-wash) !important;
+    border-color: var(--wg-ui-line) !important;
+    color: var(--wg-ink);
+}
+
+.select2-dropdown,
+.select2-results__option {
+    background-color: #ffffff;
+    color: var(--wg-ink);
+}
+
+.select2-results__option--highlighted {
+    background-color: var(--wg-ui-hover) !important;
+    color: var(--wg-ink) !important;
+}
+
+/* 접기 머리 — 옅은 회색 띠 */
 #extensions_settings .inline-drawer-toggle.inline-drawer-header,
 #extensions_settings2 .inline-drawer-toggle.inline-drawer-header,
 #user-settings-block h4,
 .standoutHeader {
     background-image: none;
-    background-color: var(--wg-wash);
+    background-color: var(--wg-ui-wash);
     border: 0;
-    border-bottom: 1px solid var(--wg-print);
+    border-bottom: 1px solid var(--wg-ui-line);
     border-radius: 3px 3px 0 0;
     color: var(--wg-ink);
 }
@@ -1238,23 +1321,30 @@ input[type="search"] {
 #extensions_settings2 .inline-drawer-toggle.inline-drawer-header:hover,
 .standoutHeader.inline-drawer-header:hover {
     filter: none;
-    background-color: #d8dfe6;
+    background-color: var(--wg-ui-hover);
 }
 
 .standoutHeader ~ .inline-drawer-content {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: #ffffff;
+    border-color: var(--wg-ui-line);
+}
+
+/* 접기 화살표 — 검은 동그라미 대신 가는 회색 */
+.inline-drawer-icon {
+    color: var(--wg-ink-faint);
+    font-size: calc(var(--mainFontSize) * 1.25);
 }
 
 #extensionsMenu > .extension_container > div,
 #extensionsMenu > div:not(.extension_container),
 .options-content a,
 .list-group-item {
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 .list-group-item:hover,
 .options-content a:hover {
-    background-color: var(--wg-wash);
+    background-color: var(--wg-ui-hover);
 }
 
 h1, h2, h3, h4, h5,
@@ -1263,16 +1353,62 @@ h1, h2, h3, h4, h5,
     letter-spacing: 0.01em;
 }
 
+/* 캐릭터 · 페르소나 목록 — 이미지에 가는 선 */
+.character_select .avatar img,
+.group_select .avatar img,
+#user_avatar_block .avatar img,
+.avatar-container .avatar img,
+#avatar_div_div img,
+.bogus_folder_select .avatar {
+    border: 1px solid var(--wg-ui-line);
+}
+
+.character_select.selected,
+.group_select.selected,
+.avatar-container.selected {
+    background-color: var(--wg-ui-wash);
+}
+
+/* 월드 인포 항목 */
+.world_entry,
+.world_entry_form {
+    border-color: var(--wg-ui-line) !important;
+    background-color: #ffffff;
+}
+
+/* 프롬프트 관리자 — 꺼진 항목도 읽히게 */
+#completion_prompt_manager #completion_prompt_manager_list li {
+    border-color: var(--wg-ui-line);
+}
+
+#completion_prompt_manager #completion_prompt_manager_list .completion_prompt_manager_prompt_disabled .completion_prompt_manager_prompt_name,
+#completion_prompt_manager #completion_prompt_manager_list .completion_prompt_manager_prompt_disabled .completion_prompt_manager_prompt_name .prompt-manager-inspect-action {
+    color: var(--wg-ink-faint);
+}
+
+#completion_prompt_manager #completion_prompt_manager_list .completion_prompt_manager_prompt.completion_prompt_manager_prompt_disabled {
+    border: 1px dashed var(--wg-ui-line);
+}
+
+#completion_prompt_manager #completion_prompt_manager_list .completion_prompt_manager_prompt:not(.completion_prompt_manager_prompt_disabled) .prompt-manager-toggle-action {
+    color: var(--wg-ink);
+}
+
+#completion_prompt_manager .completion_prompt_manager_header,
+#completion_prompt_manager .completion_prompt_manager_header * {
+    color: var(--wg-ink-soft);
+}
+
+/* 알림 */
 #toast-container > div {
     background-color: var(--wg-paper);
     color: var(--wg-ink);
-    border: 1px solid rgba(28, 30, 33, 0.18);
-    box-shadow: 0 8px 20px -10px rgba(28, 30, 33, 0.4);
+    border: 1px solid var(--wg-ui-line);
     opacity: 1;
 }
 
-#toast-container > .toast-success { border-left: 4px solid var(--wg-print) !important; }
-#toast-container > .toast-info { border-left: 4px solid var(--wg-print-line) !important; }
+#toast-container > .toast-success { border-left: 4px solid var(--wg-ink-faint) !important; }
+#toast-container > .toast-info { border-left: 4px solid var(--wg-ui-line) !important; }
 #toast-container > .toast-warning { border-left: 4px solid var(--wg-ink-soft) !important; }
 #toast-container > .toast-error { border-left: 4px solid var(--wg-ink) !important; }
 

@@ -19,7 +19,7 @@ const theme = {
     shadow_color: 'rgba(0, 0, 0, 0)',
     shadow_width: 0,
     border_color: 'rgba(28, 30, 33, 0.16)',
-    font_scale: 1,
+    font_scale: 0.8,
     fast_ui_mode: false,
     waifuMode: false,
     avatar_style: 1,
