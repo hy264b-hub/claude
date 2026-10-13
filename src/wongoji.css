@@ -489,6 +489,38 @@ body.no-tokenCount #chat .mes .ch_name::after {
     color: var(--wg-ink);
 }
 
+/* 영문 이름 — 영문 글자로 시작하는 이름은 칸 자간을 풀고 촘촘하게 적습니다.
+   (CSS로는 글자마다 자간을 다르게 줄 수 없어, 이름의 첫 글자로 구분합니다) */
+#chat .mes[ch_name^="a" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="b" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="c" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="d" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="e" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="f" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="g" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="h" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="i" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="j" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="k" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="l" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="m" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="n" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="o" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="p" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="q" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="r" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="s" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="t" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="u" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="v" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="w" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="x" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="y" i] .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes[ch_name^="z" i] .ch_name > .flex-container > .flex-container > .name_text {
+    letter-spacing: 0.03em;
+    word-spacing: 0.2em;
+}
+
 #chat .mes .mes_ghost {
     position: absolute;
     top: 2px;
