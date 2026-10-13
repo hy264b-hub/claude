@@ -2466,3 +2466,19 @@ body.hideChatAvatars #chat .mes .ch_name > .flex-container > .flex-container > .
 @media (max-width: 600px) {
     #chat .mes .mes_text::after { --wg-colo-len: 54px; }
 }
+
+/* ======================================================================
+   Wongoji 1.0.21 — 판권면 대신 글 끝 마름모로 되돌림, 추론 블록 간격
+   ====================================================================== */
+#chat .mes .mes_text::after {
+    content: none;
+    display: none;
+}
+#chat .mes .mes_text > p:last-child::after {
+    content: var(--wg-endmark);
+}
+/* 추론(註)을 수정 버튼 줄에서 띄웁니다 */
+#chat .mes .mes_reasoning_details {
+    margin-top: 14px;
+    margin-bottom: 18px;
+}
