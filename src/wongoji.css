@@ -2536,7 +2536,7 @@ body.hideChatAvatars #chat .mes .ch_name > .flex-container > .flex-container > .
 /* 모델 아이콘: 날짜 끝에 붙이고 날짜는 그만큼 안쪽으로 */
 #chat .mes .ch_name > .flex-container > .flex-container > .timestamp-icon {
     position: absolute;
-    top: calc(100% + 9px);
+    top: calc(100% + 15px);
     right: 0;
     left: auto;
     width: 14px;
@@ -2592,4 +2592,22 @@ body.no-modelIcons #chat .mes[is_user="true"] .ch_name > .flex-container > .flex
 #chat .mes[is_user="true"] .mes_timer {
     grid-column: 1 / 3;
     justify-self: start;
+}
+/* 메시지 버튼을 항상 펼쳐 두는 설정(Expand Message Actions)도 같은 정렬로 */
+body.expandMessageActions #chat .mes .mes_buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 6px;
+}
+body.expandMessageActions #chat .mes .mes_buttons::before,
+body.expandMessageActions #chat .mes .mes_buttons::after {
+    display: none;
+}
+/* 아바타 모양 설정(둥근·정사각 등)과 상관없이 폴라로이드는 늘 각진 사진 */
+body.rounded-avatars #chat .mes .avatar,
+body.rounded-avatars #chat .mes .avatar img,
+body.square-avatars #chat .mes .avatar,
+body.square-avatars #chat .mes .avatar img,
+body:not(.big-avatars) #chat .mes .avatar img {
+    border-radius: 0 !important;
 }
