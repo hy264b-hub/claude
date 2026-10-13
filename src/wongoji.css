@@ -1581,19 +1581,47 @@ select {
     box-shadow: inset 3px 0 0 var(--wg-ink) !important;
 }
 
-/* 격자 보기 — 카드 사이를 고르게 */
-#rm_print_characters_block.gridView,
+/* 격자 보기 — 캐릭터·페르소나 모두 같은 카드 */
+body.charListGrid #rm_print_characters_block,
 #user_avatar_block.gridView {
     gap: 10px;
+    justify-content: flex-start;
+    padding-top: 4px;
 }
 
-#rm_print_characters_block.gridView .character_select,
-#rm_print_characters_block.gridView .group_select,
+body.charListGrid #rm_print_characters_block .character_select,
+body.charListGrid #rm_print_characters_block .group_select,
+body.charListGrid #rm_print_characters_block .bogus_folder_select,
 #user_avatar_block.gridView .avatar-container {
-    border: 1px solid var(--wg-ui-line);
-    border-radius: 4px;
-    padding: 8px;
+    width: calc((100% - 20px) / 3);
+    max-width: none;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 6px 8px;
     margin: 0;
+    border: 1px solid var(--wg-ui-line);
+    border-radius: 3px;
+    outline: 0;
+}
+
+body.charListGrid #rm_print_characters_block .character_select > div:not(.avatar),
+#user_avatar_block.gridView .avatar-container > div:not(.avatar) {
+    flex: none;
+    width: 100%;
+}
+
+body.charListGrid #rm_print_characters_block .ch_name,
+#user_avatar_block.gridView .avatar-container .ch_name,
+#user_avatar_block.gridView .avatar-container .ch_additional_info {
+    max-width: none;
+    text-align: center;
+}
+
+/* 선택된 카드는 먹색 테두리 */
+#user_avatar_block.gridView .avatar-container.selected {
+    box-shadow: none !important;
+    border-color: var(--wg-ink);
 }
 
 /* 현재 페르소나 영역 */
