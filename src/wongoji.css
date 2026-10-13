@@ -2349,3 +2349,109 @@ body.hideChatAvatars #chat .mes .ch_name > .flex-container > .flex-container > .
         padding-top: 10px;
     }
 }
+
+/* ======================================================================
+   Wongoji 1.0.17 — 본문 밀도: 책등 눈금, 첫 글자 칸, 판권면
+   ====================================================================== */
+#chat .mes {
+    --wg-colophon: '原稿 \00B7  終';
+    --wg-colophon-art: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 22'%3E%3Cg fill='none' stroke='%232f373d' stroke-linecap='round'%3E%3Cpath d='M8 11H66M154 11H212' stroke-width='.7'/%3E%3Cpath d='M20 14H60M160 14H200' stroke='%235d6870' stroke-width='.45' stroke-dasharray='.3 2.2'/%3E%3Cpath d='M70 11l3-3 3 3-3 3zM144 11l3-3 3 3-3 3z' stroke-width='.7'/%3E%3C/g%3E%3Cg fill='%23fff' stroke='%232f373d' stroke-width='.6'%3E%3Cpath d='M0 0C.8-1.4 2.6-1.6 3.4-.4C2.6.9 1 1 0 0Z' transform='translate(6 5) rotate(25) scale(2.4)'/%3E%3Cpath d='M0 0C.8-1.4 2.6-1.6 3.4-.4C2.6.9 1 1 0 0Z' transform='translate(204 17) rotate(-150) scale(2.1)'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* 3. 책등 — 세로 표기 옆으로 줄마다 짧은 눈금, 다섯 줄마다 긴 눈금 */
+#chat .mes .mes_text::before {
+    --wg-tick-y: calc(var(--wg-lh) / 2 - 4px);
+    width: 21px;
+    padding-right: 7px;
+    background-image:
+        linear-gradient(to left, var(--wg-print) 7px, transparent 7px),
+        linear-gradient(to left, var(--wg-print-line) 4px, transparent 4px);
+    background-size: 100% 1px, 100% 1px;
+    background-repeat: no-repeat;
+    background-image:
+        repeating-linear-gradient(to bottom, transparent 0 calc(var(--wg-lh) * 5 - 1px), var(--wg-print) calc(var(--wg-lh) * 5 - 1px) calc(var(--wg-lh) * 5)),
+        repeating-linear-gradient(to bottom, transparent 0 calc(var(--wg-lh) - 1px), var(--wg-print-line) calc(var(--wg-lh) - 1px) var(--wg-lh));
+    background-size: 7px 100%, 4px 100%;
+    background-position: right var(--wg-tick-y), right var(--wg-tick-y);
+    background-repeat: repeat-y;
+}
+#chat .mes[is_user="true"] .mes_text::before {
+    padding-right: 0;
+    padding-left: 7px;
+    background-position: left var(--wg-tick-y), left var(--wg-tick-y);
+}
+@media (max-width: 600px) {
+    #chat .mes .mes_text::before {
+        width: 18px;
+        padding-right: 6px;
+        background-size: 6px 100%, 3px 100%;
+    }
+    #chat .mes[is_user="true"] .mes_text::before {
+        padding-right: 0;
+        padding-left: 6px;
+    }
+    #chat .mes .mes_text { padding-left: 30px; }
+    #chat .mes[is_user="true"] .mes_text { padding-left: 8px; padding-right: 30px; }
+}
+
+/* 2. 첫 글자 — 십자 안내선이 그어진 원고지 한 칸에 두 줄 높이로 */
+#chat .mes .mes_text > p:first-child::first-letter {
+    float: left;
+    box-sizing: border-box;
+    height: 1.6em;
+    margin: .16em .32em 0 0;
+    /* ::first-letter 는 width 가 먹지 않아 좌우 여백으로 정사각 칸을 만듭니다 */
+    padding: 0 .325em;
+    border: 1px solid var(--wg-band-frame, var(--wg-ink));
+    background:
+        repeating-linear-gradient(to right, var(--wg-print-line) 0 2px, transparent 2px 5px) center / 100% 1px no-repeat,
+        repeating-linear-gradient(to bottom, var(--wg-print-line) 0 2px, transparent 2px 5px) center / 1px 100% no-repeat,
+        var(--wg-paper);
+    font-family: var(--wg-title);
+    font-size: 2.1em;
+    font-weight: 700;
+    line-height: 1.6em;
+    text-align: center;
+    color: var(--wg-ink);
+}
+#chat .mes[is_user="true"] .mes_text > p:first-child::first-letter {
+    border-color: var(--wg-print);
+    color: var(--wg-quote);
+}
+#chat .mes .mes_text:has(.edit_textarea) > p:first-child::first-letter {
+    float: none;
+}
+
+/* 1. 판권면 — 본문 끝에 마침 표기와 떨어진 꽃잎 */
+#chat .mes .mes_text > p:last-child::after {
+    content: none;
+}
+#chat .mes .mes_text::after {
+    content: var(--wg-colophon);
+    display: block;
+    clear: both;
+    margin: calc(var(--wg-lh) * .7) auto 0;
+    max-width: 260px;
+    height: 26px;
+    background: var(--wg-colophon-art) center / contain no-repeat;
+    font-family: var(--wg-hanja);
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: .35em;
+    text-indent: .35em;
+    text-align: center;
+    color: var(--wg-band-frame, var(--wg-ink));
+    pointer-events: none;
+}
+#chat .mes[is_user="true"] .mes_text::after {
+    --wg-colophon: '答書 \00B7  終';
+}
+#chat .mes .mes_text:empty::after,
+#chat .mes .mes_text:has(.edit_textarea)::after {
+    display: none;
+}
+/* 첫 문단이 한 줄이어도 첫 글자 칸이 다음 문단으로 넘치지 않게 */
+#chat .mes .mes_text > p:first-child {
+    display: flow-root;
+}
