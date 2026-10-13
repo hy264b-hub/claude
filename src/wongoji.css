@@ -1077,8 +1077,9 @@ body.no-tokenCount #chat .mes .ch_name::after {
         calc(var(--wg-gap) / 2)
         calc(var(--wg-pol-w) - var(--wg-pol-w) * 0.42 + 8px)
         calc(var(--wg-gap) / 2)
-        calc(var(--wg-cell) * var(--wg-k) + var(--wg-track) / 2);
-    background-position: 0 0, 0 0, left 0 top 0;
+        calc(var(--wg-cell) * var(--wg-k) + var(--wg-track) / 2 - 1px);
+    /* 첫 세로 칸선을 테두리 아래로 숨겨 왼쪽 끝이 한 줄로 겹치게 */
+    background-position: 0 0, 0 0, left -1px top 0;
     text-align: left;
 }
 
@@ -1496,6 +1497,109 @@ select {
 .drawer-content .notes-link,
 .drawer-content .text_muted {
     color: var(--wg-ink-soft);
+}
+
+/* ---- 캐릭터 목록 · 페르소나 ---- */
+
+/* 목록 위 도구 줄 */
+#rm_characters_block .rm_tag_controls,
+#rm_characters_block #charListGridToggle,
+#rm_button_bar,
+#rm_print_characters_pagination,
+#persona-management-block .paginationjs {
+    gap: 8px;
+}
+
+#rm_characters_block > .flex-container,
+#persona-management-block > .flex-container {
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+/* 목록 줄 — 사진 · 이름 · 설명을 한 줄씩, 사이는 가는 괘선 */
+#rm_print_characters_block .character_select,
+#rm_print_characters_block .group_select,
+#rm_print_characters_block .bogus_folder_select,
+#user_avatar_block:not(.gridView) .avatar-container {
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 10px 6px;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid var(--wg-ui-line);
+    border-radius: 0;
+    outline: 0;
+}
+
+#rm_print_characters_block .character_select:hover,
+#rm_print_characters_block .group_select:hover,
+#rm_print_characters_block .bogus_folder_select:hover,
+#user_avatar_block .avatar-container:hover,
+#user_avatar_block .avatar-container.selected {
+    background-color: var(--wg-ui-wash);
+}
+
+#rm_print_characters_block .character_select > .flex-container,
+#rm_print_characters_block .character_select > div:not(.avatar),
+#user_avatar_block .avatar-container > div:not(.avatar) {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+#rm_print_characters_block .character_name_block,
+#user_avatar_block .avatar-container .character_name_block {
+    margin-bottom: 4px;
+    align-items: baseline;
+}
+
+#rm_print_characters_block .ch_name,
+#user_avatar_block .ch_name {
+    font-family: var(--wg-title);
+    font-weight: 700;
+    color: var(--wg-ink);
+}
+
+#rm_print_characters_block .ch_description,
+#user_avatar_block .ch_description,
+#rm_print_characters_block .character_version,
+#user_avatar_block .ch_additional_info {
+    margin-top: 0;
+    line-height: 1.6;
+    color: var(--wg-ink-soft);
+}
+
+/* 목록 사진 — 둥근 모서리 대신 각진 사진, 가는 선 */
+#rm_print_characters_block .avatar,
+#rm_print_characters_block .avatar img,
+#user_avatar_block .avatar,
+#user_avatar_block .avatar img {
+    border-radius: 2px !important;
+}
+
+/* 페르소나 — 선택된 항목은 왼쪽에 먹색 괘선 */
+#user_avatar_block .avatar-container.selected {
+    box-shadow: inset 3px 0 0 var(--wg-ink) !important;
+}
+
+/* 격자 보기 — 카드 사이를 고르게 */
+#rm_print_characters_block.gridView,
+#user_avatar_block.gridView {
+    gap: 10px;
+}
+
+#rm_print_characters_block.gridView .character_select,
+#rm_print_characters_block.gridView .group_select,
+#user_avatar_block.gridView .avatar-container {
+    border: 1px solid var(--wg-ui-line);
+    border-radius: 4px;
+    padding: 8px;
+    margin: 0;
+}
+
+/* 현재 페르소나 영역 */
+#persona_controls {
+    gap: 8px;
+    margin-top: 10px;
 }
 
 /* 알림 */
