@@ -1662,6 +1662,24 @@ body.charListGrid #rm_print_characters_block .ch_name,
     border-radius: 6px;
 }
 
+/* 확장 메뉴는 확장마다 항목 상자를 덧붙이므로, 안쪽 요소와 메뉴를 띄우는 상자까지 모두 그림자를 걷어 냅니다 */
+#extensionsMenu *,
+#extensionsMenu .extension_container > div,
+#extensionsMenu .list-group-item,
+[data-popper-placement],
+.popper,
+.tippy-box {
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+}
+
+[data-popper-placement]:has(> #extensionsMenu),
+[data-popper-placement]:has(> #options) {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
 #options .options-content,
 #extensionsMenu .options-content {
     border: 0;
