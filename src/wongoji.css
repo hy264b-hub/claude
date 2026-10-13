@@ -2482,3 +2482,8 @@ body.hideChatAvatars #chat .mes .ch_name > .flex-container > .flex-container > .
     margin-top: 14px;
     margin-bottom: 18px;
 }
+/* 도장(文 · 書) — 바깥 테두리와의 틈도 흰 종이로 채워 원고지 칸이 비치지 않게 */
+#chat .mes .ch_name > .flex-container > .flex-container::after {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--wg-stamp);
+}
