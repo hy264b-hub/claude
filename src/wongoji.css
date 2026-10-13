@@ -1650,6 +1650,31 @@ body.charListGrid #rm_print_characters_block .ch_name,
     margin-top: 10px;
 }
 
+/* 햄버거 메뉴 · 확장 메뉴 · 팝업 메뉴 — 그림자 없이 선 하나 */
+#options,
+#extensionsMenu,
+.popup .popper-modal {
+    box-shadow: none !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: var(--wg-paper);
+    border: 1px solid var(--wg-ui-line);
+    border-radius: 6px;
+}
+
+#options .options-content,
+#extensionsMenu .options-content {
+    border: 0;
+    box-shadow: none !important;
+}
+
+#options hr,
+#extensionsMenu hr {
+    border: 0;
+    border-top: 1px solid var(--wg-ui-line);
+    opacity: 1;
+}
+
 /* 알림 */
 #toast-container > div {
     background-color: var(--wg-paper);
