@@ -48,8 +48,8 @@
     --white70a: rgba(28, 30, 33, 0.7);
 
     /* 강조 */
-    --wg-quote: #1c1e21;          /* “대사” — 먹 */
-    --wg-em: #4d5d6e;             /* *지문·속마음* — 청회색 */
+    --wg-quote: #3f5a74;          /* “대사” — 청회색 */
+    --wg-em: #6a6d72;             /* *지문·속마음* — 옅은 먹 */
 
     /* 폴라로이드 사진 필터. 흑백으로 보고 싶다면 grayscale(1) */
     --wg-photo-filter: none;
@@ -151,6 +151,8 @@ body {
    ---------------------------------------------------------------------------- */
 
 #top-bar {
+    /* 기본값은 입력창 높이를 쓰므로, 메뉴 칸 높이에 맞춰 선이 아이콘 아래로 오게 합니다 */
+    height: var(--topBarBlockSize);
     background-color: var(--wg-paper);
     box-shadow: none;
     border-bottom: 1px solid var(--wg-print-faint);
@@ -1157,6 +1159,24 @@ body.hideChatAvatars #chat .mes {
         flex-wrap: nowrap;
         height: auto;
     }
+}
+
+/* 입력창 아이콘 — 입력칸과 세로 가운데 맞춤 */
+#nonQRFormItems {
+    align-items: center;
+}
+
+#leftSendForm,
+#rightSendForm {
+    align-self: center;
+    align-items: center;
+}
+
+#leftSendForm > div,
+#rightSendForm > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #send_textarea {
