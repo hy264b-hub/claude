@@ -2453,3 +2453,9 @@ body.hideChatAvatars #chat .mes .ch_name > .flex-container > .flex-container > .
 #chat .mes .mes_text > p:first-child {
     display: flow-root;
 }
+/* 판권면 양옆 가는 선 */
+#chat .mes .mes_text::after {
+    background:
+        linear-gradient(var(--wg-band-line, var(--wg-print-line)), var(--wg-band-line, var(--wg-print-line))) left center / calc(50% - 4.2em) 1px no-repeat,
+        linear-gradient(var(--wg-band-line, var(--wg-print-line)), var(--wg-band-line, var(--wg-print-line))) right center / calc(50% - 4.2em) 1px no-repeat;
+}
