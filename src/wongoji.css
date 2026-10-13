@@ -1,11 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 /* 원고지 칸 글꼴 — 한글은 나눔명조(한 칸), 영문·숫자·문장부호·띄어쓰기는
-   크기를 줄인 고정폭 글꼴(반 칸). 원고지 규칙대로 영문·숫자는 한 칸에 두 자. */
+   크기를 줄인 고정폭 명조(Courier Prime, 반 칸). 원고지 규칙대로 영문·숫자는 한 칸에 두 자. */
 @font-face {
     font-family: 'WG Cell Latin';
-    src: url(https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgg.woff2) format('woff2');
-    font-weight: 100 900;
+    src: url(https://fonts.gstatic.com/s/courierprime/v11/u-450q2lgwslOqpF_6gQ8kELawFpWg.woff2) format('woff2');
+    font-weight: 400;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+    size-adjust: 47.222%;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'WG Cell Latin';
+    src: url(https://fonts.gstatic.com/s/courierprime/v11/u-4k0q2lgwslOqpF_6gQ8kELY7pMT-Dfqw.woff2) format('woff2');
+    font-weight: 700;
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
     size-adjust: 47.222%;
     font-display: swap;
@@ -192,7 +201,6 @@ body {
     --wg-pitch: calc(var(--wg-cell) + var(--wg-gap));
     --wg-pol-w: calc(var(--wg-photo) + var(--wg-frame) * 2);
     --wg-pol-h: calc(var(--wg-photo) + var(--wg-frame) + var(--wg-chin));
-    --wg-pol-top: calc(var(--wg-pad) - var(--wg-cell) * 0.55);
     --wg-band-near: calc(var(--wg-side) + var(--wg-pol-w) * 0.42);
     --wg-band-far: var(--wg-side);
     /* 칸 글꼴: 글자 크기 = 칸의 75%.
@@ -205,7 +213,13 @@ body {
     --wg-band-frame: var(--wg-ink);
     --wg-band-line: rgba(28, 30, 33, 0.62);
 
-    display: block;
+    /* 1행: 폴라로이드 + 원고지 띠 / 2행: 버튼 / 그 아래: 본문 */
+    display: grid;
+    grid-template-columns:
+        calc(var(--wg-pol-w) * 0.42)
+        calc(var(--wg-pol-w) * 0.58)
+        minmax(0, 1fr);
+    align-items: start;
     position: relative;
     padding: var(--wg-pad) var(--wg-side) var(--wg-after);
     margin: 0;
@@ -235,40 +249,52 @@ body {
 }
 
 /* 폴라로이드 아래 글씨 — 아바타와 같은 상자를 같은 각도로 */
-#chat .mes::after {
+#chat .mes .avatar::after {
     content: var(--wg-caption-char);
     position: absolute;
-    top: var(--wg-pol-top);
-    left: var(--wg-side);
-    width: var(--wg-pol-w);
-    height: var(--wg-pol-h);
-    box-sizing: border-box;
-    /* 아래 여백의 오른쪽 구석에 작게 */
-    padding: calc(var(--wg-photo) + var(--wg-frame) + var(--wg-chin) * 0.38) var(--wg-frame) 0;
-    transform: rotate(var(--wg-tilt));
+    left: var(--wg-frame);
+    right: var(--wg-frame);
+    bottom: calc(var(--wg-chin) * 0.2);
     text-align: right;
     font-family: var(--wg-hanja);
     font-size: calc(var(--wg-chin) * 0.32);
     font-weight: 400;
     letter-spacing: 0.3em;
-    line-height: calc(var(--wg-chin) * 0.45);
+    line-height: 1.2;
     color: var(--wg-ink-soft);
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
     pointer-events: none;
-    z-index: 3;
 }
 
-#chat .mes .mesAvatarWrapper {
+#chat .mes .mesAvatarWrapper,
+#chat .mes .mes_block,
+#chat .mes .ch_name,
+#chat .mes .ch_name > .flex-container {
     display: contents;
 }
 
+#chat .mes .for_checkbox {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+#chat .mes .mes_reasoning_details { grid-row: 3; grid-column: 1 / -1; }
+#chat .mes .mes_text              { grid-row: 4; grid-column: 1 / -1; }
+#chat .mes .mes_media_wrapper     { grid-row: 5; grid-column: 1 / -1; }
+#chat .mes .mes_file_wrapper      { grid-row: 6; grid-column: 1 / -1; }
+#chat .mes .mes_bias              { grid-row: 7; grid-column: 1 / -1; }
+
 /* 폴라로이드 */
 #chat .mes .avatar {
-    position: absolute;
-    top: var(--wg-pol-top);
-    left: var(--wg-side);
+    /* 띠 높이와 상관없이 띠의 세로 가운데에. 위아래 음수 여백으로 행 높이에는 끼어들지 않습니다 */
+    grid-row: 1;
+    grid-column: 1 / 3;
+    align-self: center;
+    justify-self: start;
+    position: relative;
+    margin: calc(var(--wg-pol-h) / -2) 0;
     width: var(--wg-pol-w);
     height: var(--wg-pol-h);
     box-sizing: border-box;
@@ -320,9 +346,14 @@ body {
 /* 날짜 — 이름 위 줄 */
 #chat .mes .timestamp {
     order: -1;
-    color: var(--wg-ink-soft);
+    /* 날짜는 칸에 맞추지 않고 명조로 촘촘하게 */
+    font-family: var(--wg-title) !important;
+    font-size: calc(var(--wg-cell) * 0.42) !important;
     font-weight: 400;
-    word-spacing: 0;
+    letter-spacing: 0.06em !important;
+    word-spacing: 0.12em;
+    color: var(--wg-ink-soft);
+    padding-right: calc(var(--wg-cell) * 0.15) !important;
 }
 
 #chat .mes .mes_timer {
@@ -412,6 +443,8 @@ body.no-tokenCount #chat .mes .ch_name::after {
 
 #chat .mes .ch_name > .flex-container > .flex-container {
     --wg-k: 1;                    /* 끝에서 비워 둘 칸 */
+    grid-row: 1;
+    grid-column: 2 / 4;
     position: relative;
     box-sizing: border-box;
     display: flex;
@@ -419,7 +452,7 @@ body.no-tokenCount #chat .mes .ch_name::after {
     align-items: flex-end;
     gap: 0;
     width: auto;
-    margin: 0 0 14px calc(var(--wg-band-near) - var(--wg-side));
+    margin: 0 0 16px;
     /* 폴라로이드 쪽은 가리지 않도록 비우고, 끝은 칸 경계에 맞춥니다 */
     padding:
         calc(var(--wg-gap) / 2)
@@ -468,6 +501,9 @@ body.no-tokenCount #chat .mes .ch_name::after {
 }
 
 #chat .mes .name_text {
+    position: relative;
+    /* 명조 한글의 먹 중심이 줄 가운데보다 0.055em 위에 있어 그만큼 내립니다 */
+    top: 0.055em;
     font-weight: 700;
     /* 띄어쓰기도 한 칸 */
     word-spacing: calc(var(--wg-cell) / 2);
@@ -490,21 +526,6 @@ body.no-tokenCount #chat .mes .ch_name::after {
     overflow: visible;
 }
 
-#chat .mes .ch_name {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 0;
-    gap: 0;
-}
-
-#chat .mes .ch_name > .flex-container {
-    flex: none;
-    display: block;
-    align-self: stretch;
-    height: auto;
-}
-
 /* 메시지 버튼 — 띠와 본문 사이, 양옆으로 가는 괘선을 그은 구분 줄 */
 #chat .mes .mes_buttons,
 #chat .mes .mes_edit_buttons {
@@ -513,8 +534,10 @@ body.no-tokenCount #chat .mes .ch_name::after {
     align-self: stretch;
     float: none;
     gap: 2px;
-    /* 폴라로이드 자리를 비워 둡니다 */
-    margin: 0 var(--wg-measure) 18px calc(var(--wg-pol-w) + 6px);
+    grid-row: 2;
+    grid-column: 1 / -1;
+    /* 가운데 정렬. 폴라로이드가 내려와도 겹치지 않게 양쪽을 똑같이 비웁니다 */
+    margin: 0 calc(var(--wg-pol-w) + 6px) 18px;
     min-height: 36px;
     overflow: visible;
 }
@@ -905,20 +928,27 @@ body.no-tokenCount #chat .mes .ch_name::after {
         0 4px;
 }
 
-#chat .mes[is_user="true"]::after {
+#chat .mes[is_user="true"] {
+    grid-template-columns:
+        minmax(0, 1fr)
+        calc(var(--wg-pol-w) * 0.58)
+        calc(var(--wg-pol-w) * 0.42);
+}
+
+#chat .mes[is_user="true"] .avatar {
+    grid-column: 2 / 4;
+    justify-self: end;
+}
+
+#chat .mes[is_user="true"] .avatar::after {
     content: var(--wg-caption-user);
     text-align: left;
 }
 
-#chat .mes[is_user="true"]::after,
-#chat .mes[is_user="true"] .avatar {
-    left: auto;
-    right: var(--wg-side);
-}
-
 #chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container {
     align-items: flex-start;
-    margin: 0 calc(var(--wg-band-near) - var(--wg-side)) 14px 0;
+    grid-column: 1 / 3;
+    margin: 0 0 16px;
     padding:
         calc(var(--wg-gap) / 2)
         calc(var(--wg-pol-w) - var(--wg-pol-w) * 0.42 + 8px)
@@ -945,10 +975,7 @@ body.no-tokenCount #chat .mes .ch_name::after {
     transform: rotate(8deg);
 }
 
-#chat .mes[is_user="true"] .mes_buttons,
-#chat .mes[is_user="true"] .mes_edit_buttons {
-    margin: 0 calc(var(--wg-pol-w) + 6px) 18px var(--wg-measure);
-}
+
 
 #chat .mes[is_user="true"] .mes_ghost {
     left: auto;
@@ -961,10 +988,6 @@ body.no-tokenCount #chat .mes .ch_name::after {
 }
 
 /* 아바타 숨김 설정 — 띠만 남깁니다 */
-body.hideChatAvatars #chat .mes::after {
-    display: none;
-}
-
 body.hideChatAvatars #chat .mes {
     --wg-band-near: var(--wg-side);
     --wg-pol-w: 0px;
