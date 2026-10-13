@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
+/* 원고지 칸 글꼴 — 한글은 나눔명조(한 칸), 영문·숫자·문장부호·띄어쓰기는
+   크기를 줄인 고정폭 글꼴(반 칸). 원고지 규칙대로 영문·숫자는 한 칸에 두 자. */
+@font-face {
+    font-family: 'WG Cell Latin';
+    src: url(https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgg.woff2) format('woff2');
+    font-weight: 100 900;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+    size-adjust: 58.333%;
+    font-display: swap;
+}
+
 /* ==========================================================================
    원고지 · Wongoji — SillyTavern theme
    흰 종이, 먹, 그리고 청회색으로 인쇄된 원고지 칸.
@@ -59,7 +70,6 @@
     /* 머리 원고지 띠 */
     --wg-cell: 32px;              /* 칸 */
     --wg-gap: 8px;                /* 줄 사이 틈 */
-    --wg-name-size: 24px;         /* 이름 글자 (칸보다 작게) */
     --wg-pad: 74px;               /* 구분선과 띠 사이 */
     --wg-after: 108px;            /* 본문 끝과 다음 구분선 사이 */
     --wg-side: 18px;
@@ -68,8 +78,6 @@
     --wg-frame: 7px;
     --wg-chin: 28px;
     --wg-tilt: -4deg;
-
-    --wg-ts-per: 2;               /* 날짜: 한 칸에 몇 자 */
 
     /* 상단 메뉴 · 입력창 아이콘 */
     --topBarIconSize: calc(var(--mainFontSize) * 0.95);
@@ -83,9 +91,7 @@
 @media (max-width: 600px) {
     :root {
         --wg-cell: 25px;
-        --wg-ts-per: 3;
         --wg-gap: 6px;
-        --wg-name-size: 19px;
         --wg-pad: 62px;
         --wg-after: 92px;
         --wg-side: 10px;
@@ -191,7 +197,10 @@ body {
     --wg-band-near: calc(var(--wg-side) + var(--wg-pol-w) * 0.42);
     --wg-band-far: var(--wg-side);
     --wg-row: calc(var(--wg-pad) + var(--wg-gap));
-    --wg-track: calc(var(--wg-cell) - var(--wg-name-size) * 0.95);
+    /* 칸 글꼴: 한글 0.95em + 자간 0.25em = 한 칸, 영문 0.35em + 자간 = 반 칸 */
+    --wg-cell-font: calc(var(--wg-cell) / 1.2);
+    --wg-track: calc(var(--wg-cell-font) * 0.25);
+    --wg-cell-family: 'WG Cell Latin', 'Nanum Myeongjo', 'Noto Serif KR', serif;
     --wg-band-bg: var(--wg-paper);
 
     display: block;
@@ -334,24 +343,25 @@ body {
     z-index: 1;
 }
 
-/* 첫째 줄 — 날짜. 원고지 규칙대로 숫자·영문은 한 칸에 두 자씩 (좁은 화면은 세 자) */
+/* 첫째 줄 — 날짜. 숫자·영문은 한 칸에 두 자, 한글은 한 칸에 한 자 */
 #chat .mes .timestamp {
-    --wg-ts-size: 11px;
-    --wg-ts-track: calc(var(--wg-cell) / var(--wg-ts-per) - 0.6 * var(--wg-ts-size));
     position: absolute;
     top: var(--wg-row);
-    right: calc(var(--wg-band-far) + var(--wg-cell) - var(--wg-ts-track) / 2);
-    max-width: calc(100% - var(--wg-side) - var(--wg-pol-w) - var(--wg-band-far) - var(--wg-cell) - 6px);
+    right: calc(var(--wg-band-far) + var(--wg-cell) - var(--wg-track) / 2);
+    /* 띠 안에서만. 길면 앞부분이 폴라로이드 아래로 들어갑니다 */
+    max-width: calc(100% - var(--wg-band-near) - var(--wg-band-far) - var(--wg-cell));
     height: var(--wg-cell);
-    line-height: var(--wg-cell);
+    display: flex;
+    justify-content: flex-end;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    text-overflow: clip;
-    font-family: var(--wg-mono);
-    font-size: var(--wg-ts-size);
+    font-family: var(--wg-cell-family);
+    font-size: var(--wg-cell-font);
     font-weight: 400;
-    letter-spacing: var(--wg-ts-track);
+    line-height: var(--wg-cell);
+    letter-spacing: var(--wg-track);
+    word-spacing: 0;
     color: var(--wg-ink-soft);
     opacity: 1;
     white-space: nowrap;
@@ -434,7 +444,7 @@ body.no-tokenCount #chat .mes .ch_name::after {
     z-index: 1;
 }
 
-/* 둘째 줄 — 이름. 끝 한 칸을 비우고 한 칸에 한 글자씩 */
+/* 둘째 줄 — 이름. 끝 한 칸을 비우고 한 칸에 한 글자씩 (영문은 두 자) */
 #chat .mes .mes_block,
 #chat .mes .ch_name,
 #chat .mes .ch_name > .flex-container,
@@ -446,16 +456,19 @@ body.no-tokenCount #chat .mes .ch_name::after {
     position: absolute;
     top: calc(var(--wg-row) + var(--wg-pitch));
     right: calc(var(--wg-band-far) + var(--wg-cell) - var(--wg-track) / 2);
-    max-width: calc(100% - var(--wg-side) - var(--wg-pol-w) - var(--wg-band-far) - var(--wg-cell) - 6px);
+    /* 폴라로이드에 가리지 않는 칸 수만큼. 넘치면 칸 경계에서 자릅니다 */
+    max-width: round(down, calc(100% - var(--wg-side) - var(--wg-pol-w) - var(--wg-band-far) - var(--wg-cell) - 4px), var(--wg-cell));
     height: var(--wg-cell);
     line-height: var(--wg-cell);
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: clip;
     white-space: nowrap;
-    font-family: var(--wg-title);
-    font-size: var(--wg-name-size);
+    font-family: var(--wg-cell-family);
+    font-size: var(--wg-cell-font);
     font-weight: 700;
     letter-spacing: var(--wg-track);
+    /* 띄어쓰기도 한 칸 */
+    word-spacing: calc(var(--wg-cell) / 2);
     color: var(--wg-ink);
     text-align: right;
     z-index: 1;
@@ -910,7 +923,8 @@ body.no-tokenCount #chat .mes .ch_name::after {
 
 #chat .mes[is_user="true"] .timestamp {
     right: auto;
-    left: calc(var(--wg-band-far) + var(--wg-cell) + var(--wg-ts-track) / 2);
+    left: calc(var(--wg-band-far) + var(--wg-cell) + var(--wg-track) / 2);
+    justify-content: flex-start;
 }
 
 #chat .mes[is_user="true"] .mes_timer {
