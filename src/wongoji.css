@@ -306,9 +306,10 @@ body {
 #chat .mes .avatar img {
     width: var(--wg-photo);
     height: var(--wg-photo);
+    box-sizing: border-box;
     border-radius: 0;
-    border: 0;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--wg-band-frame);
+    box-shadow: none;
     object-fit: cover;
     filter: var(--wg-photo-filter);
     transition: filter var(--animation-duration-2x) ease;
@@ -428,7 +429,8 @@ body.no-mesIDDisplay #chat .mes::before {
     font-weight: 700;
     font-size: 10px;
     letter-spacing: 0.12em;
-    color: var(--wg-print);
+    /* 캐릭터는 먹색, 유저는 청회색 — 원고지 선과 같은 색 */
+    color: var(--wg-band-frame);
     opacity: 1;
     white-space: nowrap;
     z-index: 1;
