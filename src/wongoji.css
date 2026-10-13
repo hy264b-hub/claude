@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 /* ==========================================================================
    원고지 · Wongoji — SillyTavern theme
@@ -32,17 +32,18 @@
 
     /* ── 폴라로이드 아래 글귀 ─────────────────────────────
        따옴표 안의 글자만 바꾸면 됩니다. 예) '春風秋雨', '그날의 기록'
-       一期一會 (일기일회) — 일생에 단 한 번의 만남
-       以心傳心 (이심전심) — 마음에서 마음으로 전함            */
-    --wg-caption-char: '一期一會';
-    --wg-caption-user: '以心傳心';
+       花樣年華 (화양연화) — 인생에서 가장 아름다운 한때
+       雪泥鴻爪 (설니홍조) — 눈 위에 남은 기러기 발자국, 덧없는 삶의 흔적  */
+    --wg-caption-char: '花樣年華';
+    --wg-caption-user: '雪泥鴻爪';
 
     /* 띠 위 여백에 인쇄된 이름 (토큰 수가 뒤에 붙습니다) */
     --wg-paper-label: '原稿用紙';
 
     /* 서체 */
     --wg-serif: 'Gowun Batang', 'Nanum Myeongjo', 'Noto Serif KR', serif;
-    --wg-title: 'Nanum Myeongjo', 'Gowun Batang', 'Noto Serif KR', serif;
+    --wg-title: 'Nanum Myeongjo', 'Noto Serif KR', 'Gowun Batang', serif;
+    --wg-hanja: 'Noto Serif KR', 'Nanum Myeongjo', serif;   /* 한자가 있는 명조 */
     --wg-mono: 'IBM Plex Mono', 'D2Coding', ui-monospace, monospace;
 
     /* 본문: 글자 크기와 행간 */
@@ -259,15 +260,15 @@ body {
     width: var(--wg-pol-w);
     height: var(--wg-pol-h);
     box-sizing: border-box;
-    padding: calc(var(--wg-photo) + var(--wg-frame)) 8px 0;
+    /* 아래 여백의 오른쪽 구석에 작게 */
+    padding: calc(var(--wg-photo) + var(--wg-frame) + var(--wg-chin) * 0.38) var(--wg-frame) 0;
     transform: rotate(var(--wg-tilt));
-    text-align: center;
-    font-family: var(--wg-title);
-    font-size: calc(var(--wg-chin) * 0.42);
-    font-weight: 700;
-    letter-spacing: 0.45em;
-    text-indent: 0.45em;
-    line-height: calc(var(--wg-chin) * 0.95);
+    text-align: right;
+    font-family: var(--wg-hanja);
+    font-size: calc(var(--wg-chin) * 0.32);
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    line-height: calc(var(--wg-chin) * 0.45);
     color: var(--wg-ink-soft);
     white-space: nowrap;
     overflow: hidden;
@@ -898,6 +899,7 @@ body.no-tokenCount #chat .mes .ch_name::after {
 
 #chat .mes[is_user="true"]::after {
     content: var(--wg-caption-user);
+    text-align: left;
 }
 
 #chat .mes[is_user="true"]::after,
