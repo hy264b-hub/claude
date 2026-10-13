@@ -7,7 +7,7 @@
     src: url(https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgg.woff2) format('woff2');
     font-weight: 100 900;
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
-    size-adjust: 58.333%;
+    size-adjust: 47.222%;
     font-display: swap;
 }
 
@@ -140,7 +140,7 @@ body {
 #top-bar {
     background-color: var(--wg-paper);
     box-shadow: none;
-    border-bottom: 3px double var(--wg-ink);
+    border-bottom: 1px solid var(--wg-print-faint);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
@@ -190,22 +190,24 @@ body {
 
 #chat .mes {
     --wg-pitch: calc(var(--wg-cell) + var(--wg-gap));
-    --wg-band-h: calc(var(--wg-pitch) * 2 + var(--wg-gap));
     --wg-pol-w: calc(var(--wg-photo) + var(--wg-frame) * 2);
     --wg-pol-h: calc(var(--wg-photo) + var(--wg-frame) + var(--wg-chin));
     --wg-pol-top: calc(var(--wg-pad) - var(--wg-cell) * 0.55);
     --wg-band-near: calc(var(--wg-side) + var(--wg-pol-w) * 0.42);
     --wg-band-far: var(--wg-side);
-    --wg-row: calc(var(--wg-pad) + var(--wg-gap));
-    /* 칸 글꼴: 한글 0.95em + 자간 0.25em = 한 칸, 영문 0.35em + 자간 = 반 칸 */
-    --wg-cell-font: calc(var(--wg-cell) / 1.2);
-    --wg-track: calc(var(--wg-cell-font) * 0.25);
+    /* 칸 글꼴: 글자 크기 = 칸의 75%.
+       한글 0.95em + 자간 = 한 칸, 영문·숫자(0.283em) + 자간 = 반 칸 */
+    --wg-cell-font: calc(var(--wg-cell) * 0.75);
+    --wg-track: calc(var(--wg-cell) * 0.2875);
     --wg-cell-family: 'WG Cell Latin', 'Nanum Myeongjo', 'Noto Serif KR', serif;
     --wg-band-bg: var(--wg-paper);
+    /* 캐릭터 원고지는 먹색 선 */
+    --wg-band-frame: var(--wg-ink);
+    --wg-band-line: rgba(28, 30, 33, 0.62);
 
     display: block;
     position: relative;
-    padding: calc(var(--wg-pad) + var(--wg-band-h) + 12px) var(--wg-side) var(--wg-after);
+    padding: var(--wg-pad) var(--wg-side) var(--wg-after);
     margin: 0;
     /* 구분선 — 원고지 낱장의 머리처럼, 칸마다 눈금을 새긴 자 */
     border-top: 1px solid var(--wg-ink);
@@ -230,34 +232,6 @@ body {
 
 #chat .mes.last_mes {
     margin-bottom: 0;
-}
-
-/* 원고지 띠: 정사각 칸 + 줄 사이 틈 + 이중 테두리 */
-#chat .mes::before {
-    content: '';
-    position: absolute;
-    top: var(--wg-pad);
-    left: var(--wg-band-near);
-    right: var(--wg-band-far);
-    height: var(--wg-band-h);
-    box-sizing: border-box;
-    border: 1px solid var(--wg-print);
-    outline: 1px solid var(--wg-print);
-    outline-offset: 2px;
-    background-color: var(--wg-band-bg);
-    background-image:
-        linear-gradient(to bottom,
-            transparent var(--wg-gap),
-            var(--wg-print-line) var(--wg-gap), var(--wg-print-line) calc(var(--wg-gap) + 1px),
-            transparent calc(var(--wg-gap) + 1px), transparent calc(var(--wg-pitch) - 1px),
-            var(--wg-print-line) calc(var(--wg-pitch) - 1px)),
-        linear-gradient(to bottom, var(--wg-band-bg) var(--wg-gap), transparent var(--wg-gap)),
-        linear-gradient(to right, var(--wg-print-line) 1px, transparent 1px);
-    background-size: 100% var(--wg-pitch), 100% var(--wg-pitch), var(--wg-cell) 100%;
-    background-position: 0 0, 0 0, right -1px top 0;
-    background-repeat: repeat;
-    pointer-events: none;
-    z-index: 0;
 }
 
 /* 폴라로이드 아래 글씨 — 아바타와 같은 상자를 같은 각도로 */
@@ -343,33 +317,16 @@ body {
     z-index: 1;
 }
 
-/* 첫째 줄 — 날짜. 숫자·영문은 한 칸에 두 자, 한글은 한 칸에 한 자 */
+/* 날짜 — 이름 위 줄 */
 #chat .mes .timestamp {
-    position: absolute;
-    top: var(--wg-row);
-    right: calc(var(--wg-band-far) + var(--wg-cell) - var(--wg-track) / 2);
-    /* 띠 안에서만. 길면 앞부분이 폴라로이드 아래로 들어갑니다 */
-    max-width: calc(100% - var(--wg-band-near) - var(--wg-band-far) - var(--wg-cell));
-    height: var(--wg-cell);
-    display: flex;
-    justify-content: flex-end;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: var(--wg-cell-family);
-    font-size: var(--wg-cell-font);
-    font-weight: 400;
-    line-height: var(--wg-cell);
-    letter-spacing: var(--wg-track);
-    word-spacing: 0;
+    order: -1;
     color: var(--wg-ink-soft);
-    opacity: 1;
-    white-space: nowrap;
-    z-index: 1;
+    font-weight: 400;
+    word-spacing: 0;
 }
 
 #chat .mes .mes_timer {
-    left: calc(var(--wg-side) + var(--wg-pol-w) + 8px);
+    right: calc(var(--wg-band-far) + var(--wg-stamp-size) + 8px);
 }
 
 /* 원고지 머리 여백에 인쇄된 표기 */
@@ -377,7 +334,7 @@ body {
 #chat .mes .ch_name::after {
     position: absolute;
     top: calc(var(--wg-pad) - 20px);
-    right: var(--wg-band-far);
+    left: calc(var(--wg-side) + var(--wg-pol-w) + 8px);
     height: 14px;
     margin: 0;
     padding: 0;
@@ -415,11 +372,11 @@ body.no-tokenCount #chat .mes .ch_name::after {
     content: var(--wg-paper-label);
 }
 
-/* 번호 — 띠 끝 아래 원형 도장 */
+/* 번호 — 띠 모서리에 찍은 원형 도장 */
 #chat .mes .mesIDDisplay {
     position: absolute;
-    top: calc(var(--wg-pad) + var(--wg-band-h) + 9px);
-    right: calc(var(--wg-band-far) + 2px);
+    top: calc(var(--wg-pad) - var(--wg-stamp-size) * 0.55);
+    right: calc(var(--wg-band-far) - 6px);
     width: var(--wg-stamp-size);
     height: var(--wg-stamp-size);
     box-sizing: border-box;
@@ -441,50 +398,90 @@ body.no-tokenCount #chat .mes .ch_name::after {
     opacity: 1;
     transform: rotate(-8deg);
     white-space: nowrap;
-    z-index: 1;
+    z-index: 2;
 }
 
-/* 둘째 줄 — 이름. 끝 한 칸을 비우고 한 칸에 한 글자씩 (영문은 두 자) */
+/* 원고지 띠 — 날짜와 이름을 담은 상자 자체에 칸을 그립니다.
+   글이 길면 줄이 늘고, 띠도 함께 늘어납니다.
+   한글은 한 칸, 영문·숫자·띄어쓰기는 반 칸 */
 #chat .mes .mes_block,
 #chat .mes .ch_name,
-#chat .mes .ch_name > .flex-container,
-#chat .mes .ch_name > .flex-container > .flex-container {
+#chat .mes .ch_name > .flex-container {
     position: static;
 }
 
-#chat .mes .name_text {
-    position: absolute;
-    top: calc(var(--wg-row) + var(--wg-pitch));
-    right: calc(var(--wg-band-far) + var(--wg-cell) - var(--wg-track) / 2);
-    /* 폴라로이드에 가리지 않는 칸 수만큼. 넘치면 칸 경계에서 자릅니다 */
-    max-width: round(down, calc(100% - var(--wg-side) - var(--wg-pol-w) - var(--wg-band-far) - var(--wg-cell) - 4px), var(--wg-cell));
-    height: var(--wg-cell);
-    line-height: var(--wg-cell);
-    overflow: hidden;
-    text-overflow: clip;
-    white-space: nowrap;
+#chat .mes .ch_name > .flex-container > .flex-container {
+    --wg-k: 1;                    /* 끝에서 비워 둘 칸 */
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+    width: auto;
+    margin: 0 0 14px calc(var(--wg-band-near) - var(--wg-side));
+    /* 폴라로이드 쪽은 가리지 않도록 비우고, 끝은 칸 경계에 맞춥니다 */
+    padding:
+        calc(var(--wg-gap) / 2)
+        calc(var(--wg-cell) * var(--wg-k) - var(--wg-track) / 2 - 1px)
+        calc(var(--wg-gap) / 2)
+        calc(var(--wg-pol-w) - var(--wg-pol-w) * 0.42 + 8px);
+    border: 1px solid var(--wg-band-frame);
+    outline: 1px solid var(--wg-band-frame);
+    outline-offset: 2px;
+    background-color: var(--wg-band-bg);
+    background-image:
+        linear-gradient(to bottom,
+            transparent var(--wg-gap),
+            var(--wg-band-line) var(--wg-gap), var(--wg-band-line) calc(var(--wg-gap) + 1px),
+            transparent calc(var(--wg-gap) + 1px), transparent calc(var(--wg-pitch) - 1px),
+            var(--wg-band-line) calc(var(--wg-pitch) - 1px)),
+        linear-gradient(to bottom, var(--wg-band-bg) var(--wg-gap), transparent var(--wg-gap)),
+        linear-gradient(to right, var(--wg-band-line) 1px, transparent 1px);
+    background-size: 100% var(--wg-pitch), 100% var(--wg-pitch), var(--wg-cell) 100%;
+    background-position: 0 0, 0 0, right -1px top 0;
+    background-repeat: repeat;
     font-family: var(--wg-cell-family);
     font-size: var(--wg-cell-font);
-    font-weight: 700;
+    line-height: var(--wg-pitch);
     letter-spacing: var(--wg-track);
+    text-align: right;
+}
+
+#chat .mes .ch_name > .flex-container > .flex-container > .name_text,
+#chat .mes .ch_name > .flex-container > .flex-container > .timestamp {
+    display: block;
+    align-self: stretch;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    opacity: 1;
+}
+
+#chat .mes .name_text {
+    font-weight: 700;
     /* 띄어쓰기도 한 칸 */
     word-spacing: calc(var(--wg-cell) / 2);
     color: var(--wg-ink);
-    text-align: right;
-    z-index: 1;
 }
 
 #chat .mes .mes_ghost {
     position: absolute;
-    top: calc(var(--wg-row) + var(--wg-pitch));
-    right: var(--wg-band-far);
-    width: var(--wg-cell);
-    height: var(--wg-cell);
-    line-height: var(--wg-cell);
-    text-align: center;
+    top: 2px;
+    left: calc(var(--wg-pol-w) * 0.58 + 6px);
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0;
     color: var(--wg-ink-faint);
-    font-size: 12px;
-    z-index: 1;
 }
 
 #chat .mes .mes_block {
@@ -503,7 +500,9 @@ body.no-tokenCount #chat .mes .ch_name::after {
 
 #chat .mes .ch_name > .flex-container {
     flex: none;
-    height: 0;
+    display: block;
+    align-self: stretch;
+    height: auto;
 }
 
 /* 메시지 버튼 — 띠와 본문 사이, 양옆으로 가는 괘선을 그은 구분 줄 */
@@ -514,8 +513,8 @@ body.no-tokenCount #chat .mes .ch_name::after {
     align-self: stretch;
     float: none;
     gap: 2px;
-    /* 폴라로이드와 도장 자리를 비워 둡니다 */
-    margin: 0 46px 18px calc(var(--wg-pol-w) + 6px);
+    /* 폴라로이드 자리를 비워 둡니다 */
+    margin: 0 var(--wg-measure) 18px calc(var(--wg-pol-w) + 6px);
     min-height: 36px;
     overflow: visible;
 }
@@ -840,12 +839,12 @@ body.no-tokenCount #chat .mes .ch_name::after {
 }
 
 /* 책등 — 본문 옆에 세로로 인쇄된 표기 */
-#chat .mes .mes_block::after {
+#chat .mes .mes_text::before {
     content: var(--wg-spine-char);
     position: absolute;
-    top: calc(var(--wg-pad) + var(--wg-band-h) + 84px);
-    bottom: var(--wg-after);
-    left: var(--wg-side);
+    top: 6px;
+    bottom: 4px;
+    left: 0;
     width: 14px;
     box-sizing: border-box;
     border-right: 1px solid var(--wg-print-faint);
@@ -860,20 +859,20 @@ body.no-tokenCount #chat .mes .ch_name::after {
     pointer-events: none;
 }
 
-#chat .mes[is_user="true"] .mes_block::after {
+#chat .mes[is_user="true"] .mes_text::before {
     content: var(--wg-spine-user);
     left: auto;
-    right: var(--wg-side);
+    right: 0;
     border-right: 0;
     border-left: 1px solid var(--wg-print-faint);
 }
 
-#chat .mes:has(.edit_textarea) .mes_block::after {
+#chat .mes .mes_text:has(.edit_textarea)::before {
     display: none;
 }
 
 @media (max-width: 600px) {
-    #chat .mes .mes_block::after {
+    #chat .mes .mes_text::before {
         width: 12px;
         line-height: 12px;
         font-size: 7.5px;
@@ -898,16 +897,12 @@ body.no-tokenCount #chat .mes .ch_name::after {
 #chat .mes[is_user="true"] {
     --wg-tilt: 4deg;
     --wg-band-bg: var(--wg-paper-user);
+    --wg-band-frame: var(--wg-print);
+    --wg-band-line: var(--wg-print-line);
     background-position:
         left var(--wg-side) top 0,
         left var(--wg-side) top 0,
         0 4px;
-}
-
-#chat .mes[is_user="true"]::before {
-    left: var(--wg-band-far);
-    right: var(--wg-band-near);
-    background-position: 0 0, 0 0, left 0 top 0;
 }
 
 #chat .mes[is_user="true"]::after {
@@ -921,43 +916,43 @@ body.no-tokenCount #chat .mes .ch_name::after {
     right: var(--wg-side);
 }
 
-#chat .mes[is_user="true"] .timestamp {
-    right: auto;
-    left: calc(var(--wg-band-far) + var(--wg-cell) + var(--wg-track) / 2);
-    justify-content: flex-start;
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container {
+    align-items: flex-start;
+    margin: 0 calc(var(--wg-band-near) - var(--wg-side)) 14px 0;
+    padding:
+        calc(var(--wg-gap) / 2)
+        calc(var(--wg-pol-w) - var(--wg-pol-w) * 0.42 + 8px)
+        calc(var(--wg-gap) / 2)
+        calc(var(--wg-cell) * var(--wg-k) + var(--wg-track) / 2);
+    background-position: 0 0, 0 0, left 0 top 0;
+    text-align: left;
 }
 
 #chat .mes[is_user="true"] .mes_timer {
-    left: auto;
-    right: calc(var(--wg-side) + var(--wg-pol-w) + 8px);
+    right: auto;
+    left: calc(var(--wg-band-far) + var(--wg-stamp-size) + 8px);
 }
 
 #chat .mes[is_user="true"] .tokenCounterDisplay,
 #chat .mes[is_user="true"] .ch_name::after {
-    right: auto;
-    left: var(--wg-band-far);
+    left: auto;
+    right: calc(var(--wg-side) + var(--wg-pol-w) + 8px);
 }
 
 #chat .mes[is_user="true"] .mesIDDisplay {
     right: auto;
-    left: calc(var(--wg-band-far) + 2px);
+    left: calc(var(--wg-band-far) - 6px);
     transform: rotate(8deg);
 }
 
 #chat .mes[is_user="true"] .mes_buttons,
 #chat .mes[is_user="true"] .mes_edit_buttons {
-    margin: 0 calc(var(--wg-pol-w) + 6px) 18px 46px;
-}
-
-#chat .mes[is_user="true"] .name_text {
-    right: auto;
-    left: calc(var(--wg-band-far) + var(--wg-cell) + var(--wg-track) / 2);
-    text-align: left;
+    margin: 0 calc(var(--wg-pol-w) + 6px) 18px var(--wg-measure);
 }
 
 #chat .mes[is_user="true"] .mes_ghost {
-    right: auto;
-    left: var(--wg-band-far);
+    left: auto;
+    right: calc(var(--wg-pol-w) * 0.58 + 6px);
 }
 
 /* 시스템 메시지 */
@@ -972,6 +967,7 @@ body.hideChatAvatars #chat .mes::after {
 
 body.hideChatAvatars #chat .mes {
     --wg-band-near: var(--wg-side);
+    --wg-pol-w: 0px;
 }
 
 /* 선택(삭제 모드) */
@@ -1002,7 +998,7 @@ body.hideChatAvatars #chat .mes {
 #send_form {
     background-color: var(--wg-paper);
     border: 0;
-    border-top: 3px double var(--wg-ink);
+    border-top: 1px solid var(--wg-print-faint);
     border-radius: 0;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -1011,7 +1007,7 @@ body.hideChatAvatars #chat .mes {
 
 #send_form:has(#send_textarea:focus-visible) {
     outline: none;
-    border-color: var(--wg-ink);
+    border-color: var(--wg-print-line);
 }
 
 @media screen and (max-width: 1000px) {
