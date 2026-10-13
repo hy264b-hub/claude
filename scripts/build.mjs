@@ -18,7 +18,7 @@ if (process.argv.includes('--bump')) {
 }
 
 const theme = {
-    name: `원고지 Wongoji ${meta.version}`,
+    name: `원고지 Wongoji ${meta.version} · Literary Archive`,
     blur_strength: 0,
     main_text_color: 'rgba(42, 45, 49, 1)',
     italics_text_color: 'rgba(106, 109, 114, 1)',

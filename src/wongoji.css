@@ -611,9 +611,9 @@ body.no-tokenCount #chat .mes .ch_name::after {
     gap: 2px;
     grid-row: 2;
     grid-column: 1 / -1;
-    /* 가운데 정렬. 두 줄짜리 띠 아래로 늘어진 폴라로이드보다 더 아래에 둡니다 */
-    margin: max(6px, calc((var(--wg-pol-h) - var(--wg-pitch) * 2 - var(--wg-gap)) / 2 - 2px)) var(--wg-measure) 22px;
-    min-height: 36px;
+    /* 날짜의 28px 영역과 폴라로이드 돌출부를 함께 계산합니다. */
+    margin: max(8px, calc((var(--wg-pol-h) - var(--wg-pitch) * 2 - var(--wg-gap) - 28px) / 2 + 6px)) var(--wg-measure) 12px;
+    min-height: 32px;
     overflow: visible;
 }
 
@@ -1735,4 +1735,606 @@ body.charListGrid #rm_print_characters_block .ch_name,
 body.hideChatAvatars #chat .mes .mes_buttons,
 body.hideChatAvatars #chat .mes .mes_edit_buttons {
     margin-top: 6px;
+}
+
+
+/* ==========================================================================
+   1.0.4 — 원고지 헤더의 정렬과 인쇄 밀도 보강
+   본문·메뉴·입력창·사진 크기·원본 색상 설정은 1.0.3을 유지합니다.
+   ========================================================================== */
+#chat .mes {
+    min-width: 0;
+    box-sizing: border-box;
+}
+/* 기본 flex 유틸리티의 최소 폭/줄바꿈이 격자 폭을 밀어내지 않도록 합니다. */
+#chat .mes .ch_name > .flex-container > .flex-container {
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    align-content: initial;
+    margin-bottom: 28px;
+    container-type: inline-size;
+    container-name: wg-header;
+}
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container {
+    margin-bottom: 28px;
+}
+#chat .mes .ch_name > .flex-container > .flex-container > .name_text {
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+/* 첫 줄의 작은 편집 표식. 번호 반대편에 놓으며 원래의 한 행 높이를 유지합니다. */
+#chat .mes .ch_name > .flex-container > .flex-container::before {
+    content: '記録';
+    flex: 0 0 var(--wg-pitch);
+    height: var(--wg-pitch);
+    min-height: var(--wg-pitch);
+    top: 0;
+    box-sizing: border-box;
+    font-family: var(--wg-hanja);
+    font-size: 9px;
+    font-weight: 400;
+    line-height: var(--wg-pitch);
+    letter-spacing: .22em;
+    word-spacing: normal;
+    text-align: left;
+    color: var(--wg-ink-faint);
+    pointer-events: none;
+}
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container::before {
+    content: '答書';
+    text-align: right;
+}
+/* 한글/영문 긴 이름은 칸의 높이를 늘리고, 날짜는 그 아래의 지정 영역에 머뭅니다. */
+#chat .mes .ch_name > .flex-container > .flex-container > .timestamp {
+    top: calc(100% + 7px);
+    right: 0;
+    left: auto;
+    width: auto !important;
+    max-width: calc(100% - var(--wg-pol-w) * .58 - 10px) !important;
+    height: 16px;
+    font-size: 9.5px !important;
+    font-weight: 400;
+    line-height: 16px !important;
+    letter-spacing: .015em !important;
+    word-spacing: 0;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container > .timestamp {
+    left: 0;
+    right: auto;
+}
+/* 사진 위 표제/토큰과 생성 시간을 서로 다른 높이에 두어 겹침을 막습니다. */
+#chat .mes .tokenCounterDisplay,
+#chat .mes .ch_name::after {
+    max-width: calc(100% - var(--wg-side) * 2 - var(--wg-pol-w) - 12px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 9px;
+    letter-spacing: .10em;
+}
+#chat .mes .mes_timer {
+    top: calc(var(--wg-pad) - 36px);
+    font-size: 9px;
+    line-height: 12px;
+}
+/* 가운데 버튼을 양쪽 괘선에 조금 더 단단하게 연결합니다. */
+#chat .mes .mes_buttons,
+#chat .mes .mes_edit_buttons {
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: wrap;
+    row-gap: 4px;
+}
+#chat .mes .mes_buttons::before,
+#chat .mes .mes_buttons::after,
+#chat .mes .mes_edit_buttons::before,
+#chat .mes .mes_edit_buttons::after {
+    height: 4px;
+    margin-inline: 7px;
+}
+#chat .mes .mes_buttons > .mes_button {opacity: .52;}
+#chat .mes .mes_buttons > .mes_button:hover {opacity: 1;}
+/* 좁은 헤더에서는 번호와 이름을 우선하고 표식은 행 높이만 남깁니다. */
+@container wg-header (max-width: 180px) {
+    #chat .mes .ch_name > .flex-container > .flex-container::before {visibility: hidden;}
+}
+@media (max-width: 600px) {
+    #chat .mes .ch_name > .flex-container > .flex-container > .timestamp {
+        font-size: 8.5px !important;
+        letter-spacing: 0 !important;
+    }
+    #chat .mes .mes_buttons,
+    #chat .mes .mes_edit_buttons {margin-bottom: 10px;}
+}
+body.hideChatAvatars #chat .mes .ch_name > .flex-container > .flex-container > .timestamp {
+    max-width: calc(100% - 8px) !important;
+}
+
+/* ======================================================================
+   Wongoji 1.0.5 — literary archive ornaments, CSS only
+   Photographs, manuscript grids and reading text retain the 1.0.4 layout.
+   ====================================================================== */
+#chat .mes {
+    --wg-ornament: #73818a;
+    --wg-hairline: rgba(82, 96, 108, .25);
+    --wg-stamp: #575f65;
+}
+#chat .mes[is_user="true"] {
+    --wg-ornament: #7d8d9b;
+    --wg-hairline: rgba(109,127,145,.26);
+    --wg-stamp: #6d7f91;
+}
+/* A miniature archive heading occupies existing space above the paper. */
+#chat .mes::after {
+    content: 'LITERARY ARCHIVE  /  CHARACTER';
+    position: absolute;
+    top: calc(var(--wg-pad) - 44px);
+    left: calc(var(--wg-side) + var(--wg-pol-w) + 8px);
+    right: var(--wg-side);
+    min-width: 0;
+    height: 12px;
+    border-top: 1px solid var(--wg-hairline);
+    padding-top: 5px;
+    font: 7px/10px var(--wg-mono);
+    letter-spacing: .12em;
+    color: var(--wg-ornament);
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    z-index: 1;
+}
+#chat .mes[is_user="true"]::after {
+    content: 'LITERARY ARCHIVE  /  CORRESPONDENCE';
+    left: var(--wg-side);
+    right: calc(var(--wg-side) + var(--wg-pol-w) + 8px);
+    text-align: right;
+}
+/* Four corner mounts, delicate inner frame, and an engraved caption rail. */
+#chat .mes .avatar {
+    overflow: visible;
+    isolation: isolate;
+    outline: 1px solid rgba(28,30,33,.16);
+    outline-offset: 3px;
+    background-color: #fff;
+    background-image:
+        linear-gradient(135deg, var(--wg-band-frame) 0 46%, transparent 48%),
+        linear-gradient(225deg, var(--wg-band-frame) 0 46%, transparent 48%),
+        linear-gradient(45deg, var(--wg-band-frame) 0 46%, transparent 48%),
+        linear-gradient(315deg, var(--wg-band-frame) 0 46%, transparent 48%),
+        repeating-linear-gradient(0deg, transparent 0 3px, rgba(100,100,100,.035) 3px 4px);
+    background-size: 5px 5px, 5px 5px, 5px 5px, 5px 5px, 100% 100%;
+    background-position: 2px 2px, right 2px top 2px, left 2px bottom 2px, right 2px bottom 2px, 0 0;
+    background-repeat: no-repeat;
+}
+/* A wire paper clip: its interior stays open, keeping the photo visible. */
+#chat .mes .avatar::before {
+    content: '';
+    position: absolute;
+    top: -13px;
+    left: 17px;
+    width: 10px;
+    height: 30px;
+    border: 1px solid var(--wg-ornament);
+    border-bottom-width: 2px;
+    border-radius: 7px 7px 6px 6px;
+    outline: 1px solid rgba(255,255,255,.85);
+    outline-offset: 1px;
+    background: linear-gradient(var(--wg-ornament),var(--wg-ornament)) center 7px / 1px 17px no-repeat;
+    transform: rotate(12deg);
+    z-index: 4;
+    pointer-events: none;
+}
+#chat .mes[is_user="true"] .avatar::before {
+    left: auto;
+    right: 17px;
+    transform: rotate(-12deg);
+}
+#chat .mes .avatar img {outline: 1px solid var(--wg-hairline); outline-offset: 2px;}
+#chat .mes .avatar::after {
+    padding-top: 3px;
+    border-top: 1px solid var(--wg-hairline);
+    background:
+        radial-gradient(circle, var(--wg-ornament) 0 1px, transparent 1.3px) left center / 3px 3px no-repeat,
+        linear-gradient(var(--wg-hairline),var(--wg-hairline)) left 8px center / 15% 1px no-repeat;
+}
+#chat .mes[is_user="true"] .avatar::after {
+    background-position: right center, right 8px center;
+}
+/* Offset paper edges, subtle fibres, and a complete two-row printed grid. */
+#chat .mes .ch_name > .flex-container > .flex-container {
+    margin-bottom: 34px;
+    box-shadow:
+        3px 3px 0 0 var(--wg-paper),
+        4px 4px 0 0 var(--wg-hairline),
+        7px 7px 0 0 var(--wg-paper),
+        8px 8px 0 0 var(--wg-hairline);
+    background-image:
+        linear-gradient(to bottom,
+            transparent var(--wg-gap),
+            var(--wg-band-line) var(--wg-gap), var(--wg-band-line) calc(var(--wg-gap) + 1px),
+            transparent calc(var(--wg-gap) + 1px), transparent calc(var(--wg-pitch) - 1px),
+            var(--wg-band-line) calc(var(--wg-pitch) - 1px)),
+        linear-gradient(to bottom,var(--wg-band-bg) var(--wg-gap),transparent var(--wg-gap)),
+        linear-gradient(to right,var(--wg-band-line) 1px,transparent 1px),
+        radial-gradient(ellipse,rgba(100,110,120,.065) 0 .5px,transparent .8px),
+        repeating-linear-gradient(115deg,transparent 0 5px,rgba(90,100,110,.025) 5px 6px);
+    background-size: 100% var(--wg-pitch), 100% var(--wg-pitch), var(--wg-cell) 100%, 7px 9px, 100% 100%;
+    background-position: 0 0, 0 0, right -1px top 0, 0 0, 0 0;
+}
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container {
+    margin-bottom: 34px;
+    box-shadow:
+        -3px 3px 0 0 var(--wg-paper),
+        -4px 4px 0 0 var(--wg-hairline),
+        -7px 7px 0 0 var(--wg-paper),
+        -8px 8px 0 0 var(--wg-hairline);
+    background-position: 0 0, 0 0, left -1px top 0, 0 0, 0 0;
+}
+/* A small publisher-style seal uses the first row opposite the chat number. */
+#chat .mes .ch_name > .flex-container > .flex-container::before {
+    content: '\00a0';
+    visibility: visible;
+}
+#chat .mes .ch_name > .flex-container > .flex-container::after {
+    content: '文';
+    position: absolute;
+    top: calc(var(--wg-gap) + 3px);
+    left: calc(var(--wg-pol-w) * .58 + 12px);
+    width: calc(var(--wg-cell) * .62);
+    height: calc(var(--wg-cell) * .62);
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--wg-stamp);
+    outline: 1px solid var(--wg-hairline);
+    outline-offset: 2px;
+    background: var(--wg-band-bg);
+    font-family: var(--wg-hanja);
+    font-size: calc(var(--wg-cell) * .37);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+    color: var(--wg-stamp);
+    transform: rotate(-7deg);
+    opacity: .65;
+    pointer-events: none;
+    z-index: 1;
+}
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container::after {
+    content: '書';
+    left: auto;
+    right: calc(var(--wg-pol-w) * .58 + 12px);
+    transform: rotate(7deg);
+}
+#chat .mes .ch_name > .flex-container > .flex-container > .timestamp {
+    top: calc(100% + 14px);
+}
+/* Small ornaments tie the edit controls to the manuscript's lower edge. */
+#chat .mes .mes_buttons::before,
+#chat .mes .mes_buttons::after,
+#chat .mes .mes_edit_buttons::before,
+#chat .mes .mes_edit_buttons::after {
+    content: '❧';
+    height: 14px;
+    min-width: 16px;
+    border: 0;
+    font: 16px/14px Georgia,serif;
+    color: var(--wg-ornament);
+    text-align: center;
+    background:
+        linear-gradient(var(--wg-hairline),var(--wg-hairline)) left center / calc(50% - 12px) 1px no-repeat,
+        linear-gradient(var(--wg-hairline),var(--wg-hairline)) right center / calc(50% - 12px) 1px no-repeat;
+    pointer-events: none;
+}
+#chat .mes .mes_buttons::after,
+#chat .mes .mes_edit_buttons::after {transform: scaleX(-1);}
+/* The seal yields to long numbers in very narrow header columns. */
+@container wg-header (max-width: 150px) {
+    #chat .mes .ch_name > .flex-container > .flex-container::after {display:none;}
+}
+@media(max-width:600px) {
+    #chat .mes::after {font-size: 6.5px;letter-spacing: .06em;top:calc(var(--wg-pad) - 42px);}
+    #chat .mes .avatar::before {width:8px;height:25px;top:-10px;left:12px;background-size:1px 14px;}
+    #chat .mes[is_user="true"] .avatar::before {left:auto;right:12px;}
+    #chat .mes .avatar {outline-offset:2px;}
+}
+body.hideChatAvatars #chat .mes::after {left:var(--wg-side);right:var(--wg-side);}
+body.hideChatAvatars #chat .mes .avatar::before,
+body.hideChatAvatars #chat .mes .avatar::after {display:none;}
+/* If generation time is enabled, give it its own rail above the archive heading. */
+#chat .mes .mes_timer {top:calc(var(--wg-pad) - 58px);}
+
+
+/* ======================================================================
+   Wongoji 1.0.6 — legible seals and Latin manuscript nameplates
+   Seal contrast retained; name layout is superseded by 1.0.7 below.
+   ====================================================================== */
+#chat .mes { --wg-stamp: #39434b; }
+#chat .mes[is_user="true"] { --wg-stamp: #485f73; }
+#chat .mes .ch_name > .flex-container > .flex-container::after {
+    top: calc(var(--wg-gap) + 1px);
+    box-sizing: border-box;
+    width: calc(var(--wg-cell) * .84);
+    height: calc(var(--wg-cell) * .84);
+    border: 1.5px solid var(--wg-stamp);
+    outline: 1px solid var(--wg-stamp);
+    outline-offset: 2px;
+    background: #fff;
+    color: var(--wg-stamp);
+    font-size: calc(var(--wg-cell) * .48);
+    font-weight: 700;
+    text-shadow: none;
+    opacity: 1;
+}
+/* ======================================================================
+   Wongoji 1.0.7 — ruled manuscript titles, including emoji-prefixed names
+   Match ASCII Latin anywhere in ch_name, not just the first character.
+   Keep the number-row grid; use manuscript ruling across the name rows.
+   Pure Korean names retain the existing cell typography.
+   ====================================================================== */
+#chat .mes:is([ch_name*="a" i],
+    [ch_name*="b" i],
+    [ch_name*="c" i],
+    [ch_name*="d" i],
+    [ch_name*="e" i],
+    [ch_name*="f" i],
+    [ch_name*="g" i],
+    [ch_name*="h" i],
+    [ch_name*="i" i],
+    [ch_name*="j" i],
+    [ch_name*="k" i],
+    [ch_name*="l" i],
+    [ch_name*="m" i],
+    [ch_name*="n" i],
+    [ch_name*="o" i],
+    [ch_name*="p" i],
+    [ch_name*="q" i],
+    [ch_name*="r" i],
+    [ch_name*="s" i],
+    [ch_name*="t" i],
+    [ch_name*="u" i],
+    [ch_name*="v" i],
+    [ch_name*="w" i],
+    [ch_name*="x" i],
+    [ch_name*="y" i],
+    [ch_name*="z" i]) .ch_name > .flex-container > .flex-container {
+    background-size:
+        100% var(--wg-pitch),
+        100% var(--wg-pitch),
+        var(--wg-cell) var(--wg-pitch),
+        7px 9px,
+        100% 100%;
+    background-repeat: repeat, repeat, repeat-x, repeat, repeat;
+}
+#chat .mes:is([ch_name*="a" i],
+    [ch_name*="b" i],
+    [ch_name*="c" i],
+    [ch_name*="d" i],
+    [ch_name*="e" i],
+    [ch_name*="f" i],
+    [ch_name*="g" i],
+    [ch_name*="h" i],
+    [ch_name*="i" i],
+    [ch_name*="j" i],
+    [ch_name*="k" i],
+    [ch_name*="l" i],
+    [ch_name*="m" i],
+    [ch_name*="n" i],
+    [ch_name*="o" i],
+    [ch_name*="p" i],
+    [ch_name*="q" i],
+    [ch_name*="r" i],
+    [ch_name*="s" i],
+    [ch_name*="t" i],
+    [ch_name*="u" i],
+    [ch_name*="v" i],
+    [ch_name*="w" i],
+    [ch_name*="x" i],
+    [ch_name*="y" i],
+    [ch_name*="z" i]) .ch_name > .flex-container > .flex-container > .name_text {
+    box-sizing: border-box;
+    align-self: stretch;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: var(--wg-pitch);
+    top: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    font-family: var(--wg-title), Georgia, serif;
+    font-size: calc(var(--wg-cell) * .66);
+    line-height: var(--wg-pitch);
+    font-weight: 500;
+    letter-spacing: normal;
+    word-spacing: normal;
+    font-kerning: normal;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+}
+
+/* ======================================================================
+   Wongoji 1.0.8 — full-em CJK cells and exactly one-cell name spaces
+   Scope name metrics to non-Latin headers; number/body/Latin rules stay intact.
+   ====================================================================== */
+@font-face {
+    font-family: 'WG Cell Space';
+    src: url('data:font/ttf;base64,AAEAAAAKAIAAAwAgT1MvMkUCdiUAAAEoAAAAYGNtYXAAsjCJAAABkAAAAERnbHlmAAAAAAAAAdwAAAABaGVhZCz9z7wAAACsAAAANmhoZWEDcgNyAAAA5AAAACRobXR4A+gAAAAAAYgAAAAGbG9jYQAAAAAAAAHUAAAABm1heHAAAwACAAABCAAAACBuYW1leBF0XAAAAeAAAAFHcG9zdAAHAAAAAAMoAAAAJgABAAAAAQAAwUi+j18PPPUAAwPoAAAAAObzx24AAAAA5vPHbgAAAAAAAAAAAAAAAwACAAAAAAAAAAEAAANw/4gAAAPoAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEAAAACAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAwPoAZAABQAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAEAAAAAAAAAAAAAPz8/PwAAACAwAANw/4gAAANwAHgAAAAAAAAAAAAAAAAAAAAgAAAD6AAAAAAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAMAAAAAgACAACAAAAIACgMAD//wAAACAAoDAA////4f9h0AEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADACWAAEAAAAAAAEADQAAAAEAAAAAAAIABwANAAEAAAAAAAMAEQAUAAEAAAAAAAQADQAAAAEAAAAAAAUACwAlAAEAAAAAAAYACwAwAAMAAQQJAAEAGgA7AAMAAQQJAAIADgBVAAMAAQQJAAMAIgBjAAMAAQQJAAQAGgA7AAMAAQQJAAUAFgCFAAMAAQQJAAYAFgCbV0cgQ2VsbCBTcGFjZVJlZ3VsYXJXRyBDZWxsIFNwYWNlIDEuMFZlcnNpb24gMS4wV0dDZWxsU3BhY2UAVwBHACAAQwBlAGwAbAAgAFMAcABhAGMAZQBSAGUAZwB1AGwAYQByAFcARwAgAEMAZQBsAGwAIABTAHAAYQBjAGUAIAAxAC4AMABWAGUAcgBzAGkAbwBuACAAMQAuADAAVwBHAEMAZQBsAGwAUwBwAGEAYwBlAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAADAAA=') format('truetype');
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    unicode-range: U+0020, U+00A0, U+3000;
+}
+#chat .mes:not(:is([ch_name*="a" i],
+    [ch_name*="b" i],
+    [ch_name*="c" i],
+    [ch_name*="d" i],
+    [ch_name*="e" i],
+    [ch_name*="f" i],
+    [ch_name*="g" i],
+    [ch_name*="h" i],
+    [ch_name*="i" i],
+    [ch_name*="j" i],
+    [ch_name*="k" i],
+    [ch_name*="l" i],
+    [ch_name*="m" i],
+    [ch_name*="n" i],
+    [ch_name*="o" i],
+    [ch_name*="p" i],
+    [ch_name*="q" i],
+    [ch_name*="r" i],
+    [ch_name*="s" i],
+    [ch_name*="t" i],
+    [ch_name*="u" i],
+    [ch_name*="v" i],
+    [ch_name*="w" i],
+    [ch_name*="x" i],
+    [ch_name*="y" i],
+    [ch_name*="z" i])) .ch_name > .flex-container > .flex-container {
+    /* Full-em glyph plus this tracking equals exactly one grid cell. */
+    --wg-track: calc(var(--wg-cell) - var(--wg-cell-font));
+}
+#chat .mes:not(:is([ch_name*="a" i],
+    [ch_name*="b" i],
+    [ch_name*="c" i],
+    [ch_name*="d" i],
+    [ch_name*="e" i],
+    [ch_name*="f" i],
+    [ch_name*="g" i],
+    [ch_name*="h" i],
+    [ch_name*="i" i],
+    [ch_name*="j" i],
+    [ch_name*="k" i],
+    [ch_name*="l" i],
+    [ch_name*="m" i],
+    [ch_name*="n" i],
+    [ch_name*="o" i],
+    [ch_name*="p" i],
+    [ch_name*="q" i],
+    [ch_name*="r" i],
+    [ch_name*="s" i],
+    [ch_name*="t" i],
+    [ch_name*="u" i],
+    [ch_name*="v" i],
+    [ch_name*="w" i],
+    [ch_name*="x" i],
+    [ch_name*="y" i],
+    [ch_name*="z" i])) .ch_name > .flex-container > .flex-container > .name_text {
+    font-family: 'WG Cell Space', 'Noto Serif KR', 'Noto Serif CJK KR', 'Noto Serif CJK JP', serif;
+    font-size: var(--wg-cell-font);
+    font-weight: 600;
+    font-kerning: none;
+    font-variant-east-asian: normal;
+    font-feature-settings: 'palt' 0, 'halt' 0, 'pkna' 0;
+    letter-spacing: var(--wg-track);
+    word-spacing: 0;
+    line-height: var(--wg-pitch);
+}
+
+/* ======================================================================
+   Wongoji 1.0.9 — swallows in flight and a feather in the manuscript margin
+   Inline vector backgrounds: no additional files or image requests.
+   ====================================================================== */
+#chat .mes {
+    --wg-flight-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2092%2044%22%3E%3Cdefs%3E%3Cg%20id%3D%22swallow%22%3E%3Cpath%20fill%3D%22%23414b52%22%20d%3D%22M22%2018C16%2014%207%2013%201%205C8%207%2017%206%2023%2013C24%208%2027%203%2034%200C33%208%2031%2014%2027%2018L30%2019L27%2020C24%2023%2022%2022%2019%2023L11%2029L14%2022L8%2021L18%2019Z%22%2F%3E%3Cpath%20d%3D%22M8%208Q16%2010%2020%2015M31%205Q26%2011%2025%2016%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%22.65%22%20opacity%3D%22.65%22%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%3Cuse%20href%3D%22%23swallow%22%20transform%3D%22translate%288%2012%29%20rotate%28-8%2020%2015%29%22%2F%3E%3Cuse%20href%3D%22%23swallow%22%20transform%3D%22translate%2854%203%29%20scale%28.66%29%20rotate%2812%2020%2015%29%22%2F%3E%3Cpath%20d%3D%22M2%2037Q11%2036%2015%2032M45%2023L48%2021M83%2010L87%207%22%20fill%3D%22none%22%20stroke%3D%22%2373818a%22%20stroke-width%3D%22.65%22%20stroke-linecap%3D%22round%22%2F%3E%3Ccircle%20cx%3D%2249%22%20cy%3D%2230%22%20r%3D%22.65%22%20fill%3D%22%2373818a%22%2F%3E%3C%2Fsvg%3E");
+    --wg-feather-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%2028%22%3E%3Cg%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M3.60%2027.20%20L4.22%2026.77%20L4.83%2026.35%20L5.45%2025.92%20L6.07%2025.49%20L6.68%2025.07%20L7.30%2024.64%20L7.92%2024.21%20L8.46%2023.07%20L9.01%2021.99%20L9.57%2020.99%20L10.13%2020.04%20L10.70%2019.11%20L11.26%2018.22%20L11.83%2017.35%20L12.41%2016.50%20L12.98%2015.68%20L13.56%2014.88%20L14.14%2014.09%20L14.72%2013.33%20L15.31%2012.59%20L15.90%2011.87%20L16.48%2011.17%20L17.08%2010.50%20L17.67%209.84%20L18.26%209.21%20L18.86%208.60%20L19.46%208.01%20L20.06%207.44%20L20.67%206.90%20L21.28%206.38%20L21.88%205.88%20L22.50%205.40%20L23.11%204.95%20L23.73%204.52%20L24.35%204.12%20L24.97%203.73%20L25.59%203.37%20L26.22%203.04%20L26.84%202.72%20L27.48%202.43%20L28.11%202.16%20L28.74%201.92%20L29.38%201.69%20L30.02%201.49%20L30.66%201.31%20L31.31%201.15%20L31.95%201.01%20L32.60%200.89%20L33.25%200.80%20L33.90%200.72%20L34.56%200.67%20L35.22%200.64%20L35.88%200.62%20L36.54%200.63%20L37.20%200.67%20L37.87%200.73%20L38.54%200.83%20L39.21%200.97%20L39.90%201.17%20L40.60%201.60%20L40.60%201.60%20L39.98%202.03%20L39.37%202.45%20L38.75%202.88%20L38.13%203.31%20L37.52%203.73%20L36.90%204.16%20L36.28%204.59%20L35.67%205.01%20L35.05%205.44%20L34.43%205.87%20L33.82%206.29%20L33.20%206.72%20L32.58%207.15%20L31.97%207.57%20L31.35%208.00%20L30.73%208.43%20L30.12%208.85%20L29.50%209.28%20L28.88%209.71%20L28.27%2010.13%20L27.65%2010.56%20L27.03%2010.99%20L26.42%2011.41%20L25.80%2011.84%20L25.18%2012.27%20L24.57%2012.69%20L23.95%2013.12%20L23.33%2013.55%20L22.72%2013.97%20L22.10%2014.40%20L21.48%2014.83%20L20.87%2015.25%20L20.25%2015.68%20L19.63%2016.11%20L19.02%2016.53%20L18.40%2016.96%20L17.78%2017.39%20L17.17%2017.81%20L16.55%2018.24%20L15.93%2018.67%20L15.32%2019.09%20L14.70%2019.52%20L14.08%2019.95%20L13.47%2020.37%20L12.85%2020.80%20L12.23%2021.23%20L11.62%2021.65%20L11.00%2022.08%20L10.38%2022.51%20L9.77%2022.93%20L9.15%2023.36%20L8.53%2023.79%20L7.92%2024.21%20L7.30%2024.64%20L6.68%2025.07%20L6.07%2025.49%20L5.45%2025.92%20L4.83%2026.35%20L4.22%2026.77%20L3.60%2027.20Z%22%20fill%3D%22%238a959d%22%2F%3E%3Cpath%20d%3D%22M3.60%2027.20%20L4.22%2026.77%20L4.83%2026.35%20L5.45%2025.92%20L6.07%2025.49%20L6.68%2025.07%20L7.30%2024.64%20L7.92%2024.21%20L8.53%2023.79%20L9.15%2023.36%20L9.77%2022.93%20L10.53%2022.58%20L11.60%2022.38%20L12.59%2022.14%20L13.54%2021.88%20L14.47%2021.61%20L15.38%2021.33%20L16.28%2021.04%20L17.15%2020.74%20L18.01%2020.44%20L18.86%2020.13%20L19.70%2019.81%20L20.52%2019.49%20L21.33%2019.15%20L22.12%2018.81%20L22.90%2018.47%20L23.66%2018.12%20L24.41%2017.76%20L25.15%2017.39%20L25.87%2017.01%20L26.58%2016.63%20L27.27%2016.24%20L27.94%2015.85%20L28.60%2015.44%20L29.25%2015.03%20L29.88%2014.61%20L30.50%2014.18%20L31.09%2013.75%20L31.68%2013.30%20L32.25%2012.85%20L32.80%2012.40%20L33.34%2011.93%20L33.87%2011.46%20L34.38%2010.98%20L34.87%2010.49%20L35.35%2010.00%20L35.82%209.49%20L36.27%208.98%20L36.71%208.47%20L37.13%207.95%20L37.54%207.42%20L37.93%206.88%20L38.32%206.34%20L38.68%205.78%20L39.04%205.23%20L39.38%204.66%20L39.70%204.09%20L40.00%203.50%20L40.27%202.90%20L40.50%202.29%20L40.60%201.60%20L40.60%201.60%20L39.98%202.03%20L39.37%202.45%20L38.75%202.88%20L38.13%203.31%20L37.52%203.73%20L36.90%204.16%20L36.28%204.59%20L35.67%205.01%20L35.05%205.44%20L34.43%205.87%20L33.82%206.29%20L33.20%206.72%20L32.58%207.15%20L31.97%207.57%20L31.35%208.00%20L30.73%208.43%20L30.12%208.85%20L29.50%209.28%20L28.88%209.71%20L28.27%2010.13%20L27.65%2010.56%20L27.03%2010.99%20L26.42%2011.41%20L25.80%2011.84%20L25.18%2012.27%20L24.57%2012.69%20L23.95%2013.12%20L23.33%2013.55%20L22.72%2013.97%20L22.10%2014.40%20L21.48%2014.83%20L20.87%2015.25%20L20.25%2015.68%20L19.63%2016.11%20L19.02%2016.53%20L18.40%2016.96%20L17.78%2017.39%20L17.17%2017.81%20L16.55%2018.24%20L15.93%2018.67%20L15.32%2019.09%20L14.70%2019.52%20L14.08%2019.95%20L13.47%2020.37%20L12.85%2020.80%20L12.23%2021.23%20L11.62%2021.65%20L11.00%2022.08%20L10.38%2022.51%20L9.77%2022.93%20L9.15%2023.36%20L8.53%2023.79%20L7.92%2024.21%20L7.30%2024.64%20L6.68%2025.07%20L6.07%2025.49%20L5.45%2025.92%20L4.83%2026.35%20L4.22%2026.77%20L3.60%2027.20Z%22%20fill%3D%22%234a565f%22%2F%3E%3Cpath%20d%3D%22M11.00%2022.08L10.72%2019.35%20M12.66%2020.93L12.27%2017.09%20M12.66%2020.93L14.07%2021.63%20M14.33%2019.78L13.84%2014.98%20M14.33%2019.78L16.44%2020.83%20M16.00%2018.62L15.42%2013.01%20M16.00%2018.62L18.71%2019.98%20M17.66%2017.47L17.01%2011.18%20M17.66%2017.47L20.88%2019.08%20M19.32%2016.32L18.62%209.49%20M19.32%2016.32L22.96%2018.14%20M20.99%2015.17L20.25%207.96%20M20.99%2015.17L24.95%2017.14%20M22.66%2014.02L21.89%206.57%20M22.66%2014.02L26.83%2016.10%20M24.32%2012.86L23.55%205.34%20M24.32%2012.86L28.62%2015.01%20M25.98%2011.71L25.22%204.27%20M25.98%2011.71L30.30%2013.86%20M27.65%2010.56L26.91%203.35%20M27.65%2010.56L31.88%2012.67%20M29.32%209.41L28.61%202.58%20M29.32%209.41L33.36%2011.43%20M30.98%208.26L30.33%201.96%20M30.98%208.26L34.74%2010.13%20M32.64%207.10L32.07%201.49%20M32.64%207.10L36.02%208.79%20M34.31%205.95L33.82%201.15%20M34.31%205.95L37.21%207.40%20M35.98%204.80L35.58%200.96%20M35.98%204.80L38.30%205.96%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%22.38%22%20opacity%3D%22.75%22%2F%3E%3Cpath%20d%3D%22M17.36%2014.38L17.03%2010.21%20M27.68%206.80L27.31%202.07%20M24.25%2015.58L27.00%2016.87%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%221.1%22%2F%3E%3Cpath%20d%3D%22M3.6%2027.2Q18%2016.5%2040.6%201.6%22%20fill%3D%22none%22%20stroke%3D%22%231c1e21%22%20stroke-width%3D%221.15%22%2F%3E%3Cpath%20d%3D%22M2.3%2027.9L6.2%2026.4L4.9%2024.8Z%22%20fill%3D%22%231c1e21%22%2F%3E%3Cpath%20d%3D%22M5.5%2027C12%2028.2%2018%2025.6%2023%2023.4C27%2021.7%2029.2%2024.2%2026.6%2025.4C24.2%2026.5%2023.6%2023.2%2028.3%2021.6C34%2019.6%2038%2022.6%2043.5%2021.6C48%2020.8%2050.5%2018.6%2055%2019C59%2019.4%2061%2022.2%2066%2021.4%22%20fill%3D%22none%22%20stroke%3D%22%231c1e21%22%20stroke-width%3D%221.15%22%2F%3E%3Cpath%20d%3D%22M30.6%2021.1Q33.6%2019.9%2036.6%2020.6M48.4%2019.6Q51%2018.6%2053.6%2018.9%22%20fill%3D%22none%22%20stroke%3D%22%231c1e21%22%20stroke-width%3D%222%22%20opacity%3D%22.9%22%2F%3E%3Ccircle%20cx%3D%2270.2%22%20cy%3D%2221.2%22%20r%3D%22.95%22%20fill%3D%22%2359656e%22%2F%3E%3Ccircle%20cx%3D%2274.2%22%20cy%3D%2221.2%22%20r%3D%22.95%22%20fill%3D%22%2359656e%22%2F%3E%3Ccircle%20cx%3D%228.6%22%20cy%3D%2227.4%22%20r%3D%221.05%22%20fill%3D%22%231c1e21%22%2F%3E%3Ccircle%20cx%3D%2211.6%22%20cy%3D%2227.7%22%20r%3D%22.55%22%20fill%3D%22%231c1e21%22%2F%3E%3Cpath%20d%3D%22M82%2012.6H92M82.6%2012.6V14.6C80.4%2015.8%2079.6%2017.6%2079.6%2020V25.4C79.6%2026.4%2080.4%2027%2081.4%2027H92.6C93.6%2027%2094.4%2026.4%2094.4%2025.4V20C94.4%2017.6%2093.6%2015.8%2091.4%2014.6V12.6%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%231c1e21%22%20stroke-width%3D%22.85%22%2F%3E%3Cpath%20d%3D%22M80.4%2021H93.6V25.4C93.6%2026%2093.2%2026.3%2092.6%2026.3H81.4C80.8%2026.3%2080.4%2026%2080.4%2025.4Z%22%20fill%3D%22%231c1e21%22%2F%3E%3Cpath%20d%3D%22M82.6%2017.6H91.4V19.8H82.6Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%2359656e%22%20stroke-width%3D%22.6%22%2F%3E%3Cpath%20d%3D%22M84.2%2018.7H89.8%22%20stroke%3D%22%2359656e%22%20stroke-width%3D%22.5%22%2F%3E%3Cpath%20d%3D%22M81.4%2011.4H92.6%22%20stroke%3D%22%2359656e%22%20stroke-width%3D%221.2%22%2F%3E%3Cpath%20d%3D%22M60%207.5Q70%204.2%2083%206.4%22%20fill%3D%22none%22%20stroke%3D%22%238d969d%22%20stroke-width%3D%22.7%22%20stroke-dasharray%3D%22.2%202.4%22%2F%3E%3Cpath%20d%3D%22M96.5%204.6L97.3%206.8L99.5%207.6L97.3%208.4L96.5%2010.6L95.7%208.4L93.5%207.6L95.7%206.8Z%22%20fill%3D%22%2359656e%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --wg-flight-width: 70px;
+    --wg-feather-width: 50px;
+    --wg-feather-reserve: 66px;
+}
+/* .ch_name is display:contents; its positioned ornament anchors to .mes. */
+#chat .mes .ch_name::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: calc(var(--wg-pad) - 33px);
+    right: calc(var(--wg-side) + 2px);
+    left: auto;
+    width: var(--wg-flight-width);
+    height: 30px;
+    background: var(--wg-flight-art) center / contain no-repeat;
+    pointer-events: none;
+    user-select: none;
+    z-index: 2;
+}
+#chat .mes[is_user="true"] .ch_name::before {
+    right: auto;
+    left: calc(var(--wg-side) + 2px);
+    transform: scaleX(-1);
+}
+/* Reserve the outer end of the paper-label rail for the birds. */
+#chat .mes .tokenCounterDisplay,
+#chat .mes .ch_name::after {
+    max-width: max(0px, calc(100% - var(--wg-side) * 2 - var(--wg-pol-w) - var(--wg-flight-width) - 16px));
+}
+/* Anchor below the final name line, so wrapped names move the feather too. */
+#chat .mes .ch_name > .flex-container > .flex-container > .name_text::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: calc(100% + 16px);
+    left: 0;
+    right: auto;
+    width: var(--wg-feather-width);
+    height: 20px;
+    background: var(--wg-feather-art) center / contain no-repeat;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container > .name_text::after {
+    left: auto;
+    right: 0;
+    transform: scaleX(-1);
+}
+#chat .mes .ch_name > .flex-container > .flex-container > .timestamp {
+    max-width: max(0px, calc(100% - var(--wg-pol-w) * .58 - var(--wg-feather-reserve))) !important;
+}
+body.hideChatAvatars #chat .mes .ch_name > .flex-container > .flex-container > .timestamp {
+    max-width: max(0px, calc(100% - var(--wg-feather-reserve))) !important;
+}
+@media (max-width: 600px) {
+    #chat .mes {
+        --wg-flight-width: 58px;
+        --wg-feather-width: 40px;
+        --wg-feather-reserve: 56px;
+    }
+    #chat .mes .ch_name::before {
+        top: calc(var(--wg-pad) - 29px);
+        height: 26px;
+    }
+}
+
+/* ======================================================================
+   Wongoji 1.0.10 — the margin vignette: a quill mid-sentence beside its inkwell
+   The 1.0.9 feather is redrawn with a two-tone vane, split barbs, a nib
+   trailing a written line, ink drops and a small inkwell.
+   ====================================================================== */
+#chat .mes {
+    --wg-feather-width: 96px;
+    --wg-feather-reserve: 110px;
+}
+#chat .mes .ch_name > .flex-container > .flex-container > .name_text::after {
+    top: calc(100% + 13px);
+    height: 27px;
+}
+@media (max-width: 600px) {
+    #chat .mes {
+        --wg-feather-width: 76px;
+        --wg-feather-reserve: 88px;
+    }
+    #chat .mes .ch_name > .flex-container > .flex-container > .name_text::after {
+        top: calc(100% + 14px);
+        height: 21px;
+    }
 }
