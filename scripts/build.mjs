@@ -1,12 +1,24 @@
 // src/wongoji.css 를 테마 JSON 의 custom_css 로 묶어 themes/ 에 내보냅니다.
-// 사용법: node scripts/build.mjs
-import { readFile, writeFile } from 'node:fs/promises';
+// 사용법: node scripts/build.mjs          — 지금 버전으로 다시 만들기
+//        node scripts/build.mjs --bump   — 버전을 올려서 만들기
+//
+// SillyTavern 은 이미 있는 이름의 테마를 가져오지 않으므로,
+// 테마 이름(= 파일 이름)에 버전을 붙여 고칠 때마다 새 이름이 되게 합니다.
+import { readFile, writeFile, readdir, unlink } from 'node:fs/promises';
 
 const root = new URL('../', import.meta.url);
 const css = await readFile(new URL('src/wongoji.css', root), 'utf8');
 
+const versionUrl = new URL('version.json', root);
+const meta = JSON.parse(await readFile(versionUrl, 'utf8'));
+if (process.argv.includes('--bump')) {
+    const [major, minor, patch] = meta.version.split('.').map(Number);
+    meta.version = `${major}.${minor}.${patch + 1}`;
+    await writeFile(versionUrl, JSON.stringify(meta, null, 4) + '\n');
+}
+
 const theme = {
-    name: '원고지 Wongoji',
+    name: `원고지 Wongoji ${meta.version}`,
     blur_strength: 0,
     main_text_color: 'rgba(42, 45, 49, 1)',
     italics_text_color: 'rgba(106, 109, 114, 1)',
@@ -43,6 +55,14 @@ const theme = {
     show_swipe_num_all_messages: false,
 };
 
-const out = new URL(`themes/${theme.name}.json`, root);
+// 이전 버전 파일은 지웁니다
+const themesDir = new URL('themes/', root);
+for (const file of await readdir(themesDir)) {
+    if (file.startsWith('원고지 Wongoji') && file !== `${theme.name}.json`) {
+        await unlink(new URL(file, themesDir));
+    }
+}
+
+const out = new URL(`${theme.name}.json`, themesDir);
 await writeFile(out, JSON.stringify(theme, null, 4) + '\n');
 console.log(`built ${decodeURIComponent(out.pathname)}`);

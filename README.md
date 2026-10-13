@@ -30,9 +30,11 @@ SillyTavern UI 테마입니다. 흰 바탕과 먹, 청회색으로 인쇄된 원
 
 ## 설치
 
-1. `themes/원고지 Wongoji.json`을 내려받습니다.
+1. `themes/` 폴더의 `원고지 Wongoji 1.0.x.json` 파일을 내려받습니다.
 2. SillyTavern → **사용자 설정(User Settings)** → **UI Theme**에서 가져오기(Import) 버튼을 눌러 파일을 선택합니다.
-3. 테마 목록에서 `원고지 Wongoji`를 고릅니다.
+3. 테마 목록에서 `원고지 Wongoji 1.0.x`를 고릅니다.
+
+> **업데이트할 때**: SillyTavern은 이미 있는 이름의 테마를 다시 가져오지 않습니다. 그래서 테마 이름에 버전이 붙어 있고, 고칠 때마다 번호가 올라갑니다. 새 버전 파일을 가져온 뒤 목록에서 새 번호를 고르고, 예전 버전은 삭제 버튼으로 지우면 됩니다.
 
 > Chat Style은 **Flat**으로 두세요. 테마가 이 값을 자동으로 맞춥니다. Bubbles나 Document 스타일과는 함께 쓰도록 만들지 않았습니다.
 
@@ -69,8 +71,8 @@ SillyTavern → 사용자 설정 → **Custom CSS** 맨 위에서 아래 두 줄
 
 ## 개발
 
-원본 CSS는 `src/wongoji.css`에 있습니다. 수정한 뒤 아래 명령으로 테마 JSON을 다시 만듭니다.
+원본 CSS는 `src/wongoji.css`에 있습니다. 수정한 뒤 아래 명령으로 버전을 올려 테마 JSON을 다시 만듭니다. 버전은 `version.json`에 기록되고, 이전 버전 JSON은 지워집니다.
 
 ```sh
-node scripts/build.mjs
+node scripts/build.mjs --bump
 ```
