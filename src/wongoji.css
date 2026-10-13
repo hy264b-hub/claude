@@ -293,9 +293,8 @@ body {
     background: #ffffff;
     border-radius: 1px;
     transform: rotate(var(--wg-tilt));
-    box-shadow:
-        0 0 0 1px rgba(28, 30, 33, 0.06),
-        0 6px 14px -5px rgba(28, 30, 33, 0.30);
+    border: 1px solid var(--wg-ink);
+    box-shadow: none;
     z-index: 2;
     transition: transform var(--animation-duration-2x) ease;
 }
@@ -342,7 +341,7 @@ body {
     width: auto !important;
     max-width: none !important;
     font-family: var(--wg-title) !important;
-    font-size: 12px !important;
+    font-size: 10.5px !important;
     font-weight: 700;
     line-height: 16px !important;
     letter-spacing: 0.06em !important;
@@ -425,7 +424,8 @@ body.no-mesIDDisplay #chat .mes::before {
     margin: 0;
     padding: 0;
     line-height: 14px;
-    font-family: var(--wg-mono);
+    font-family: var(--wg-title);
+    font-weight: 700;
     font-size: 10px;
     letter-spacing: 0.12em;
     color: var(--wg-print);
@@ -859,27 +859,78 @@ body.no-tokenCount #chat .mes .ch_name::after {
     color: var(--wg-ink);
 }
 
-/* 생각(추론) 블록 — 원고 위에 끼운 쪽지 */
+/* 생각(추론) — 원고 여백의 퇴고 메모. 접으면 한 줄, 펼치면 왼쪽 괘선 아래 작은 글씨 */
 #chat .mes .mes_reasoning_details {
-    margin: 0 0 12px;
-    padding: 6px 14px;
-    background: var(--wg-wash);
-    border: 1px dashed var(--wg-print);
-    border-radius: 8px;
+    margin: 0 var(--wg-measure) 14px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
 }
 
 #chat .mes .mes_reasoning_summary {
-    font-family: var(--wg-mono);
+    margin: 0;
+    align-items: center;
+    font-family: var(--wg-title);
     font-size: 12px;
     color: var(--wg-ink-soft);
 }
 
-#chat .mes .mes_reasoning {
-    font-family: var(--wg-serif);
-    font-size: calc(var(--wg-text) * 0.93);
-    line-height: 1.8;
+#chat .mes .mes_reasoning_header {
+    margin: 0;
+    padding: 2px 18px 2px 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    font-family: var(--wg-title);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     color: var(--wg-ink-soft);
-    padding: 6px 0 4px;
+    align-items: center;
+    gap: 8px;
+}
+
+#chat .mes .mes_reasoning_header::before {
+    content: '註';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex: none;
+    border: 1px solid var(--wg-print);
+    font-family: var(--wg-hanja);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--wg-print);
+}
+
+#chat .mes .mes_reasoning_header_title {
+    margin: 0;
+    border-bottom: 1px dotted var(--wg-print-line);
+}
+
+#chat .mes .mes_reasoning_arrow {
+    right: 0;
+    color: var(--wg-print);
+}
+
+#chat .mes .mes_reasoning_actions .mes_button {
+    font-size: 12px;
+}
+
+#chat .mes .mes_reasoning {
+    margin: 8px 0 2px 8px;
+    padding: 2px 0 2px 16px;
+    border-left: 1px solid var(--wg-print-line);
+    font-family: var(--wg-serif);
+    font-size: calc(var(--wg-text) * 0.86);
+    line-height: 1.75;
+    color: var(--wg-ink-soft);
+    max-height: 40vh;
+    overflow-y: auto;
 }
 
 /* 스와이프 */
