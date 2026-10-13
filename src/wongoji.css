@@ -30,6 +30,10 @@
     /* 폴라로이드 사진 필터. 흑백으로 보고 싶다면 grayscale(1) */
     --wg-photo-filter: none;
 
+    /* 폴라로이드 아래 손글씨 — 책날개의 '저자 근영(近影)'처럼 */
+    --wg-caption-char: '저자 근영';
+    --wg-caption-user: '독자 근영';
+
     /* 띠 위 여백에 인쇄된 이름 (토큰 수가 뒤에 붙습니다) */
     --wg-paper-label: '原稿用紙';
 
@@ -53,9 +57,9 @@
     --wg-cell: 32px;              /* 칸 */
     --wg-gap: 8px;                /* 줄 사이 틈 */
     --wg-name-size: 24px;         /* 이름 글자 (칸보다 작게) */
-    --wg-pad: 32px;               /* 구분선과 띠 사이 */
+    --wg-pad: 50px;               /* 구분선과 띠 사이 */
     --wg-side: 18px;
-    --wg-photo: 108px;
+    --wg-photo: 128px;
     --wg-stamp-size: 36px;               /* 번호 도장 지름 */
     --wg-frame: 7px;
     --wg-chin: 28px;
@@ -78,9 +82,9 @@
         --wg-ts-per: 3;
         --wg-gap: 6px;
         --wg-name-size: 19px;
-        --wg-pad: 28px;
+        --wg-pad: 42px;
         --wg-side: 10px;
-        --wg-photo: 82px;
+        --wg-photo: 100px;
         --wg-stamp-size: 31px;
         --wg-frame: 5px;
         --wg-chin: 22px;
@@ -187,7 +191,7 @@ body {
 
     display: block;
     position: relative;
-    padding: calc(var(--wg-pad) + var(--wg-band-h) + 12px) var(--wg-side) 40px;
+    padding: calc(var(--wg-pad) + var(--wg-band-h) + 12px) var(--wg-side) 56px;
     margin: 0;
     /* 구분선 — 원고지 낱장의 머리처럼, 칸마다 눈금을 새긴 자 */
     border-top: 1px solid var(--wg-ink);
@@ -242,9 +246,9 @@ body {
     z-index: 0;
 }
 
-/* 폴라로이드 아래 손글씨 이름 — 아바타와 같은 상자를 같은 각도로 */
+/* 폴라로이드 아래 손글씨 — 아바타와 같은 상자를 같은 각도로 */
 #chat .mes::after {
-    content: attr(ch_name);
+    content: var(--wg-caption-char);
     position: absolute;
     top: var(--wg-pol-top);
     left: var(--wg-side);
@@ -519,12 +523,10 @@ body.no-tokenCount #chat .mes .ch_name::after {
     content: '';
     flex: 1 1 0;
     min-width: 12px;
-    height: 6px;
+    height: 5px;
     margin: 0 10px;
-    /* 아주 작은 원고지 한 줄 */
     border-top: 1px solid var(--wg-print-line);
-    border-bottom: 1px solid var(--wg-print-line);
-    background: linear-gradient(to right, var(--wg-print-faint) 1px, transparent 1px) 0 0 / 6px 100%;
+    border-bottom: 1px solid var(--wg-print-faint);
 }
 
 #chat .mes .mes_button,
@@ -837,7 +839,7 @@ body.no-tokenCount #chat .mes .ch_name::after {
 #chat .mes .mes_block::after {
     content: var(--wg-spine-char);
     position: absolute;
-    top: calc(var(--wg-pad) + var(--wg-band-h) + 66px);
+    top: calc(var(--wg-pad) + var(--wg-band-h) + 84px);
     bottom: 44px;
     left: var(--wg-side);
     width: 14px;
@@ -889,6 +891,10 @@ body.no-tokenCount #chat .mes .ch_name::after {
     left: var(--wg-band-far);
     right: var(--wg-band-near);
     background-position: 0 0, 0 0, left 0 top 0;
+}
+
+#chat .mes[is_user="true"]::after {
+    content: var(--wg-caption-user);
 }
 
 #chat .mes[is_user="true"]::after,
