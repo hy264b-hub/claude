@@ -30,9 +30,9 @@
     /* 폴라로이드 사진 필터. 흑백으로 보고 싶다면 grayscale(1) */
     --wg-photo-filter: none;
 
-    /* 폴라로이드 아래 손글씨 — 책날개의 '저자 근영(近影)'처럼 */
-    --wg-caption-char: '저자 근영';
-    --wg-caption-user: '독자 근영';
+    /* 폴라로이드 아래 인쇄 글씨 — 소설의 '등장인물'과 '화자' */
+    --wg-caption-char: '등장인물';
+    --wg-caption-user: '화자';
 
     /* 띠 위 여백에 인쇄된 이름 (토큰 수가 뒤에 붙습니다) */
     --wg-paper-label: '原稿用紙';
@@ -57,7 +57,7 @@
     --wg-cell: 32px;              /* 칸 */
     --wg-gap: 8px;                /* 줄 사이 틈 */
     --wg-name-size: 24px;         /* 이름 글자 (칸보다 작게) */
-    --wg-pad: 50px;               /* 구분선과 띠 사이 */
+    --wg-pad: 66px;               /* 구분선과 띠 사이 */
     --wg-side: 18px;
     --wg-photo: 128px;
     --wg-stamp-size: 36px;               /* 번호 도장 지름 */
@@ -82,7 +82,7 @@
         --wg-ts-per: 3;
         --wg-gap: 6px;
         --wg-name-size: 19px;
-        --wg-pad: 42px;
+        --wg-pad: 56px;
         --wg-side: 10px;
         --wg-photo: 100px;
         --wg-stamp-size: 31px;
@@ -191,7 +191,7 @@ body {
 
     display: block;
     position: relative;
-    padding: calc(var(--wg-pad) + var(--wg-band-h) + 12px) var(--wg-side) 56px;
+    padding: calc(var(--wg-pad) + var(--wg-band-h) + 12px) var(--wg-side) 76px;
     margin: 0;
     /* 구분선 — 원고지 낱장의 머리처럼, 칸마다 눈금을 새긴 자 */
     border-top: 1px solid var(--wg-ink);
@@ -246,7 +246,7 @@ body {
     z-index: 0;
 }
 
-/* 폴라로이드 아래 손글씨 — 아바타와 같은 상자를 같은 각도로 */
+/* 폴라로이드 아래 글씨 — 아바타와 같은 상자를 같은 각도로 */
 #chat .mes::after {
     content: var(--wg-caption-char);
     position: absolute;
@@ -258,8 +258,11 @@ body {
     padding: calc(var(--wg-photo) + var(--wg-frame)) 8px 0;
     transform: rotate(var(--wg-tilt));
     text-align: center;
-    font-family: var(--wg-hand);
-    font-size: calc(var(--wg-chin) * 0.8);
+    font-family: var(--wg-title);
+    font-size: calc(var(--wg-chin) * 0.42);
+    font-weight: 700;
+    letter-spacing: 0.45em;
+    text-indent: 0.45em;
     line-height: calc(var(--wg-chin) * 0.95);
     color: var(--wg-ink-soft);
     white-space: nowrap;
@@ -312,6 +315,33 @@ body {
     clip-path: polygon(0 8%, 6% 0, 12% 10%, 18% 0, 82% 0, 88% 10%, 94% 0, 100% 8%,
         100% 92%, 94% 100%, 88% 90%, 82% 100%, 18% 100%, 12% 90%, 6% 100%, 0 92%);
     z-index: 1;
+}
+
+/* 유저 — 모서리 두 곳에 체크무늬 테이프 */
+#chat .mes[is_user="true"] .avatar::before,
+#chat .mes[is_user="true"] .avatar::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--wg-frame) * -0.6);
+    width: 34%;
+    height: calc(var(--wg-frame) * 2.4);
+    background:
+        linear-gradient(90deg, rgba(150, 166, 182, 0.35) 50%, transparent 50%) 0 0 / 6px 6px,
+        linear-gradient(rgba(150, 166, 182, 0.35) 50%, transparent 50%) 0 0 / 6px 6px,
+        rgba(226, 232, 238, 0.8);
+    clip-path: polygon(0 0, 100% 0, 96% 50%, 100% 100%, 0 100%, 4% 50%);
+    z-index: 1;
+}
+
+#chat .mes[is_user="true"] .avatar::before {
+    left: calc(var(--wg-frame) * -1.8);
+    transform: rotate(-38deg);
+}
+
+#chat .mes[is_user="true"] .avatar::after {
+    left: auto;
+    right: calc(var(--wg-frame) * -1.8);
+    transform: rotate(38deg);
 }
 
 #chat .mes .avatar img {
@@ -835,12 +865,12 @@ body.no-tokenCount #chat .mes .ch_name::after {
     height: auto;
 }
 
-/* 책등 — 본문 옆에 세로로 인쇄된 표기 (넓은 화면) */
+/* 책등 — 본문 옆에 세로로 인쇄된 표기 */
 #chat .mes .mes_block::after {
     content: var(--wg-spine-char);
     position: absolute;
     top: calc(var(--wg-pad) + var(--wg-band-h) + 84px);
-    bottom: 44px;
+    bottom: 76px;
     left: var(--wg-side);
     width: 14px;
     box-sizing: border-box;
@@ -870,7 +900,20 @@ body.no-tokenCount #chat .mes .ch_name::after {
 
 @media (max-width: 600px) {
     #chat .mes .mes_block::after {
-        display: none;
+        width: 12px;
+        line-height: 12px;
+        font-size: 7.5px;
+        letter-spacing: 0.26em;
+    }
+
+    #chat .mes .mes_text {
+        padding-left: 26px;
+        padding-right: 8px;
+    }
+
+    #chat .mes[is_user="true"] .mes_text {
+        padding-left: 8px;
+        padding-right: 26px;
     }
 }
 
