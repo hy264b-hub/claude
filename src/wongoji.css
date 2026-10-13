@@ -30,9 +30,12 @@
     /* 폴라로이드 사진 필터. 흑백으로 보고 싶다면 grayscale(1) */
     --wg-photo-filter: none;
 
-    /* 폴라로이드 아래 인쇄 글씨 — 소설의 '등장인물'과 '화자' */
-    --wg-caption-char: '등장인물';
-    --wg-caption-user: '화자';
+    /* ── 폴라로이드 아래 글귀 ─────────────────────────────
+       따옴표 안의 글자만 바꾸면 됩니다. 예) '春風秋雨', '그날의 기록'
+       一期一會 (일기일회) — 일생에 단 한 번의 만남
+       以心傳心 (이심전심) — 마음에서 마음으로 전함            */
+    --wg-caption-char: '一期一會';
+    --wg-caption-user: '以心傳心';
 
     /* 띠 위 여백에 인쇄된 이름 (토큰 수가 뒤에 붙습니다) */
     --wg-paper-label: '原稿用紙';
@@ -56,7 +59,8 @@
     --wg-cell: 32px;              /* 칸 */
     --wg-gap: 8px;                /* 줄 사이 틈 */
     --wg-name-size: 24px;         /* 이름 글자 (칸보다 작게) */
-    --wg-pad: 66px;               /* 구분선과 띠 사이 */
+    --wg-pad: 74px;               /* 구분선과 띠 사이 */
+    --wg-after: 108px;            /* 본문 끝과 다음 구분선 사이 */
     --wg-side: 18px;
     --wg-photo: 128px;
     --wg-stamp-size: 36px;               /* 번호 도장 지름 */
@@ -81,7 +85,8 @@
         --wg-ts-per: 3;
         --wg-gap: 6px;
         --wg-name-size: 19px;
-        --wg-pad: 56px;
+        --wg-pad: 62px;
+        --wg-after: 92px;
         --wg-side: 10px;
         --wg-photo: 100px;
         --wg-stamp-size: 31px;
@@ -190,7 +195,7 @@ body {
 
     display: block;
     position: relative;
-    padding: calc(var(--wg-pad) + var(--wg-band-h) + 12px) var(--wg-side) 76px;
+    padding: calc(var(--wg-pad) + var(--wg-band-h) + 12px) var(--wg-side) var(--wg-after);
     margin: 0;
     /* 구분선 — 원고지 낱장의 머리처럼, 칸마다 눈금을 새긴 자 */
     border-top: 1px solid var(--wg-ink);
@@ -297,50 +302,6 @@ body {
 
 #chat .mes .avatar:hover {
     transform: rotate(0deg) scale(1.03);
-}
-
-/* 마스킹 테이프 */
-#chat .mes .avatar::before {
-    content: '';
-    position: absolute;
-    top: calc(var(--wg-frame) * -1.5);
-    left: 50%;
-    width: 44%;
-    height: calc(var(--wg-frame) * 2.6);
-    transform: translateX(-50%) rotate(3deg);
-    background: repeating-linear-gradient(-45deg,
-        rgba(170, 184, 199, 0.72) 0 4px,
-        rgba(214, 222, 230, 0.72) 4px 8px);
-    clip-path: polygon(0 8%, 6% 0, 12% 10%, 18% 0, 82% 0, 88% 10%, 94% 0, 100% 8%,
-        100% 92%, 94% 100%, 88% 90%, 82% 100%, 18% 100%, 12% 90%, 6% 100%, 0 92%);
-    z-index: 1;
-}
-
-/* 유저 — 모서리 두 곳에 체크무늬 테이프 */
-#chat .mes[is_user="true"] .avatar::before,
-#chat .mes[is_user="true"] .avatar::after {
-    content: '';
-    position: absolute;
-    top: calc(var(--wg-frame) * -0.6);
-    width: 34%;
-    height: calc(var(--wg-frame) * 2.4);
-    background:
-        linear-gradient(90deg, rgba(150, 166, 182, 0.35) 50%, transparent 50%) 0 0 / 6px 6px,
-        linear-gradient(rgba(150, 166, 182, 0.35) 50%, transparent 50%) 0 0 / 6px 6px,
-        rgba(226, 232, 238, 0.8);
-    clip-path: polygon(0 0, 100% 0, 96% 50%, 100% 100%, 0 100%, 4% 50%);
-    z-index: 1;
-}
-
-#chat .mes[is_user="true"] .avatar::before {
-    left: calc(var(--wg-frame) * -1.8);
-    transform: rotate(-38deg);
-}
-
-#chat .mes[is_user="true"] .avatar::after {
-    left: auto;
-    right: calc(var(--wg-frame) * -1.8);
-    transform: rotate(38deg);
 }
 
 #chat .mes .avatar img {
@@ -869,7 +830,7 @@ body.no-tokenCount #chat .mes .ch_name::after {
     content: var(--wg-spine-char);
     position: absolute;
     top: calc(var(--wg-pad) + var(--wg-band-h) + 84px);
-    bottom: 76px;
+    bottom: var(--wg-after);
     left: var(--wg-side);
     width: 14px;
     box-sizing: border-box;
