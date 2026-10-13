@@ -2611,3 +2611,26 @@ body.square-avatars #chat .mes .avatar img,
 body:not(.big-avatars) #chat .mes .avatar img {
     border-radius: 0 !important;
 }
+
+/* ======================================================================
+   Wongoji 1.0.26 — 확장 설정 안의 버튼이 좁게 눌려 글자가 세로로 쌓이지 않게
+   ====================================================================== */
+#extensions_settings .inline-drawer-content .flex-container,
+#extensions_settings2 .inline-drawer-content .flex-container {
+    flex-wrap: wrap;
+}
+#extensions_settings .inline-drawer-content .menu_button,
+#extensions_settings2 .inline-drawer-content .menu_button {
+    flex-shrink: 0;
+    width: max-content;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    word-break: keep-all;
+    writing-mode: horizontal-tb;
+}
+#extensions_settings .inline-drawer-content .menu_button > span,
+#extensions_settings2 .inline-drawer-content .menu_button > span {
+    min-width: 0;
+    word-break: keep-all;
+}
