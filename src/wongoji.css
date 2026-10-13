@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Nanum+Pen+Script&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 /* ==========================================================================
    원고지 · Wongoji — SillyTavern theme
@@ -40,7 +40,6 @@
     /* 서체 */
     --wg-serif: 'Gowun Batang', 'Nanum Myeongjo', 'Noto Serif KR', serif;
     --wg-title: 'Nanum Myeongjo', 'Gowun Batang', 'Noto Serif KR', serif;
-    --wg-hand: 'Nanum Pen Script', 'Gowun Batang', cursive;
     --wg-mono: 'IBM Plex Mono', 'D2Coding', ui-monospace, monospace;
 
     /* 본문: 글자 크기와 행간 */
