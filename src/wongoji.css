@@ -293,7 +293,7 @@ body {
     background: #ffffff;
     border-radius: 1px;
     transform: rotate(var(--wg-tilt));
-    border: 1px solid var(--wg-ink);
+    border: 1px solid var(--wg-band-frame);
     box-shadow: none;
     z-index: 2;
     transition: transform var(--animation-duration-2x) ease;
