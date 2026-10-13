@@ -2487,3 +2487,45 @@ body.hideChatAvatars #chat .mes .ch_name > .flex-container > .flex-container > .
     outline: none;
     box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--wg-stamp);
 }
+
+/* ======================================================================
+   Wongoji 1.0.23 — 펼친 메시지 버튼이 잘리지 않게, 버튼 줄 여백
+   ====================================================================== */
+#chat .mes .mes_buttons,
+#chat .mes .mes_edit_buttons {
+    flex-wrap: nowrap;
+    overflow: visible;
+    padding-top: 22px;
+    padding-bottom: 14px;
+}
+/* 펼친 아이콘 묶음은 괘선 사이에서 줄을 바꿔 가운데로 모읍니다 */
+#chat .mes .mes_buttons .extraMesButtons {
+    flex: 0 1 auto;
+    min-width: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 6px;
+    overflow: visible;
+    padding: 2px;
+}
+#chat .mes .mes_buttons .extraMesButtons > div,
+#chat .mes .mes_buttons > .mes_button {
+    flex: none;
+}
+@media (max-width: 600px) {
+    #chat .mes .mes_buttons,
+    #chat .mes .mes_edit_buttons {
+        padding-top: 18px;
+        padding-bottom: 12px;
+    }
+}
+/* 아이콘을 펼치면 양옆 괘선은 접고 한 폭을 다 써서 가운데로 정렬합니다 */
+#chat .mes .mes_buttons:has(.extraMesButtons[style*="flex"]) {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 6px;
+}
+#chat .mes .mes_buttons:has(.extraMesButtons[style*="flex"])::before,
+#chat .mes .mes_buttons:has(.extraMesButtons[style*="flex"])::after {
+    display: none;
+}
