@@ -31,7 +31,7 @@ const theme = {
     timestamp_model_icon: false,
     mesIDDisplay_enabled: true,
     hideChatAvatars_enabled: false,
-    message_token_count_enabled: false,
+    message_token_count_enabled: true,
     expand_message_actions: false,
     enableZenSliders: false,
     enableLabMode: false,
