@@ -1,22 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 /* 원고지 칸 글꼴 — 한글은 나눔명조(한 칸), 영문·숫자·문장부호·띄어쓰기는
-   크기를 줄인 고정폭 명조(Courier Prime, 반 칸). 원고지 규칙대로 영문·숫자는 한 칸에 두 자. */
+   크기를 줄인 고정폭 명조(Xanh Mono, 반 칸). 원고지 규칙대로 영문·숫자는 한 칸에 두 자. */
 @font-face {
     font-family: 'WG Cell Latin';
-    src: url(https://fonts.gstatic.com/s/courierprime/v11/u-450q2lgwslOqpF_6gQ8kELawFpWg.woff2) format('woff2');
-    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/xanhmono/v19/R70YjykVmvKCep-vWhSonwqR.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
-    size-adjust: 47.222%;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'WG Cell Latin';
-    src: url(https://fonts.gstatic.com/s/courierprime/v11/u-4k0q2lgwslOqpF_6gQ8kELY7pMT-Dfqw.woff2) format('woff2');
-    font-weight: 700;
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
-    size-adjust: 47.222%;
+    size-adjust: 56.667%;
+    /* 줄의 기준선은 이 글꼴이 정하므로, 세로 치수를 나눔명조와 같게 맞춥니다 */
+    ascent-override: 141.18%;
+    descent-override: 35.29%;
+    line-gap-override: 0%;
     font-display: swap;
 }
 
@@ -502,8 +496,8 @@ body.no-tokenCount #chat .mes .ch_name::after {
 
 #chat .mes .name_text {
     position: relative;
-    /* 명조 한글의 먹 중심이 줄 가운데보다 0.055em 위에 있어 그만큼 내립니다 */
-    top: 0.055em;
+    /* 명조 한글의 먹 중심이 줄 가운데보다 위에 있어 그만큼 내립니다 */
+    top: 0.035em;
     font-weight: 700;
     /* 띄어쓰기도 한 칸 */
     word-spacing: calc(var(--wg-cell) / 2);
