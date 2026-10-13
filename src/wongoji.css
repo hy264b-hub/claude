@@ -1,19 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
-/* 원고지 칸 글꼴 — 한글은 나눔명조(한 칸), 영문·숫자·문장부호·띄어쓰기는
-   크기를 줄인 고정폭 명조(Xanh Mono, 반 칸). 원고지 규칙대로 영문·숫자는 한 칸에 두 자. */
-@font-face {
-    font-family: 'WG Cell Latin';
-    src: url(https://fonts.gstatic.com/s/xanhmono/v19/R70YjykVmvKCep-vWhSonwqR.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
-    size-adjust: 56.667%;
-    /* 줄의 기준선은 이 글꼴이 정하므로, 세로 치수를 나눔명조와 같게 맞춥니다 */
-    ascent-override: 141.18%;
-    descent-override: 35.29%;
-    line-gap-override: 0%;
-    font-display: swap;
-}
-
 /* ==========================================================================
    원고지 · Wongoji — SillyTavern theme
    흰 종이, 먹, 그리고 청회색으로 인쇄된 원고지 칸.
@@ -197,11 +183,10 @@ body {
     --wg-pol-h: calc(var(--wg-photo) + var(--wg-frame) + var(--wg-chin));
     --wg-band-near: calc(var(--wg-side) + var(--wg-pol-w) * 0.42);
     --wg-band-far: var(--wg-side);
-    /* 칸 글꼴: 글자 크기 = 칸의 75%.
-       한글 0.95em + 자간 = 한 칸, 영문·숫자(0.283em) + 자간 = 반 칸 */
+    /* 칸 글꼴: 나눔명조, 글자 크기 = 칸의 75%. 한글 0.95em + 자간 = 한 칸 */
     --wg-cell-font: calc(var(--wg-cell) * 0.75);
     --wg-track: calc(var(--wg-cell) * 0.2875);
-    --wg-cell-family: 'WG Cell Latin', 'Nanum Myeongjo', 'Noto Serif KR', serif;
+    --wg-cell-family: 'Nanum Myeongjo', 'Noto Serif KR', serif;
     --wg-band-bg: var(--wg-paper);
     /* 캐릭터 원고지는 먹색 선 */
     --wg-band-frame: var(--wg-ink);
@@ -342,11 +327,11 @@ body {
     order: -1;
     /* 날짜는 칸에 맞추지 않고 명조로 촘촘하게 */
     font-family: var(--wg-title) !important;
-    font-size: calc(var(--wg-cell) * 0.42) !important;
-    font-weight: 400;
-    letter-spacing: 0.06em !important;
-    word-spacing: 0.12em;
-    color: var(--wg-ink-soft);
+    font-size: calc(var(--wg-cell) * 0.5) !important;
+    font-weight: 700;
+    letter-spacing: 0.04em !important;
+    word-spacing: 0.1em;
+    color: var(--wg-ink-body);
     padding-right: calc(var(--wg-cell) * 0.15) !important;
 }
 
@@ -428,7 +413,7 @@ body.no-tokenCount #chat .mes .ch_name::after {
 
 /* 원고지 띠 — 날짜와 이름을 담은 상자 자체에 칸을 그립니다.
    글이 길면 줄이 늘고, 띠도 함께 늘어납니다.
-   한글은 한 칸, 영문·숫자·띄어쓰기는 반 칸 */
+   한글은 한 칸에 한 자, 띄어쓰기도 한 칸 */
 #chat .mes .mes_block,
 #chat .mes .ch_name,
 #chat .mes .ch_name > .flex-container {
@@ -496,11 +481,11 @@ body.no-tokenCount #chat .mes .ch_name::after {
 
 #chat .mes .name_text {
     position: relative;
-    /* 명조 한글의 먹 중심이 줄 가운데보다 위에 있어 그만큼 내립니다 */
-    top: 0.035em;
+    /* 명조 한글의 먹 중심이 줄 가운데보다 0.055em 위에 있어 그만큼 내립니다 */
+    top: 0.055em;
     font-weight: 700;
     /* 띄어쓰기도 한 칸 */
-    word-spacing: calc(var(--wg-cell) / 2);
+    word-spacing: calc(var(--wg-cell) - var(--wg-cell-font) * 0.27 - var(--wg-track));
     color: var(--wg-ink);
 }
 
@@ -530,8 +515,8 @@ body.no-tokenCount #chat .mes .ch_name::after {
     gap: 2px;
     grid-row: 2;
     grid-column: 1 / -1;
-    /* 가운데 정렬. 폴라로이드가 내려와도 겹치지 않게 양쪽을 똑같이 비웁니다 */
-    margin: 0 calc(var(--wg-pol-w) + 6px) 18px;
+    /* 가운데 정렬. 두 줄짜리 띠 아래로 늘어진 폴라로이드보다 더 아래에 둡니다 */
+    margin: max(6px, calc((var(--wg-pol-h) - var(--wg-pitch) * 2 - var(--wg-gap)) / 2 - 2px)) var(--wg-measure) 22px;
     min-height: 36px;
     overflow: visible;
 }
@@ -1195,6 +1180,5 @@ h1, h2, h3, h4, h5,
 /* 아바타를 숨기면 구분 줄도 폴라로이드 자리를 비우지 않습니다 */
 body.hideChatAvatars #chat .mes .mes_buttons,
 body.hideChatAvatars #chat .mes .mes_edit_buttons {
-    margin-left: 46px;
-    margin-right: 46px;
+    margin-top: 6px;
 }
