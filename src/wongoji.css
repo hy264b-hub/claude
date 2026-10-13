@@ -37,11 +37,6 @@
     --wg-caption-char: '花樣年華';
     --wg-caption-user: '雪泥鴻爪';
 
-    /* ── 원고지 첫 줄(제목 줄) 글귀 ─────────────────────────
-       한글과 띄어쓰기만 쓰면 한 칸에 한 자씩 맞춰 들어갑니다.
-       예) '부치지 못한 편지', '어느 오후', '회신'              */
-    --wg-row-char: '그대에게';
-    --wg-row-user: '답장';
 
     /* 띠 위 여백에 인쇄된 이름 (토큰 수가 뒤에 붙습니다) */
     --wg-paper-label: '原稿用紙';
@@ -69,7 +64,6 @@
     --wg-after: 108px;            /* 본문 끝과 다음 구분선 사이 */
     --wg-side: 18px;
     --wg-photo: 128px;
-    --wg-stamp-size: 36px;               /* 번호 도장 지름 */
     --wg-frame: 7px;
     --wg-chin: 28px;
     --wg-tilt: -4deg;
@@ -91,7 +85,6 @@
         --wg-after: 92px;
         --wg-side: 10px;
         --wg-photo: 100px;
-        --wg-stamp-size: 31px;
         --wg-frame: 5px;
         --wg-chin: 22px;
         --topBarIconSize: calc(var(--mainFontSize) * 1.05);
@@ -351,9 +344,9 @@ body {
     left: -1px;
 }
 
-/* 첫째 줄 — 원고지의 제목 줄. 한 칸에 한 자씩 */
+/* 첫째 줄 — 채팅 번호 자리 (번호는 .mes::before 가 위에 겹쳐 적습니다) */
 #chat .mes .ch_name > .flex-container > .flex-container::before {
-    content: var(--wg-row-char);
+    content: '\00A0';
     order: -1;
     display: block;
     align-self: stretch;
@@ -366,12 +359,48 @@ body {
     word-break: keep-all;
 }
 
-#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container::before {
-    content: var(--wg-row-user);
+/* 채팅 번호 — 첫째 줄에 숫자 한 칸에 한 자씩.
+   나눔명조 숫자는 폭이 0.537em 으로 모두 같아 자간으로 칸에 맞춥니다 */
+#chat .mes::before {
+    --wg-digit-track: calc(var(--wg-cell) - var(--wg-cell-font) * 0.537);
+    content: attr(mesid);
+    grid-row: 1;
+    grid-column: 2 / 4;
+    align-self: start;
+    justify-self: end;
+    position: relative;
+    top: 0.055em;
+    z-index: 1;
+    margin-top: calc(1px + var(--wg-gap) / 2);
+    margin-right: calc(var(--wg-cell) - var(--wg-digit-track) / 2);
+    height: var(--wg-pitch);
+    font-family: var(--wg-cell-family);
+    font-size: var(--wg-cell-font);
+    font-weight: 400;
+    line-height: var(--wg-pitch);
+    letter-spacing: var(--wg-digit-track);
+    color: var(--wg-ink-soft);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+#chat .mes[is_user="true"]::before {
+    grid-column: 1 / 3;
+    justify-self: start;
+    margin-right: 0;
+    margin-left: calc(var(--wg-cell) + var(--wg-digit-track) / 2);
+}
+
+body.no-mesIDDisplay #chat .mes::before {
+    content: none;
+}
+
+#chat .mes .mesIDDisplay {
+    display: none !important;
 }
 
 #chat .mes .mes_timer {
-    right: calc(var(--wg-band-far) + var(--wg-stamp-size) + 8px);
+    right: var(--wg-band-far);
 }
 
 /* 원고지 머리 여백에 인쇄된 표기 */
@@ -415,35 +444,6 @@ body {
 
 body.no-tokenCount #chat .mes .ch_name::after {
     content: var(--wg-paper-label);
-}
-
-/* 번호 — 띠 모서리에 찍은 원형 도장 */
-#chat .mes .mesIDDisplay {
-    position: absolute;
-    top: calc(var(--wg-pad) - var(--wg-stamp-size) * 0.55);
-    right: calc(var(--wg-band-far) - 6px);
-    width: var(--wg-stamp-size);
-    height: var(--wg-stamp-size);
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    border: 1px solid var(--wg-print);
-    border-radius: 50%;
-    box-shadow: inset 0 0 0 2px var(--wg-paper), inset 0 0 0 2.6px var(--wg-print-line);
-    background: var(--wg-paper);
-    font-family: var(--wg-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 1;
-    color: var(--wg-print);
-    opacity: 1;
-    transform: rotate(-8deg);
-    white-space: nowrap;
-    z-index: 2;
 }
 
 /* 원고지 띠 — 날짜와 이름을 담은 상자 자체에 칸을 그립니다.
@@ -1006,7 +1006,7 @@ body.no-tokenCount #chat .mes .ch_name::after {
 
 #chat .mes[is_user="true"] .mes_timer {
     right: auto;
-    left: calc(var(--wg-band-far) + var(--wg-stamp-size) + 8px);
+    left: var(--wg-band-far);
 }
 
 #chat .mes[is_user="true"] .tokenCounterDisplay,
@@ -1014,14 +1014,6 @@ body.no-tokenCount #chat .mes .ch_name::after {
     left: auto;
     right: calc(var(--wg-side) + var(--wg-pol-w) + 8px);
 }
-
-#chat .mes[is_user="true"] .mesIDDisplay {
-    right: auto;
-    left: calc(var(--wg-band-far) - 6px);
-    transform: rotate(8deg);
-}
-
-
 
 #chat .mes[is_user="true"] .mes_ghost {
     left: auto;
