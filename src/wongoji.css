@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
+/* 채팅 번호 앞의 '#' — 나눔명조 '#'(0.617em)을 숫자 폭(0.537em)에 맞춰 줄여 한 칸에 들어가게 합니다 */
+@font-face {
+    font-family: 'WG Hash';
+    src: url(https://fonts.gstatic.com/l/font?kit=9Btx3DZF0dXLMZlywRbVRNhxy1LuYHEX&skey=c8f5ea5084209dd&v=v31) format('woff2');
+    unicode-range: U+23;
+    size-adjust: 87.03%;
+    ascent-override: 91.92%;
+    descent-override: 22.98%;
+    line-gap-override: 0%;
+    font-display: swap;
+}
+
 /* ==========================================================================
    원고지 · Wongoji — SillyTavern theme
    흰 종이, 먹, 그리고 청회색으로 인쇄된 원고지 칸.
@@ -363,7 +375,7 @@ body {
    나눔명조 숫자는 폭이 0.537em 으로 모두 같아 자간으로 칸에 맞춥니다 */
 #chat .mes::before {
     --wg-digit-track: calc(var(--wg-cell) - var(--wg-cell-font) * 0.537);
-    content: attr(mesid);
+    content: '#' attr(mesid);
     grid-row: 1;
     grid-column: 2 / 4;
     align-self: start;
@@ -374,7 +386,7 @@ body {
     margin-top: calc(1px + var(--wg-gap) / 2);
     margin-right: calc(var(--wg-cell) - var(--wg-digit-track) / 2);
     height: var(--wg-pitch);
-    font-family: var(--wg-cell-family);
+    font-family: 'WG Hash', var(--wg-cell-family);
     font-size: var(--wg-cell-font);
     font-weight: 400;
     line-height: var(--wg-pitch);
