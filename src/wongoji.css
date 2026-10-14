@@ -3138,3 +3138,42 @@ body.hideChatAvatars #chat .mes { --wg-action-clearance: 76px; }
 #chat .mes .mes_timer {
     margin-bottom: -26px;
 }
+
+/* ======================================================================
+   Wongoji 1.0.49 — 글 끝 ◇ 줄바꿈, 편집 상자, 유저 꽃 장식 간격
+   ====================================================================== */
+/* ◇ 이 마지막 단어와 함께 움직이도록, 줄바꿈 없는 공백으로 붙입니다 */
+#chat .mes .mes_text > p:last-child::after {
+    content: '\00A0\00A0' var(--wg-endmark);
+    display: inline;
+    margin-left: 0;
+    white-space: nowrap;
+}
+
+/* 편집 상자 — 가는 회색 테두리, 거의 각진 모서리, 옅은 괘선이 깔린 원고 */
+#chat .mes .edit_textarea {
+    --wg-edit-lh: 1.9em;
+    border: 1px solid var(--wg-ui-line, #d4d4d4);
+    border-radius: 3px;
+    box-shadow: none !important;
+    outline: none;
+    background-color: var(--wg-paper);
+    background-image: repeating-linear-gradient(to bottom,
+        transparent 0 calc(var(--wg-edit-lh) - 1px),
+        var(--wg-print-faint) calc(var(--wg-edit-lh) - 1px) var(--wg-edit-lh));
+    background-position: 0 12px;
+    background-attachment: local;
+    line-height: var(--wg-edit-lh);
+    transition: border-color var(--animation-duration-2x) ease;
+}
+#chat .mes .edit_textarea:focus {
+    border-color: var(--wg-ink-soft);
+}
+#chat .mes[is_user="true"] .edit_textarea:focus {
+    border-color: var(--wg-print);
+}
+
+/* 유저 꽃 장식을 폴라로이드 모서리에서 조금 띄웁니다 */
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container > .name_text::after {
+    right: 10px;
+}
