@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Gothic:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 /* 채팅 번호 앞의 '#' — 나눔명조 '#'(0.617em)을 숫자 폭(0.537em)에 맞춰 줄여 한 칸에 들어가게 합니다 */
@@ -2641,4 +2642,499 @@ body:not(.big-avatars) #chat .mes .avatar img {
 }
 body.no-modelIcons #chat .mes .ch_name > .flex-container > .flex-container:has(> .timestamp-icon) > .timestamp {
     max-width: max(0px, calc(100% - var(--wg-pol-w) * .58 - var(--wg-feather-reserve))) !important;
+}
+
+/* Wongoji 1.0.28 — print finish only. All geometry, type metrics and content
+   remain those of 1.0.27. No changes to widths, spacing, transforms or flow. */
+#chat .mes {
+    --wg-flight-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2092%2044%22%3E%3Cdefs%3E%3Cg%20id%3D%22swallow%22%3E%3Cpath%20fill%3D%22%23eef0f1%22%20d%3D%22M22%2018C16%2014%207%2013%201%205C8%207%2017%206%2023%2013C24%208%2027%203%2034%200C33%208%2031%2014%2027%2018L30%2019L27%2020C24%2023%2022%2022%2019%2023L11%2029L14%2022L8%2021L18%2019Z%22%20stroke%3D%22%2348545d%22%20stroke-width%3D%22.7%22%20stroke-linejoin%3D%22round%22%20%2F%3E%3Cpath%20d%3D%22M8%208Q16%2010%2020%2015M31%205Q26%2011%2025%2016%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%22.65%22%20opacity%3D%22.65%22%20%2F%3E%3Cg%20clip-path%3D%22url%28%23wing-engraving%29%22%20fill%3D%22none%22%20stroke%3D%22%2366747d%22%20stroke-width%3D%22.48%22%20opacity%3D%22.85%22%3E%3Cpath%20d%3D%22M4.0%206.0Q10.0%2013.0%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M6.1%206.8Q11.8%2013.6%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M8.2%207.5Q13.6%2014.1%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M10.3%208.2Q15.4%2014.7%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M12.4%209.0Q17.2%2015.2%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M14.5%209.8Q19.0%2015.8%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M16.6%2010.5Q20.8%2016.3%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M18.7%2011.2Q22.6%2016.9%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M20.8%2012.0Q24.4%2017.4%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M27.0%205.0Q27.0%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M28.1%205.2Q27.6%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M29.2%205.4Q28.3%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M30.3%205.6Q28.9%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M31.4%205.8Q29.6%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M32.5%206.0Q30.2%2012%2024%2018%22%20%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M18%2019Q23%2016%2027%2018L30%2019L27%2020Q23%2023%2019%2023L11%2029L15%2022L9%2021Z%22%20fill%3D%22%234d5962%22%20%2F%3E%3C%2Fg%3E%3CclipPath%20id%3D%22wing-engraving%22%3E%3Cpath%20d%3D%22M22%2018C16%2014%207%2013%201%205C8%207%2017%206%2023%2013C24%208%2027%203%2034%200C33%208%2031%2014%2027%2018L30%2019L27%2020C24%2023%2022%2022%2019%2023L11%2029L14%2022L8%2021L18%2019Z%22%20%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cuse%20href%3D%22%23swallow%22%20transform%3D%22translate%288%2012%29%20rotate%28-8%2020%2015%29%22%20%2F%3E%3Cuse%20href%3D%22%23swallow%22%20transform%3D%22translate%2854%203%29%20scale%28.66%29%20rotate%2812%2020%2015%29%22%20%2F%3E%3Cpath%20d%3D%22M2%2037Q11%2036%2015%2032M45%2023L48%2021M83%2010L87%207%22%20fill%3D%22none%22%20stroke%3D%22%2373818a%22%20stroke-width%3D%22.65%22%20stroke-linecap%3D%22round%22%20%2F%3E%3Ccircle%20cx%3D%2249%22%20cy%3D%2230%22%20r%3D%22.65%22%20fill%3D%22%2373818a%22%20%2F%3E%3C%2Fsvg%3E");
+    --wg-feather-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%222%200%2072%2028%22%3E%3Cg%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M37%2014Q47%206%2056%2012T73%2011%22%20fill%3D%22none%22%20stroke%3D%22%235d6870%22%20stroke-width%3D%220.612%22%20stroke-dasharray%3D%22.25%201.8%22%20%2F%3E%3Cpath%20d%3D%22M26.48%2018.34C28.04%2021.36%2031.75%2021.18%2031.80%2019.87L31.25%2019.01L32.01%2018.33C32.33%2017.06%2028.81%2015.87%2026.48%2018.34Z%20M25.67%2019.17C23.28%2021.59%2024.60%2025.06%2025.86%2024.70L26.51%2023.92L27.39%2024.43C28.69%2024.34%2028.74%2020.63%2025.67%2019.17Z%20M24.63%2018.66C21.59%2017.14%2018.70%2019.46%2019.42%2020.55L20.37%2020.93L20.15%2021.92C20.65%2023.13%2024.19%2022.03%2024.63%2018.66Z%20M24.79%2017.51C25.30%2014.15%2022.20%2012.12%2021.39%2013.15L21.32%2014.17L20.31%2014.27C19.31%2015.11%2021.45%2018.14%2024.79%2017.51Z%20M25.93%2017.31C29.29%2016.76%2030.26%2013.18%2029.03%2012.73L28.05%2012.98L27.64%2012.05C26.52%2011.36%2024.30%2014.33%2025.93%2017.31Z%22%20fill%3D%22url%28%23petal-ink%29%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%22.56%22%20%2F%3E%3Cpath%20d%3D%22M26.88%2018.39L30.21%2018.86M26.88%2018.39L29.42%2019.73M26.88%2018.39L29.69%2017.81%20M25.74%2019.57L26.33%2022.88M25.74%2019.57L25.26%2022.40M25.74%2019.57L27.17%2022.06%20M24.27%2018.85L21.30%2020.43M24.27%2018.85L21.43%2019.26M24.27%2018.85L22.34%2020.98%20M24.50%2017.23L22.08%2014.90M24.50%2017.23L23.23%2014.66M24.50%2017.23L21.88%2016.06%20M26.11%2016.95L27.58%2013.93M26.11%2016.95L28.17%2014.95M26.11%2016.95L26.42%2014.10%22%20fill%3D%22none%22%20stroke%3D%22%235d6870%22%20stroke-width%3D%22.32%22%20%2F%3E%3Cpath%20d%3D%22M25.50%2018.20L27.51%2018.85M25.50%2018.20L26.62%2019.99M25.50%2018.20L25.21%2020.29M25.50%2018.20L23.93%2019.61M25.50%2018.20L23.39%2018.27M25.50%2018.20L23.84%2016.90M25.50%2018.20L25.06%2016.13M25.50%2018.20L26.49%2016.34M25.50%2018.20L27.46%2017.41%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%22.32%22%20fill%3D%22none%22%20%2F%3E%3Ccircle%20cx%3D%2227.51%22%20cy%3D%2218.85%22%20r%3D%220.42%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2226.62%22%20cy%3D%2219.99%22%20r%3D%220.42%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2225.21%22%20cy%3D%2220.29%22%20r%3D%220.42%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2223.93%22%20cy%3D%2219.61%22%20r%3D%220.42%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2223.39%22%20cy%3D%2218.27%22%20r%3D%220.42%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2223.84%22%20cy%3D%2216.90%22%20r%3D%220.42%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2225.06%22%20cy%3D%2216.13%22%20r%3D%220.42%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2226.49%22%20cy%3D%2216.34%22%20r%3D%220.42%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2227.46%22%20cy%3D%2217.41%22%20r%3D%220.42%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2225.5%22%20cy%3D%2218.2%22%20r%3D%220.79%22%20fill%3D%22%232f373d%22%20%2F%3E%3Cpath%20d%3D%22M14.25%2013.19C17.61%2016.07%2022.00%2014.05%2021.42%2012.44L20.34%2011.67L20.93%2010.48C20.69%208.79%2015.86%209.06%2014.25%2013.19Z%20M13.68%2014.59C11.98%2018.68%2015.26%2022.23%2016.61%2021.18L17.01%2019.92L18.32%2020.11C19.85%2019.36%2018.10%2014.85%2013.68%2014.59Z%20M12.17%2014.49C7.76%2014.13%205.40%2018.35%206.81%2019.31L8.14%2019.30L8.36%2020.61C9.55%2021.83%2013.29%2018.77%2012.17%2014.49Z%20M11.80%2013.02C10.78%208.71%206.04%207.77%205.56%209.41L5.98%2010.66L4.81%2011.28C4.01%2012.79%208.08%2015.41%2011.80%2013.02Z%20M13.09%2012.21C16.87%209.91%2016.30%205.11%2014.60%205.16L13.53%205.95L12.58%205.02C10.90%204.73%209.67%209.41%2013.09%2012.21Z%22%20fill%3D%22url%28%23petal-ink%29%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%22.56%22%20%2F%3E%3Cpath%20d%3D%22M14.64%2013.09L19.01%2012.00M14.64%2013.09L18.48%2013.44M14.64%2013.09L17.87%2010.98%20M13.90%2014.93L16.28%2018.75M13.90%2014.93L14.75%2018.69M13.90%2014.93L16.90%2017.35%20M11.91%2014.79L9.02%2018.24M11.91%2014.79L8.60%2016.77M11.91%2014.79L10.54%2018.40%20M11.43%2012.87L7.26%2011.18M11.43%2012.87L8.53%2010.33M11.43%2012.87L7.58%2012.67%20M13.12%2011.81L13.43%207.32M13.12%2011.81L14.63%208.27M13.12%2011.81L12.11%208.09%22%20fill%3D%22none%22%20stroke%3D%22%235d6870%22%20stroke-width%3D%22.32%22%20%2F%3E%3Cpath%20d%3D%22M13.00%2013.50L15.75%2013.31M13.00%2013.50L15.23%2015.12M13.00%2013.50L13.67%2016.17M13.00%2013.50L11.79%2015.97M13.00%2013.50L10.49%2014.62M13.00%2013.50L10.35%2012.74M13.00%2013.50L11.46%2011.22M13.00%2013.50L13.29%2010.76M13.00%2013.50L14.98%2011.59%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%22.32%22%20fill%3D%22none%22%20%2F%3E%3Ccircle%20cx%3D%2215.75%22%20cy%3D%2213.31%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2215.23%22%20cy%3D%2215.12%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2213.67%22%20cy%3D%2216.17%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2211.79%22%20cy%3D%2215.97%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2210.49%22%20cy%3D%2214.62%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2210.35%22%20cy%3D%2212.74%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2211.46%22%20cy%3D%2211.22%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2213.29%22%20cy%3D%2210.76%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2214.98%22%20cy%3D%2211.59%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2213%22%20cy%3D%2213.5%22%20r%3D%221.03%22%20fill%3D%22%232f373d%22%20%2F%3E%3Cpath%20d%3D%22M30.5%206.2C31.6%203%2034.6%202.2%2035.6%203.4C35.8%205.4%2033.4%207.4%2030.5%206.2Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%220.612%22%20%2F%3E%3Cpath%20d%3D%22M30.5%206.2C32%205.4%2033.4%204.4%2034.4%203.2%22%20fill%3D%22none%22%20stroke%3D%22%235d6870%22%20stroke-width%3D%22.32%22%20%2F%3E%3Cpath%20d%3D%22M0.00%200.00C0.35%200.45%201.00%200.34%200.98%200.13L0.88%200.00L0.98%20-0.13C1.00%20-0.34%200.35%20-0.45%200.00%200.00Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%220.156%22%20transform%3D%22translate%2841%208%29%20rotate%28-20%29%20scale%283.8%29%22%20%2F%3E%3Cpath%20d%3D%22M0.00%200.00C0.35%200.45%201.00%200.34%200.98%200.13L0.88%200.00L0.98%20-0.13C1.00%20-0.34%200.35%20-0.45%200.00%200.00Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%220.175%22%20transform%3D%22translate%2848%2020%29%20rotate%2835%29%20scale%283.4%29%22%20%2F%3E%3Cpath%20d%3D%22M0.00%200.00C0.35%200.45%201.00%200.34%200.98%200.13L0.88%200.00L0.98%20-0.13C1.00%20-0.34%200.35%20-0.45%200.00%200.00Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%220.193%22%20transform%3D%22translate%2856%2011%29%20rotate%28-60%29%20scale%283.1%29%22%20%2F%3E%3Cpath%20d%3D%22M0.00%200.00C0.35%200.45%201.00%200.34%200.98%200.13L0.88%200.00L0.98%20-0.13C1.00%20-0.34%200.35%20-0.45%200.00%200.00Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%220.212%22%20transform%3D%22translate%2863%2019%29%20rotate%2815%29%20scale%282.8%29%22%20%2F%3E%3Cpath%20d%3D%22M0.00%200.00C0.35%200.45%201.00%200.34%200.98%200.13L0.88%200.00L0.98%20-0.13C1.00%20-0.34%200.35%20-0.45%200.00%200.00Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%220.238%22%20transform%3D%22translate%2870%209%29%20rotate%2850%29%20scale%282.5%29%22%20%2F%3E%3C%2Fg%3E%3Cdefs%3E%3Cpattern%20id%3D%22petal-ink%22%20width%3D%222.6%22%20height%3D%222.6%22%20patternUnits%3D%22userSpaceOnUse%22%20patternTransform%3D%22rotate%28-24%29%22%3E%3Crect%20width%3D%222.6%22%20height%3D%222.6%22%20fill%3D%22%23fafbfb%22%20%2F%3E%3Cpath%20d%3D%22M0%200V2.6%22%20stroke%3D%22%2378858e%22%20stroke-width%3D%22.28%22%20opacity%3D%22.35%22%20%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3C%2Fsvg%3E");
+    --wg-band-line: rgba(28, 30, 33, .44);
+}
+#chat .mes[is_user="true"] {
+    --wg-band-line: rgba(109, 127, 145, .43);
+}
+/* Contact shadows beneath the existing photograph, never on the text. */
+#chat .mes .avatar {
+    box-shadow: 0 1px 1px rgba(25,32,39,.13), 1px 4px 5px -3px rgba(25,32,39,.22) !important;
+    outline-color: rgba(45,55,65,.12);
+    background-image:
+        linear-gradient(135deg, var(--wg-band-frame) 0 46%, transparent 48%),
+        linear-gradient(225deg, var(--wg-band-frame) 0 46%, transparent 48%),
+        linear-gradient(45deg, var(--wg-band-frame) 0 46%, transparent 48%),
+        linear-gradient(315deg, var(--wg-band-frame) 0 46%, transparent 48%),
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20420%20140%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23596670%22%20stroke-width%3D%22.45%22%20opacity%3D%22.1%22%3E%3Cpath%20d%3D%22M8%2015l12%20-2m36%2020l8%201m43%20-27l14%201m65%2011l9%20-1m44%208l17%202m51%20-15l11%201m59%206l19%20-1M23%2079l15%202m38%20-15l7%201m46%2025l14%20-1m66%20-20l9%202m33%2011l18%20-1m40%20-13l11%202m42%2029l19%20-2M10%20124l13%201m60%20-13l9%201m44%2016l20%20-1m48%20-8l16%201m48%207l9%20-1m48%20-13l14%201m47%207l19%20-1%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+#chat .mes[is_user="true"] .avatar {
+    box-shadow: 0 1px 1px rgba(25,32,39,.13), -1px 4px 5px -3px rgba(25,32,39,.22) !important;
+}
+#chat .mes .avatar::before {
+    filter: drop-shadow(.6px 1px .5px rgba(32,42,49,.25));
+    border-color: #74818a;
+    outline-color: rgba(255,255,255,.7);
+}
+#chat .mes .avatar img {
+    border-color: rgba(36,43,50,.75);
+    outline-color: rgba(45,55,65,.19);
+}
+/* Keep the three grid layers and their existing sizes, including Latin rows. */
+#chat .mes .ch_name > .flex-container > .flex-container {
+    background-image:
+        linear-gradient(to bottom,
+            transparent var(--wg-gap),
+            var(--wg-band-line) var(--wg-gap), var(--wg-band-line) calc(var(--wg-gap) + 1px),
+            transparent calc(var(--wg-gap) + 1px), transparent calc(var(--wg-pitch) - 1px),
+            var(--wg-band-line) calc(var(--wg-pitch) - 1px)),
+        linear-gradient(to bottom,var(--wg-band-bg) var(--wg-gap),transparent var(--wg-gap)),
+        linear-gradient(to right,var(--wg-band-line) 1px,transparent 1px),
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%207%209%22%3E%3Cg%20fill%3D%22%2355616a%22%20opacity%3D%22.07%22%3E%3Cellipse%20cx%3D%221.3%22%20cy%3D%222.1%22%20rx%3D%22.34%22%20ry%3D%22.2%22%2F%3E%3Cellipse%20cx%3D%225.2%22%20cy%3D%227.4%22%20rx%3D%22.24%22%20ry%3D%22.4%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20420%20140%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23596670%22%20stroke-width%3D%22.45%22%20opacity%3D%22.1%22%3E%3Cpath%20d%3D%22M8%2015l12%20-2m36%2020l8%201m43%20-27l14%201m65%2011l9%20-1m44%208l17%202m51%20-15l11%201m59%206l19%20-1M23%2079l15%202m38%20-15l7%201m46%2025l14%20-1m66%20-20l9%202m33%2011l18%20-1m40%20-13l11%202m42%2029l19%20-2M10%20124l13%201m60%20-13l9%201m44%2016l20%20-1m48%20-8l16%201m48%207l9%20-1m48%20-13l14%201m47%207l19%20-1%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+/* Broken ink on the inner seal frame; retain the opaque backing and outer ring. */
+#chat .mes .ch_name > .flex-container > .flex-container::after {
+    border-image-source: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%2348545d%22%20stroke-width%3D%222.3%22%3E%3Cpath%20d%3D%22M1.5%2012V2h15m2%200h20v18m0%202v16H24m-2%200H2V14%22%20opacity%3D%22.88%22%2F%3E%3Cpath%20d%3D%22M2%203h9m27%2023v10M8%2038h9%22%20stroke-width%3D%22.7%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    border-image-slice: 4;
+    border-image-repeat: stretch;
+    text-shadow: .15px .2px .2px rgba(50,60,68,.22);
+    background-color: #fff;
+}
+
+
+/* Wongoji 1.0.30 — 1.0.28 base; leaf corners and centered manuscript only. */
+#chat .mes .mes_text > p:first-child::first-letter {
+    background:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2060%2060%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%2374818a%22%20stroke-width%3D%22.6%22%20opacity%3D%22.72%22%3E%3Cpath%20d%3D%22M3%2019V3H19M41%2057H57V41M4%2014Q13%2013%2014%204M46%2056Q47%2047%2056%2046%22%2F%3E%3Cpath%20d%3D%22M5%2011Q6%205%2011%205Q11%2010%205%2011ZM49%2055Q49%2050%2055%2049Q55%2055%2049%2055Z%22%20fill%3D%22%23e9edef%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center / 100% 100% no-repeat,
+        repeating-linear-gradient(to right, var(--wg-print-line) 0 2px, transparent 2px 5px) center / 100% 1px no-repeat,
+        repeating-linear-gradient(to bottom, var(--wg-print-line) 0 2px, transparent 2px 5px) center / 1px 100% no-repeat,
+        var(--wg-paper);
+}
+/* The original 34px bottom allowance is split evenly: the grid row and
+   portrait stay in place, while the manuscript's center meets the portrait's.
+   Dates and the existing floral vignette follow their positioned header. */
+#chat .mes .ch_name > .flex-container > .flex-container,
+#chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container {
+    margin-top: 17px;
+    margin-bottom: 17px;
+}
+/* Keep the chat number in the same manuscript cell after the header shift. */
+#chat .mes::before {
+    margin-top: calc(17px + 1px + var(--wg-gap) / 2);
+}
+
+
+/* Wongoji 1.0.31 — follow the centered manuscript with its label rail.
+   Header top is wg-pad + 17px. Label ends 6px above its border;
+   birds move down 10px, leaving 10px above the same border. */
+#chat .mes .tokenCounterDisplay,
+#chat .mes .ch_name::after {
+    top: calc(var(--wg-pad) - 3px);
+}
+#chat .mes .ch_name::before {
+    top: calc(var(--wg-pad) - 23px);
+}
+@media (max-width: 600px) {
+    #chat .mes .ch_name::before {
+        top: calc(var(--wg-pad) - 19px);
+    }
+}
+
+
+/* Wongoji 1.0.32 — user floral engraving in blue-grey ink. */
+#chat .mes[is_user="true"] {
+    --wg-feather-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%222%200%2072%2028%22%3E%3Cg%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M37%2014Q47%206%2056%2012T73%2011%22%20fill%3D%22none%22%20stroke%3D%22%238394a4%22%20stroke-width%3D%220.612%22%20stroke-dasharray%3D%22.25%201.8%22%20%2F%3E%3Cpath%20d%3D%22M26.48%2018.34C28.04%2021.36%2031.75%2021.18%2031.80%2019.87L31.25%2019.01L32.01%2018.33C32.33%2017.06%2028.81%2015.87%2026.48%2018.34Z%20M25.67%2019.17C23.28%2021.59%2024.60%2025.06%2025.86%2024.70L26.51%2023.92L27.39%2024.43C28.69%2024.34%2028.74%2020.63%2025.67%2019.17Z%20M24.63%2018.66C21.59%2017.14%2018.70%2019.46%2019.42%2020.55L20.37%2020.93L20.15%2021.92C20.65%2023.13%2024.19%2022.03%2024.63%2018.66Z%20M24.79%2017.51C25.30%2014.15%2022.20%2012.12%2021.39%2013.15L21.32%2014.17L20.31%2014.27C19.31%2015.11%2021.45%2018.14%2024.79%2017.51Z%20M25.93%2017.31C29.29%2016.76%2030.26%2013.18%2029.03%2012.73L28.05%2012.98L27.64%2012.05C26.52%2011.36%2024.30%2014.33%2025.93%2017.31Z%22%20fill%3D%22url%28%23petal-ink%29%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%22.56%22%20%2F%3E%3Cpath%20d%3D%22M26.88%2018.39L30.21%2018.86M26.88%2018.39L29.42%2019.73M26.88%2018.39L29.69%2017.81%20M25.74%2019.57L26.33%2022.88M25.74%2019.57L25.26%2022.40M25.74%2019.57L27.17%2022.06%20M24.27%2018.85L21.30%2020.43M24.27%2018.85L21.43%2019.26M24.27%2018.85L22.34%2020.98%20M24.50%2017.23L22.08%2014.90M24.50%2017.23L23.23%2014.66M24.50%2017.23L21.88%2016.06%20M26.11%2016.95L27.58%2013.93M26.11%2016.95L28.17%2014.95M26.11%2016.95L26.42%2014.10%22%20fill%3D%22none%22%20stroke%3D%22%238394a4%22%20stroke-width%3D%22.32%22%20%2F%3E%3Cpath%20d%3D%22M25.50%2018.20L27.51%2018.85M25.50%2018.20L26.62%2019.99M25.50%2018.20L25.21%2020.29M25.50%2018.20L23.93%2019.61M25.50%2018.20L23.39%2018.27M25.50%2018.20L23.84%2016.90M25.50%2018.20L25.06%2016.13M25.50%2018.20L26.49%2016.34M25.50%2018.20L27.46%2017.41%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%22.32%22%20fill%3D%22none%22%20%2F%3E%3Ccircle%20cx%3D%2227.51%22%20cy%3D%2218.85%22%20r%3D%220.42%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2226.62%22%20cy%3D%2219.99%22%20r%3D%220.42%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2225.21%22%20cy%3D%2220.29%22%20r%3D%220.42%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2223.93%22%20cy%3D%2219.61%22%20r%3D%220.42%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2223.39%22%20cy%3D%2218.27%22%20r%3D%220.42%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2223.84%22%20cy%3D%2216.90%22%20r%3D%220.42%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2225.06%22%20cy%3D%2216.13%22%20r%3D%220.42%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2226.49%22%20cy%3D%2216.34%22%20r%3D%220.42%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2227.46%22%20cy%3D%2217.41%22%20r%3D%220.42%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2225.5%22%20cy%3D%2218.2%22%20r%3D%220.79%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Cpath%20d%3D%22M14.25%2013.19C17.61%2016.07%2022.00%2014.05%2021.42%2012.44L20.34%2011.67L20.93%2010.48C20.69%208.79%2015.86%209.06%2014.25%2013.19Z%20M13.68%2014.59C11.98%2018.68%2015.26%2022.23%2016.61%2021.18L17.01%2019.92L18.32%2020.11C19.85%2019.36%2018.10%2014.85%2013.68%2014.59Z%20M12.17%2014.49C7.76%2014.13%205.40%2018.35%206.81%2019.31L8.14%2019.30L8.36%2020.61C9.55%2021.83%2013.29%2018.77%2012.17%2014.49Z%20M11.80%2013.02C10.78%208.71%206.04%207.77%205.56%209.41L5.98%2010.66L4.81%2011.28C4.01%2012.79%208.08%2015.41%2011.80%2013.02Z%20M13.09%2012.21C16.87%209.91%2016.30%205.11%2014.60%205.16L13.53%205.95L12.58%205.02C10.90%204.73%209.67%209.41%2013.09%2012.21Z%22%20fill%3D%22url%28%23petal-ink%29%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%22.56%22%20%2F%3E%3Cpath%20d%3D%22M14.64%2013.09L19.01%2012.00M14.64%2013.09L18.48%2013.44M14.64%2013.09L17.87%2010.98%20M13.90%2014.93L16.28%2018.75M13.90%2014.93L14.75%2018.69M13.90%2014.93L16.90%2017.35%20M11.91%2014.79L9.02%2018.24M11.91%2014.79L8.60%2016.77M11.91%2014.79L10.54%2018.40%20M11.43%2012.87L7.26%2011.18M11.43%2012.87L8.53%2010.33M11.43%2012.87L7.58%2012.67%20M13.12%2011.81L13.43%207.32M13.12%2011.81L14.63%208.27M13.12%2011.81L12.11%208.09%22%20fill%3D%22none%22%20stroke%3D%22%238394a4%22%20stroke-width%3D%22.32%22%20%2F%3E%3Cpath%20d%3D%22M13.00%2013.50L15.75%2013.31M13.00%2013.50L15.23%2015.12M13.00%2013.50L13.67%2016.17M13.00%2013.50L11.79%2015.97M13.00%2013.50L10.49%2014.62M13.00%2013.50L10.35%2012.74M13.00%2013.50L11.46%2011.22M13.00%2013.50L13.29%2010.76M13.00%2013.50L14.98%2011.59%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%22.32%22%20fill%3D%22none%22%20%2F%3E%3Ccircle%20cx%3D%2215.75%22%20cy%3D%2213.31%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2215.23%22%20cy%3D%2215.12%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2213.67%22%20cy%3D%2216.17%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2211.79%22%20cy%3D%2215.97%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2210.49%22%20cy%3D%2214.62%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2210.35%22%20cy%3D%2212.74%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2211.46%22%20cy%3D%2211.22%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2213.29%22%20cy%3D%2210.76%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2214.98%22%20cy%3D%2211.59%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2213%22%20cy%3D%2213.5%22%20r%3D%221.03%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Cpath%20d%3D%22M30.5%206.2C31.6%203%2034.6%202.2%2035.6%203.4C35.8%205.4%2033.4%207.4%2030.5%206.2Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%220.612%22%20%2F%3E%3Cpath%20d%3D%22M30.5%206.2C32%205.4%2033.4%204.4%2034.4%203.2%22%20fill%3D%22none%22%20stroke%3D%22%238394a4%22%20stroke-width%3D%22.32%22%20%2F%3E%3Cpath%20d%3D%22M0.00%200.00C0.35%200.45%201.00%200.34%200.98%200.13L0.88%200.00L0.98%20-0.13C1.00%20-0.34%200.35%20-0.45%200.00%200.00Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%220.156%22%20transform%3D%22translate%2841%208%29%20rotate%28-20%29%20scale%283.8%29%22%20%2F%3E%3Cpath%20d%3D%22M0.00%200.00C0.35%200.45%201.00%200.34%200.98%200.13L0.88%200.00L0.98%20-0.13C1.00%20-0.34%200.35%20-0.45%200.00%200.00Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%220.175%22%20transform%3D%22translate%2848%2020%29%20rotate%2835%29%20scale%283.4%29%22%20%2F%3E%3Cpath%20d%3D%22M0.00%200.00C0.35%200.45%201.00%200.34%200.98%200.13L0.88%200.00L0.98%20-0.13C1.00%20-0.34%200.35%20-0.45%200.00%200.00Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%220.193%22%20transform%3D%22translate%2856%2011%29%20rotate%28-60%29%20scale%283.1%29%22%20%2F%3E%3Cpath%20d%3D%22M0.00%200.00C0.35%200.45%201.00%200.34%200.98%200.13L0.88%200.00L0.98%20-0.13C1.00%20-0.34%200.35%20-0.45%200.00%200.00Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%220.212%22%20transform%3D%22translate%2863%2019%29%20rotate%2815%29%20scale%282.8%29%22%20%2F%3E%3Cpath%20d%3D%22M0.00%200.00C0.35%200.45%201.00%200.34%200.98%200.13L0.88%200.00L0.98%20-0.13C1.00%20-0.34%200.35%20-0.45%200.00%200.00Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%220.238%22%20transform%3D%22translate%2870%209%29%20rotate%2850%29%20scale%282.5%29%22%20%2F%3E%3C%2Fg%3E%3Cdefs%3E%3Cpattern%20id%3D%22petal-ink%22%20width%3D%222.6%22%20height%3D%222.6%22%20patternUnits%3D%22userSpaceOnUse%22%20patternTransform%3D%22rotate%28-24%29%22%3E%3Crect%20width%3D%222.6%22%20height%3D%222.6%22%20fill%3D%22%23f3f5f7%22%20%2F%3E%3Cpath%20d%3D%22M0%200V2.6%22%20stroke%3D%22%2391a0ae%22%20stroke-width%3D%22.28%22%20opacity%3D%22.35%22%20%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3C%2Fsvg%3E");
+}
+
+
+/* ======================================================================
+   Wongoji 1.0.33 — CustomThemeStyleInputs: ornate / simple.
+   Original 1.0.32 CSS is retained above. No extension: original design.
+   Simple mode changes paint only; layout, metadata and controls stay intact.
+   ====================================================================== */
+:root {
+    --wg-archive-decoration-mode: ornate;
+    --custom-theme-style-inputs: [
+  {
+    "type": "select",
+    "varId": "wg-archive-decoration-mode",
+    "displayText": "원고지 · 장식 모드",
+    "default": "ornate",
+    "options": [
+      {
+        "label": "장식형 · 현재 디자인",
+        "value": "ornate"
+      },
+      {
+        "label": "심플형 · 기본 장식 유지",
+        "value": "simple"
+      }
+    ]
+  },
+  {
+    "type": "select",
+    "varId": "wg-ornament-motif",
+    "displayText": "원고지 · 위아래 장식 종류",
+    "default": "mixed",
+    "options": [
+      {
+        "label": "새와 꽃",
+        "value": "mixed"
+      },
+      {
+        "label": "새",
+        "value": "birds"
+      },
+      {
+        "label": "꽃",
+        "value": "flowers"
+      }
+    ]
+  },
+  {
+    "type": "text",
+    "varId": "wg-caption-char",
+    "displayText": "캐릭터 사진 문구 · ' ' 안의 글자 변경",
+    "default": "'花樣年華'"
+  },
+  {
+    "type": "text",
+    "varId": "wg-caption-user",
+    "displayText": "유저 사진 문구 · ' ' 안의 글자 변경",
+    "default": "'雪泥鴻爪'"
+  },
+  {
+    "type": "slider",
+    "varId": "wg-body-scale",
+    "displayText": "채팅 본문 크기 · % (기본 100)",
+    "default": "100",
+    "min": 70,
+    "max": 160,
+    "step": 5
+  },
+  {
+    "type": "select",
+    "varId": "wg-body-font",
+    "displayText": "채팅 본문 글꼴",
+    "default": "'Gowun Batang', 'Nanum Myeongjo', 'Noto Serif KR', serif",
+    "options": [
+      {
+        "label": "고운바탕 · 기본",
+        "value": "'Gowun Batang', 'Nanum Myeongjo', 'Noto Serif KR', serif"
+      },
+      {
+        "label": "나눔명조",
+        "value": "'Nanum Myeongjo', 'Noto Serif KR', serif"
+      },
+      {
+        "label": "본명조 · Noto Serif KR",
+        "value": "'Noto Serif KR', 'Nanum Myeongjo', serif"
+      },
+      {
+        "label": "기본 고딕 · 기기 글꼴",
+        "value": "system-ui, -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif"
+      },
+      {
+        "label": "본고딕 · Noto Sans KR",
+        "value": "'Noto Sans KR', system-ui, sans-serif"
+      },
+      {
+        "label": "나눔고딕",
+        "value": "'Nanum Gothic', 'Noto Sans KR', sans-serif"
+      },
+      {
+        "label": "고운돋움",
+        "value": "'Gowun Dodum', 'Noto Sans KR', sans-serif"
+      }
+    ]
+  },
+  {
+    "type": "select",
+    "varId": "wg-dropcap-mode",
+    "displayText": "첫 글자 강조",
+    "default": "on",
+    "options": [
+      {
+        "label": "켜기 · 본문 글꼴로 강조",
+        "value": "on"
+      },
+      {
+        "label": "끄기 · 일반 본문",
+        "value": "off"
+      }
+    ]
+  }
+];
+}
+
+/* Keep decorative boxes in flow so buttons and body do not jump. */
+:root:is([style*="--wg-archive-decoration-mode: simple;"], [style*="--wg-archive-decoration-mode:simple;"]) #chat .mes::after,
+:root:is([style*="--wg-archive-decoration-mode: simple;"], [style*="--wg-archive-decoration-mode:simple;"]) #chat .mes .ch_name::before,
+:root:is([style*="--wg-archive-decoration-mode: simple;"], [style*="--wg-archive-decoration-mode:simple;"]) #chat .mes .ch_name > .flex-container > .flex-container > .name_text::after,
+:root:is([style*="--wg-archive-decoration-mode: simple;"], [style*="--wg-archive-decoration-mode:simple;"]) #chat .mes .mes_text::before,
+:root:is([style*="--wg-archive-decoration-mode: simple;"], [style*="--wg-archive-decoration-mode:simple;"]) #chat .mes .mes_text > p:last-child::after {
+    visibility: hidden;
+}
+
+/* Simple mode retains the original top ruler. */
+
+/* Keep all three manuscript grid layers, including Latin-name row rules. */
+:root:is([style*="--wg-archive-decoration-mode: simple;"], [style*="--wg-archive-decoration-mode:simple;"]) #chat .mes .ch_name > .flex-container > .flex-container {
+    background-image:
+        linear-gradient(to bottom,
+            transparent var(--wg-gap),
+            var(--wg-band-line) var(--wg-gap), var(--wg-band-line) calc(var(--wg-gap) + 1px),
+            transparent calc(var(--wg-gap) + 1px), transparent calc(var(--wg-pitch) - 1px),
+            var(--wg-band-line) calc(var(--wg-pitch) - 1px)),
+        linear-gradient(to bottom, var(--wg-band-bg) var(--wg-gap), transparent var(--wg-gap)),
+        linear-gradient(to right, var(--wg-band-line) 1px, transparent 1px);
+}
+
+/* Remove only the new leaf corners; preserve first-letter typography. */
+:root:is([style*="--wg-archive-decoration-mode: simple;"], [style*="--wg-archive-decoration-mode:simple;"]) #chat .mes .mes_text > p:first-child::first-letter {
+    background:
+        repeating-linear-gradient(to right, var(--wg-print-line) 0 2px, transparent 2px 5px) center / 100% 1px no-repeat,
+        repeating-linear-gradient(to bottom, var(--wg-print-line) 0 2px, transparent 2px 5px) center / 1px 100% no-repeat,
+        var(--wg-paper);
+}
+
+
+/* Wongoji 1.0.34 — portrait ornaments in both modes; punctuation-safe
+   leaf corners; persistent action-row clearance during generation. */
+#chat .mes .mes_text > p:first-child::first-letter {
+    background:
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%2374818a%22%20stroke-width%3D%22.6%22%20opacity%3D%22.72%22%3E%3Cpath%20d%3D%22M3%2019V3H19M4%2014Q13%2013%2014%204%22%2F%3E%3Cpath%20d%3D%22M5%2011Q6%205%2011%205Q11%2010%205%2011Z%22%20fill%3D%22%23e9edef%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") left .04em top .04em / .46em .46em no-repeat,
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%2374818a%22%20stroke-width%3D%22.6%22%20opacity%3D%22.72%22%20transform%3D%22rotate%28180%2010%2010%29%22%3E%3Cpath%20d%3D%22M3%2019V3H19M4%2014Q13%2013%2014%204%22%2F%3E%3Cpath%20d%3D%22M5%2011Q6%205%2011%205Q11%2010%205%2011Z%22%20fill%3D%22%23e9edef%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") right .04em bottom .04em / .46em .46em no-repeat,
+        repeating-linear-gradient(to right, var(--wg-print-line) 0 2px, transparent 2px 5px) center / 100% 1px no-repeat,
+        repeating-linear-gradient(to bottom, var(--wg-print-line) 0 2px, transparent 2px 5px) center / 1px 100% no-repeat,
+        var(--wg-paper);
+}
+/* Keep the second grid track even when SillyTavern hides the controls.
+   The same track can still grow for expanded actions or editing controls. */
+#chat .mes {
+    --wg-action-clearance: calc(max(8px, (var(--wg-pol-h) - var(--wg-pitch) * 2 - var(--wg-gap) - 28px) / 2 + 6px) + 70px);
+    grid-template-rows: auto minmax(var(--wg-action-clearance), auto);
+}
+@media (max-width: 600px) {
+    #chat .mes {
+        --wg-action-clearance: calc(max(8px, (var(--wg-pol-h) - var(--wg-pitch) * 2 - var(--wg-gap) - 28px) / 2 + 6px) + 62px);
+    }
+}
+body.hideChatAvatars #chat .mes { --wg-action-clearance: 76px; }
+@media (max-width: 600px) {
+    body.hideChatAvatars #chat .mes { --wg-action-clearance: 68px; }
+}
+
+
+/* Wongoji 1.0.35 — reference-matched simple mode and editable photo captions.
+   Reclaim the removed spine rail, with equal modest reading margins.
+   Header, photo, timestamps and generation clearance stay unchanged. */
+:root:is([style*="--wg-archive-decoration-mode: simple;"], [style*="--wg-archive-decoration-mode:simple;"]) #chat .mes .mes_text {
+    padding-left: clamp(8px, 2%, 18px);
+    padding-right: clamp(8px, 2%, 18px);
+}
+
+
+/* Wongoji 1.0.36 — body-only typography controls for CustomThemeStyleInputs.
+   100% reproduces the existing size. Keep metadata and input UI unchanged. */
+:root {
+    --wg-body-scale: 100;
+    --wg-body-font: 'Gowun Batang', 'Nanum Myeongjo', 'Noto Serif KR', serif;
+}
+#chat .mes .mes_text {
+    --wg-text: calc(var(--mainFontSize) * 1.21 * var(--wg-body-scale, 100) / 100);
+    --wg-lh: calc(var(--wg-text) * 1.85);
+    font-size: var(--wg-text);
+    line-height: var(--wg-lh);
+    font-family: var(--wg-body-font, var(--wg-serif));
+}
+
+
+/* Wongoji 1.0.38 — opening letter follows the chosen body font;
+   independently switch its frame, enlargement and float on or off. */
+:root { --wg-dropcap-mode: on; }
+#chat .mes .mes_text > p:first-child::first-letter {
+    font-family: var(--wg-body-font, var(--wg-serif));
+}
+:root:is([style*="--wg-dropcap-mode: off;"], [style*="--wg-dropcap-mode:off;"]) #chat .mes .mes_text > p:first-child::first-letter {
+    float: none;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+    color: inherit;
+}
+
+/* Wongoji 1.0.40 — one horizontal Quick Reply strip, across all active sets.
+   Preserve hidden states and leave editors, context menus and popouts alone. */
+#send_form #qr--bar {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: 64px;
+    flex: 0 0 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--wg-print-line) transparent;
+    scroll-padding-inline: 6px;
+}
+/* Combined mode has nested .qr--buttons; uncombined mode has siblings.
+   Leave display:contents on nested sets, so their color markers still work. */
+#send_form #qr--bar .qr--buttons {
+    min-width: max-content;
+    width: max-content;
+    max-width: none;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+#send_form #qr--bar .qr--button {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    min-width: max-content;
+    width: auto;
+    max-width: none;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+#send_form #qr--bar::-webkit-scrollbar { height: 4px; }
+#send_form #qr--bar::-webkit-scrollbar-thumb {
+    background: var(--wg-print-line);
+    border-radius: 3px;
+}
+/* Let injected form sections shrink to the available width without changing
+   their display, positioning, events or the extension's hidden-state rules. */
+#form_sheld,
+#send_form,
+#nonQRFormItems {
+    min-width: 0;
+    max-width: 100%;
+}
+#send_form > :not(#qr--bar):not(#nonQRFormItems) {
+    min-width: 0;
+    max-width: 100%;
+}
+/* Extra toolbar icons scroll in their own lane instead of taking the input's
+   full width or wrapping into a tall column. The send lane remains separate. */
+#nonQRFormItems {
+    flex-wrap: nowrap;
+}
+#nonQRFormItems #leftSendForm,
+#nonQRFormItems #rightSendForm {
+    min-width: 0;
+    width: auto;
+    flex: 0 1 auto;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--wg-print-line) transparent;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+}
+#nonQRFormItems #leftSendForm { max-width: 40%; }
+#nonQRFormItems #rightSendForm { max-width: 25%; }
+#nonQRFormItems #leftSendForm > *,
+#nonQRFormItems #rightSendForm > * {
+    flex-shrink: 0;
+}
+#nonQRFormItems #send_textarea {
+    flex: 1 1 0%;
+    min-width: 0;
+    width: 0;
+    max-width: 100%;
+}
+
+
+/* Wongoji 1.0.43 — complementary upper/lower illustrations.
+   Mixed: original flying birds / scattered flowers.
+   Birds: flying birds / resting and taking-off silhouettes.
+   Flowers: a blossom and a closed bud, no branches or leaves / original scattered flowers.
+   Existing placement, reserved space, mirroring and simple mode stay intact. */
+:root { --wg-ornament-motif: mixed; }
+#chat .mes {
+    --wg-resting-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2094%2040%22%3E%3Cdefs%3E%3Cg%20id%3D%22swallow%22%3E%3Cpath%20fill%3D%22%23eef0f1%22%20d%3D%22M22%2018C16%2014%207%2013%201%205C8%207%2017%206%2023%2013C24%208%2027%203%2034%200C33%208%2031%2014%2027%2018L30%2019L27%2020C24%2023%2022%2022%2019%2023L11%2029L14%2022L8%2021L18%2019Z%22%20stroke%3D%22%2348545d%22%20stroke-width%3D%22.7%22%20stroke-linejoin%3D%22round%22%20%2F%3E%3Cpath%20d%3D%22M8%208Q16%2010%2020%2015M31%205Q26%2011%2025%2016%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%22.65%22%20opacity%3D%22.65%22%20%2F%3E%3Cg%20clip-path%3D%22url%28%23wing-engraving%29%22%20fill%3D%22none%22%20stroke%3D%22%2366747d%22%20stroke-width%3D%22.48%22%20opacity%3D%22.85%22%3E%3Cpath%20d%3D%22M4.0%206.0Q10.0%2013.0%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M6.1%206.8Q11.8%2013.6%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M8.2%207.5Q13.6%2014.1%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M10.3%208.2Q15.4%2014.7%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M12.4%209.0Q17.2%2015.2%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M14.5%209.8Q19.0%2015.8%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M16.6%2010.5Q20.8%2016.3%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M18.7%2011.2Q22.6%2016.9%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M20.8%2012.0Q24.4%2017.4%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M27.0%205.0Q27.0%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M28.1%205.2Q27.6%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M29.2%205.4Q28.3%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M30.3%205.6Q28.9%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M31.4%205.8Q29.6%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M32.5%206.0Q30.2%2012%2024%2018%22%20%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M18%2019Q23%2016%2027%2018L30%2019L27%2020Q23%2023%2019%2023L11%2029L15%2022L9%2021Z%22%20fill%3D%22%234d5962%22%20%2F%3E%3C%2Fg%3E%3CclipPath%20id%3D%22wing-engraving%22%3E%3Cpath%20d%3D%22M22%2018C16%2014%207%2013%201%205C8%207%2017%206%2023%2013C24%208%2027%203%2034%200C33%208%2031%2014%2027%2018L30%2019L27%2020C24%2023%2022%2022%2019%2023L11%2029L14%2022L8%2021L18%2019Z%22%20%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%0A%3Cpath%20d%3D%22M4%2027C16%2033%2025%2033%2028%2026C31%2019%2021%2017%2020%2024C19%2031%2037%2029%2049%2020%22%20fill%3D%22none%22%20stroke%3D%22%235d6870%22%20stroke-width%3D%22.9%22%20stroke-dasharray%3D%22.25%202.5%22%20stroke-linecap%3D%22round%22%20%2F%3E%0A%3Cuse%20href%3D%22%23swallow%22%20transform%3D%22translate%2852%204%29%20scale%28.92%29%20rotate%286%2020%2015%29%22%20%2F%3E%3C%2Fsvg%3E");
+    --wg-bud-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2082%2028%22%3E%3Cdefs%3E%3Cpattern%20id%3D%22petal-ink%22%20width%3D%222.6%22%20height%3D%222.6%22%20patternUnits%3D%22userSpaceOnUse%22%20patternTransform%3D%22rotate%28-24%29%22%3E%3Crect%20width%3D%222.6%22%20height%3D%222.6%22%20fill%3D%22%23fafbfb%22%20%2F%3E%3Cpath%20d%3D%22M0%200V2.6%22%20stroke%3D%22%2378858e%22%20stroke-width%3D%22.28%22%20opacity%3D%22.35%22%20%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Cg%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%3Cpath%20d%3D%22M43%2015C36%207%2031%209%2026%2014S15%2021%209%2014Q6%2011%202%2012%22%20fill%3D%22none%22%20stroke%3D%22%235d6870%22%20stroke-width%3D%22.65%22%20stroke-dasharray%3D%22.25%201.8%22%20%2F%3E%0A%3Cg%20transform%3D%22translate%2844%200%29%22%3E%3Cg%20transform%3D%22translate%280%202%29%20scale%28.9%29%22%3E%3Cpath%20d%3D%22M14.25%2013.19C17.61%2016.07%2022.00%2014.05%2021.42%2012.44L20.34%2011.67L20.93%2010.48C20.69%208.79%2015.86%209.06%2014.25%2013.19Z%20M13.68%2014.59C11.98%2018.68%2015.26%2022.23%2016.61%2021.18L17.01%2019.92L18.32%2020.11C19.85%2019.36%2018.10%2014.85%2013.68%2014.59Z%20M12.17%2014.49C7.76%2014.13%205.40%2018.35%206.81%2019.31L8.14%2019.30L8.36%2020.61C9.55%2021.83%2013.29%2018.77%2012.17%2014.49Z%20M11.80%2013.02C10.78%208.71%206.04%207.77%205.56%209.41L5.98%2010.66L4.81%2011.28C4.01%2012.79%208.08%2015.41%2011.80%2013.02Z%20M13.09%2012.21C16.87%209.91%2016.30%205.11%2014.60%205.16L13.53%205.95L12.58%205.02C10.90%204.73%209.67%209.41%2013.09%2012.21Z%22%20fill%3D%22url%28%23petal-ink%29%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%22.56%22%20%2F%3E%3Cpath%20d%3D%22M14.64%2013.09L19.01%2012.00M14.64%2013.09L18.48%2013.44M14.64%2013.09L17.87%2010.98%20M13.90%2014.93L16.28%2018.75M13.90%2014.93L14.75%2018.69M13.90%2014.93L16.90%2017.35%20M11.91%2014.79L9.02%2018.24M11.91%2014.79L8.60%2016.77M11.91%2014.79L10.54%2018.40%20M11.43%2012.87L7.26%2011.18M11.43%2012.87L8.53%2010.33M11.43%2012.87L7.58%2012.67%20M13.12%2011.81L13.43%207.32M13.12%2011.81L14.63%208.27M13.12%2011.81L12.11%208.09%22%20fill%3D%22none%22%20stroke%3D%22%235d6870%22%20stroke-width%3D%22.32%22%20%2F%3E%3Cpath%20d%3D%22M13.00%2013.50L15.75%2013.31M13.00%2013.50L15.23%2015.12M13.00%2013.50L13.67%2016.17M13.00%2013.50L11.79%2015.97M13.00%2013.50L10.49%2014.62M13.00%2013.50L10.35%2012.74M13.00%2013.50L11.46%2011.22M13.00%2013.50L13.29%2010.76M13.00%2013.50L14.98%2011.59%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%22.32%22%20fill%3D%22none%22%20%2F%3E%3Ccircle%20cx%3D%2215.75%22%20cy%3D%2213.31%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2215.23%22%20cy%3D%2215.12%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2213.67%22%20cy%3D%2216.17%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2211.79%22%20cy%3D%2215.97%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2210.49%22%20cy%3D%2214.62%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2210.35%22%20cy%3D%2212.74%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2211.46%22%20cy%3D%2211.22%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2213.29%22%20cy%3D%2210.76%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2214.98%22%20cy%3D%2211.59%22%20r%3D%220.51%22%20fill%3D%22%232f373d%22%20%2F%3E%3Ccircle%20cx%3D%2213%22%20cy%3D%2213.5%22%20r%3D%221.03%22%20fill%3D%22%232f373d%22%20%2F%3E%3C%2Fg%3E%0A%3Cg%20transform%3D%22translate%285%204%29%20scale%28.72%29%22%3E%3Cg%20transform%3D%22rotate%2832%2033%2012%29%22%20stroke%3D%22%232f373d%22%20stroke-width%3D%22.46%22%20fill%3D%22url%28%23petal-ink%29%22%3E%3Cpath%20d%3D%22M33%2022C29.4%2020.4%2026.6%2016.8%2026.5%2012.8C25.2%209.4%2026.4%206.5%2028.2%206.6C29.5%206.4%2030.5%207.4%2031.1%208.5C30.4%205.4%2031.6%203.5%2033.8%203.9C35.3%204.2%2036.1%206.6%2035.9%209.1C37.8%206.9%2039.8%208.1%2039.7%2010.4C41%2014.1%2038.2%2019.4%2035.5%2021.1L33%2022Z%22%20%2F%3E%3Cpath%20d%3D%22M28.2%207.3C27.9%2013%2029.6%2018.6%2033%2021.2M31.1%208.5C30%2013%2031.2%2017%2033%2021.2M34.6%205.3C36%2010.1%2034.7%2016.8%2033%2021.2M39.2%208.2C39.8%2013%2036.7%2018.6%2033.5%2021.3%22%20fill%3D%22none%22%20stroke%3D%22%235d6870%22%20stroke-width%3D%22.32%22%20%2F%3E%3Cpath%20d%3D%22M29%2019L31.1%2020.6L32.5%2023L33%2021.1L35%2022.2L36.6%2019.9L34.3%2021L33%2021.7Z%22%20fill%3D%22%235d6870%22%20stroke%3D%22none%22%20%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%2378858e%22%20stroke-width%3D%22.2%22%3E%3Cpath%20d%3D%22M27.4%2011.7Q27.1%2015.9%2030.7%2019.1M28.7%2012.8Q28.7%2016.4%2031.4%2019.5M32%2010.5Q31.3%2014.9%2032.8%2018.8M33.4%208.3Q34.5%2013.4%2033.5%2018.9M37.9%2011Q37.6%2015.4%2034.8%2019.2M39.1%2012Q39.1%2015.4%2036.6%2017.9%22%20%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fg%3E%0A%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+#chat .mes[is_user="true"] {
+    --wg-resting-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2094%2040%22%3E%3Cdefs%3E%3Cg%20id%3D%22swallow%22%3E%3Cpath%20fill%3D%22%23f3f5f7%22%20d%3D%22M22%2018C16%2014%207%2013%201%205C8%207%2017%206%2023%2013C24%208%2027%203%2034%200C33%208%2031%2014%2027%2018L30%2019L27%2020C24%2023%2022%2022%2019%2023L11%2029L14%2022L8%2021L18%2019Z%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%22.7%22%20stroke-linejoin%3D%22round%22%20%2F%3E%3Cpath%20d%3D%22M8%208Q16%2010%2020%2015M31%205Q26%2011%2025%2016%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%22.65%22%20opacity%3D%22.65%22%20%2F%3E%3Cg%20clip-path%3D%22url%28%23wing-engraving%29%22%20fill%3D%22none%22%20stroke%3D%22%238394a4%22%20stroke-width%3D%22.48%22%20opacity%3D%22.85%22%3E%3Cpath%20d%3D%22M4.0%206.0Q10.0%2013.0%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M6.1%206.8Q11.8%2013.6%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M8.2%207.5Q13.6%2014.1%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M10.3%208.2Q15.4%2014.7%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M12.4%209.0Q17.2%2015.2%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M14.5%209.8Q19.0%2015.8%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M16.6%2010.5Q20.8%2016.3%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M18.7%2011.2Q22.6%2016.9%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M20.8%2012.0Q24.4%2017.4%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M27.0%205.0Q27.0%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M28.1%205.2Q27.6%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M29.2%205.4Q28.3%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M30.3%205.6Q28.9%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M31.4%205.8Q29.6%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M32.5%206.0Q30.2%2012%2024%2018%22%20%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M18%2019Q23%2016%2027%2018L30%2019L27%2020Q23%2023%2019%2023L11%2029L15%2022L9%2021Z%22%20fill%3D%22%236d7f91%22%20%2F%3E%3C%2Fg%3E%3CclipPath%20id%3D%22wing-engraving%22%3E%3Cpath%20d%3D%22M22%2018C16%2014%207%2013%201%205C8%207%2017%206%2023%2013C24%208%2027%203%2034%200C33%208%2031%2014%2027%2018L30%2019L27%2020C24%2023%2022%2022%2019%2023L11%2029L14%2022L8%2021L18%2019Z%22%20%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%0A%3Cpath%20d%3D%22M4%2027C16%2033%2025%2033%2028%2026C31%2019%2021%2017%2020%2024C19%2031%2037%2029%2049%2020%22%20fill%3D%22none%22%20stroke%3D%22%238394a4%22%20stroke-width%3D%22.9%22%20stroke-dasharray%3D%22.25%202.5%22%20stroke-linecap%3D%22round%22%20%2F%3E%0A%3Cuse%20href%3D%22%23swallow%22%20transform%3D%22translate%2852%204%29%20scale%28.92%29%20rotate%286%2020%2015%29%22%20%2F%3E%3C%2Fsvg%3E");
+    --wg-bud-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2082%2028%22%3E%3Cdefs%3E%3Cpattern%20id%3D%22petal-ink%22%20width%3D%222.6%22%20height%3D%222.6%22%20patternUnits%3D%22userSpaceOnUse%22%20patternTransform%3D%22rotate%28-24%29%22%3E%3Crect%20width%3D%222.6%22%20height%3D%222.6%22%20fill%3D%22%23f3f5f7%22%20%2F%3E%3Cpath%20d%3D%22M0%200V2.6%22%20stroke%3D%22%2391a0ae%22%20stroke-width%3D%22.28%22%20opacity%3D%22.35%22%20%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Cg%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%0A%3Cpath%20d%3D%22M43%2015C36%207%2031%209%2026%2014S15%2021%209%2014Q6%2011%202%2012%22%20fill%3D%22none%22%20stroke%3D%22%238394a4%22%20stroke-width%3D%22.65%22%20stroke-dasharray%3D%22.25%201.8%22%20%2F%3E%0A%3Cg%20transform%3D%22translate%2844%200%29%22%3E%3Cg%20transform%3D%22translate%280%202%29%20scale%28.9%29%22%3E%3Cpath%20d%3D%22M14.25%2013.19C17.61%2016.07%2022.00%2014.05%2021.42%2012.44L20.34%2011.67L20.93%2010.48C20.69%208.79%2015.86%209.06%2014.25%2013.19Z%20M13.68%2014.59C11.98%2018.68%2015.26%2022.23%2016.61%2021.18L17.01%2019.92L18.32%2020.11C19.85%2019.36%2018.10%2014.85%2013.68%2014.59Z%20M12.17%2014.49C7.76%2014.13%205.40%2018.35%206.81%2019.31L8.14%2019.30L8.36%2020.61C9.55%2021.83%2013.29%2018.77%2012.17%2014.49Z%20M11.80%2013.02C10.78%208.71%206.04%207.77%205.56%209.41L5.98%2010.66L4.81%2011.28C4.01%2012.79%208.08%2015.41%2011.80%2013.02Z%20M13.09%2012.21C16.87%209.91%2016.30%205.11%2014.60%205.16L13.53%205.95L12.58%205.02C10.90%204.73%209.67%209.41%2013.09%2012.21Z%22%20fill%3D%22url%28%23petal-ink%29%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%22.56%22%20%2F%3E%3Cpath%20d%3D%22M14.64%2013.09L19.01%2012.00M14.64%2013.09L18.48%2013.44M14.64%2013.09L17.87%2010.98%20M13.90%2014.93L16.28%2018.75M13.90%2014.93L14.75%2018.69M13.90%2014.93L16.90%2017.35%20M11.91%2014.79L9.02%2018.24M11.91%2014.79L8.60%2016.77M11.91%2014.79L10.54%2018.40%20M11.43%2012.87L7.26%2011.18M11.43%2012.87L8.53%2010.33M11.43%2012.87L7.58%2012.67%20M13.12%2011.81L13.43%207.32M13.12%2011.81L14.63%208.27M13.12%2011.81L12.11%208.09%22%20fill%3D%22none%22%20stroke%3D%22%238394a4%22%20stroke-width%3D%22.32%22%20%2F%3E%3Cpath%20d%3D%22M13.00%2013.50L15.75%2013.31M13.00%2013.50L15.23%2015.12M13.00%2013.50L13.67%2016.17M13.00%2013.50L11.79%2015.97M13.00%2013.50L10.49%2014.62M13.00%2013.50L10.35%2012.74M13.00%2013.50L11.46%2011.22M13.00%2013.50L13.29%2010.76M13.00%2013.50L14.98%2011.59%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%22.32%22%20fill%3D%22none%22%20%2F%3E%3Ccircle%20cx%3D%2215.75%22%20cy%3D%2213.31%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2215.23%22%20cy%3D%2215.12%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2213.67%22%20cy%3D%2216.17%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2211.79%22%20cy%3D%2215.97%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2210.49%22%20cy%3D%2214.62%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2210.35%22%20cy%3D%2212.74%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2211.46%22%20cy%3D%2211.22%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2213.29%22%20cy%3D%2210.76%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2214.98%22%20cy%3D%2211.59%22%20r%3D%220.51%22%20fill%3D%22%236d7f91%22%20%2F%3E%3Ccircle%20cx%3D%2213%22%20cy%3D%2213.5%22%20r%3D%221.03%22%20fill%3D%22%236d7f91%22%20%2F%3E%3C%2Fg%3E%0A%3Cg%20transform%3D%22translate%285%204%29%20scale%28.72%29%22%3E%3Cg%20transform%3D%22rotate%2832%2033%2012%29%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%22.46%22%20fill%3D%22url%28%23petal-ink%29%22%3E%3Cpath%20d%3D%22M33%2022C29.4%2020.4%2026.6%2016.8%2026.5%2012.8C25.2%209.4%2026.4%206.5%2028.2%206.6C29.5%206.4%2030.5%207.4%2031.1%208.5C30.4%205.4%2031.6%203.5%2033.8%203.9C35.3%204.2%2036.1%206.6%2035.9%209.1C37.8%206.9%2039.8%208.1%2039.7%2010.4C41%2014.1%2038.2%2019.4%2035.5%2021.1L33%2022Z%22%20%2F%3E%3Cpath%20d%3D%22M28.2%207.3C27.9%2013%2029.6%2018.6%2033%2021.2M31.1%208.5C30%2013%2031.2%2017%2033%2021.2M34.6%205.3C36%2010.1%2034.7%2016.8%2033%2021.2M39.2%208.2C39.8%2013%2036.7%2018.6%2033.5%2021.3%22%20fill%3D%22none%22%20stroke%3D%22%238394a4%22%20stroke-width%3D%22.32%22%20%2F%3E%3Cpath%20d%3D%22M29%2019L31.1%2020.6L32.5%2023L33%2021.1L35%2022.2L36.6%2019.9L34.3%2021L33%2021.7Z%22%20fill%3D%22%238394a4%22%20stroke%3D%22none%22%20%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%2391a0ae%22%20stroke-width%3D%22.2%22%3E%3Cpath%20d%3D%22M27.4%2011.7Q27.1%2015.9%2030.7%2019.1M28.7%2012.8Q28.7%2016.4%2031.4%2019.5M32%2010.5Q31.3%2014.9%2032.8%2018.8M33.4%208.3Q34.5%2013.4%2033.5%2018.9M37.9%2011Q37.6%2015.4%2034.8%2019.2M39.1%2012Q39.1%2015.4%2036.6%2017.9%22%20%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fg%3E%0A%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+:root:is([style*="--wg-ornament-motif: birds;"], [style*="--wg-ornament-motif:birds;"]) #chat .mes .ch_name > .flex-container > .flex-container > .name_text::after {
+    background-image: var(--wg-resting-art);
+}
+:root:is([style*="--wg-ornament-motif: birds;"], [style*="--wg-ornament-motif:birds;"]) #chat .mes[is_user="true"] {
+    --wg-flight-art: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2092%2044%22%3E%3Cdefs%3E%3Cg%20id%3D%22swallow%22%3E%3Cpath%20fill%3D%22%23f3f5f7%22%20d%3D%22M22%2018C16%2014%207%2013%201%205C8%207%2017%206%2023%2013C24%208%2027%203%2034%200C33%208%2031%2014%2027%2018L30%2019L27%2020C24%2023%2022%2022%2019%2023L11%2029L14%2022L8%2021L18%2019Z%22%20stroke%3D%22%236d7f91%22%20stroke-width%3D%22.7%22%20stroke-linejoin%3D%22round%22%20%2F%3E%3Cpath%20d%3D%22M8%208Q16%2010%2020%2015M31%205Q26%2011%2025%2016%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%22.65%22%20opacity%3D%22.65%22%20%2F%3E%3Cg%20clip-path%3D%22url%28%23wing-engraving%29%22%20fill%3D%22none%22%20stroke%3D%22%238394a4%22%20stroke-width%3D%22.48%22%20opacity%3D%22.85%22%3E%3Cpath%20d%3D%22M4.0%206.0Q10.0%2013.0%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M6.1%206.8Q11.8%2013.6%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M8.2%207.5Q13.6%2014.1%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M10.3%208.2Q15.4%2014.7%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M12.4%209.0Q17.2%2015.2%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M14.5%209.8Q19.0%2015.8%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M16.6%2010.5Q20.8%2016.3%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M18.7%2011.2Q22.6%2016.9%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M20.8%2012.0Q24.4%2017.4%2023%2018%22%20%2F%3E%3Cpath%20d%3D%22M27.0%205.0Q27.0%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M28.1%205.2Q27.6%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M29.2%205.4Q28.3%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M30.3%205.6Q28.9%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M31.4%205.8Q29.6%2012%2024%2018%22%20%2F%3E%3Cpath%20d%3D%22M32.5%206.0Q30.2%2012%2024%2018%22%20%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M18%2019Q23%2016%2027%2018L30%2019L27%2020Q23%2023%2019%2023L11%2029L15%2022L9%2021Z%22%20fill%3D%22%236d7f91%22%20%2F%3E%3C%2Fg%3E%3CclipPath%20id%3D%22wing-engraving%22%3E%3Cpath%20d%3D%22M22%2018C16%2014%207%2013%201%205C8%207%2017%206%2023%2013C24%208%2027%203%2034%200C33%208%2031%2014%2027%2018L30%2019L27%2020C24%2023%2022%2022%2019%2023L11%2029L14%2022L8%2021L18%2019Z%22%20%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cuse%20href%3D%22%23swallow%22%20transform%3D%22translate%288%2012%29%20rotate%28-8%2020%2015%29%22%20%2F%3E%3Cuse%20href%3D%22%23swallow%22%20transform%3D%22translate%2854%203%29%20scale%28.66%29%20rotate%2812%2020%2015%29%22%20%2F%3E%3Cpath%20d%3D%22M2%2037Q11%2036%2015%2032M45%2023L48%2021M83%2010L87%207%22%20fill%3D%22none%22%20stroke%3D%22%2391a0ae%22%20stroke-width%3D%22.65%22%20stroke-linecap%3D%22round%22%20%2F%3E%3Ccircle%20cx%3D%2249%22%20cy%3D%2230%22%20r%3D%22.65%22%20fill%3D%22%2391a0ae%22%20%2F%3E%3C%2Fsvg%3E");
+}
+:root:is([style*="--wg-ornament-motif: flowers;"], [style*="--wg-ornament-motif:flowers;"]) #chat .mes .ch_name::before {
+    background-image: var(--wg-bud-art);
+}
+
+
+/* Wongoji 1.0.44 — optical alignment for the new motif variants only.
+   Bird vignette: smaller, asymmetric and raised toward the date line.
+   Floral crest: close-cropped, enlarged and anchored above the outer edge.
+   Keep timestamp reserves; never change the manuscript or portrait geometry. */
+:root:is([style*="--wg-ornament-motif: birds;"], [style*="--wg-ornament-motif:birds;"]) #chat .mes .ch_name > .flex-container > .flex-container > .name_text::after {
+    top: calc(100% + 12px);
+    width: 86px;
+    height: 29px;
+    background-position: left center;
+}
+:root:is([style*="--wg-ornament-motif: birds;"], [style*="--wg-ornament-motif:birds;"]) #chat .mes[is_user="true"] .ch_name > .flex-container > .flex-container > .name_text::after {
+    background-position: left center;
+}
+:root:is([style*="--wg-ornament-motif: flowers;"], [style*="--wg-ornament-motif:flowers;"]) #chat .mes { --wg-flight-width: 64px; }
+:root:is([style*="--wg-ornament-motif: flowers;"], [style*="--wg-ornament-motif:flowers;"]) #chat .mes .ch_name::before {
+    top: calc(var(--wg-pad) - 24px);
+    height: 34px;
+    background-position: right bottom;
+}
+@media (max-width: 600px) {
+:root:is([style*="--wg-ornament-motif: birds;"], [style*="--wg-ornament-motif:birds;"]) #chat .mes .ch_name > .flex-container > .flex-container > .name_text::after {
+    width: 70px;
+    height: 25px;
+}
+:root:is([style*="--wg-ornament-motif: flowers;"], [style*="--wg-ornament-motif:flowers;"]) #chat .mes { --wg-flight-width: 58px; }
+:root:is([style*="--wg-ornament-motif: flowers;"], [style*="--wg-ornament-motif:flowers;"]) #chat .mes .ch_name::before {
+    top: calc(var(--wg-pad) - 20px);
+    height: 30px;
+}
+}
+
+/* Wongoji 1.0.45: single flying silhouette with dotted trail;
+   upper blossom and bud at 80% scale with an open, dotted gap. */
+
+/* Wongoji 1.0.46: exact upper bird engraving below; level blossom/bud
+   pair with an external wave, reserving the complete ornament width. */
+:root:is([style*="--wg-ornament-motif: flowers;"], [style*="--wg-ornament-motif:flowers;"]) #chat .mes { --wg-flight-width: 82px; }
+@media (max-width: 600px) {
+:root:is([style*="--wg-ornament-motif: flowers;"], [style*="--wg-ornament-motif:flowers;"]) #chat .mes { --wg-flight-width: 74px; }
+}
+
+/* ======================================================================
+   Wongoji 1.0.48 — 생성 시간(Message Timer)을 날짜 줄 아래로 내려
+   날짜·모델 아이콘과 겹치지 않게 합니다.
+   (원고지 띠 아래 여백 17px 기준: 날짜는 띠 아래 +13~+29px,
+    생성 시간은 그 아래 +31~+43px)
+   ====================================================================== */
+#chat .mes .mes_timer {
+    margin-bottom: -26px;
 }
