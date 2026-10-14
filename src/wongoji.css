@@ -1970,7 +1970,7 @@ body.hideChatAvatars #chat .mes .avatar::after {
     [ch_name*="x" i],
     [ch_name*="y" i],
     [ch_name*="z" i])) .ch_name > .flex-container > .flex-container > .name_text {
-    font-family: 'WG Cell Space', 'Noto Serif KR', 'Noto Serif CJK KR', 'Noto Serif CJK JP', serif;
+    font-family: 'WG Cell Space', 'WG Cell Emoji', 'Noto Serif KR', 'Noto Serif CJK KR', 'Noto Serif CJK JP', serif;
     font-size: var(--wg-cell-font);
     font-weight: 600;
     font-kerning: none;
@@ -2974,4 +2974,24 @@ body #toast-container.toast-top-center > div.toast,
 body #toast-container.toast-bottom-center > div.toast {
     margin-left: auto;
     margin-right: auto;
+}
+
+/* ======================================================================
+   Wongoji 1.0.52 — 이름 속 이모지도 한 칸에 맞춥니다.
+   컬러 이모지 글꼴은 글자 폭이 1.25em 이라 한글(0.96em)보다 넓어 뒤 글자를
+   밀어냅니다. 기기의 이모지 글꼴을 이름 칸에서만 한글 폭으로 줄여 씁니다.
+   ====================================================================== */
+@font-face {
+    font-family: 'WG Cell Emoji';
+    src: local('Noto Color Emoji'), local('NotoColorEmoji'),
+         local('Apple Color Emoji'), local('AppleColorEmoji'),
+         local('Segoe UI Emoji'), local('SegoeUIEmoji');
+    unicode-range: U+00A9, U+00AE, U+203C, U+2049, U+2122, U+2139, U+2194-21AA,
+        U+231A-23FF, U+24C2, U+25AA-25FE, U+2600-27BF, U+2934-2935, U+2B05-2B55,
+        U+3030, U+303D, U+3297, U+3299, U+FE0F, U+200D, U+20E3, U+1F000-1FAFF, U+E0020-E007F;
+    size-adjust: 76.8%;
+    ascent-override: 88%;
+    descent-override: 22%;
+    line-gap-override: 0%;
+    font-display: swap;
 }
