@@ -74,6 +74,10 @@ SillyTavern → 사용자 설정 → **Custom CSS** 맨 위에서 아래 두 줄
 | `--wg-endmark` | 글 끝 기호 (기본 `◇`) |
 | `--topBarIconSize`, `--bottomFormIconSize` | 상단 메뉴 · 입력창 아이콘 크기 |
 
+## 백업
+
+`backup/` 폴더에 CSS 정리 전 버전이 있습니다. 정리판에서 문제가 생기면 `backup/원고지 Wongoji 1.0.49 · Literary Archive (정리 전 백업).json`을 가져오면 됩니다. Git에서는 `backup-1.0.49` 태그로도 돌아갈 수 있습니다.
+
 ## 개발
 
 원본 CSS는 `src/wongoji.css`에 있습니다. 수정한 뒤 아래 명령으로 버전을 올려 테마 JSON을 다시 만듭니다. 버전은 `version.json`에 기록되고, 이전 버전 JSON은 지워집니다.
