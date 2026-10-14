@@ -76,7 +76,7 @@ SillyTavern → 사용자 설정 → **Custom CSS** 맨 위에서 아래 두 줄
 
 ## 백업
 
-`backup/` 폴더에 CSS 정리 전 버전이 있습니다. 정리판에서 문제가 생기면 `backup/원고지 Wongoji 1.0.49 · Literary Archive (정리 전 백업).json`을 가져오면 됩니다. Git에서는 `backup-1.0.49` 태그로도 돌아갈 수 있습니다.
+`backup/` 폴더에 CSS 정리 전 버전이 있습니다. 정리판에서 문제가 생기면 `backup/원고지 Wongoji 1.0.49 · Literary Archive (정리 전 백업).json`을 가져오면 됩니다.
 
 ## 개발
 
