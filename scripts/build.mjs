@@ -2,8 +2,8 @@
 // 사용법: node scripts/build.mjs          — 지금 버전으로 다시 만들기
 //        node scripts/build.mjs --bump   — 버전을 올려서 만들기
 //
-// SillyTavern 은 이미 있는 이름의 테마를 가져오지 않으므로,
-// 테마 이름(= 파일 이름)에 버전을 붙여 고칠 때마다 새 이름이 되게 합니다.
+// 테마 이름(= 파일 이름)은 버전 없이 고정입니다. 버전은 version.json 에만 기록합니다.
+// SillyTavern 은 이미 있는 이름의 테마를 가져오지 않으므로, 업데이트할 때는 예전 테마를 먼저 지우고 가져옵니다.
 import { readFile, writeFile, readdir, unlink } from 'node:fs/promises';
 import { darkCss, darkColor } from './dark.mjs';
 
@@ -19,7 +19,7 @@ if (process.argv.includes('--bump')) {
 }
 
 const theme = {
-    name: `원고지 Wongoji ${meta.version} · Literary Archive · White`,
+    name: '원고지 테마 Wongoji Theme White',
     blur_strength: 0,
     main_text_color: 'rgba(42, 45, 49, 1)',
     italics_text_color: 'rgba(106, 109, 114, 1)',
@@ -68,16 +68,16 @@ const DARK_EXTRA = `
     --wg-quote: #86a3c0;
 }
 `;
-const dark = { ...theme, name: `원고지 Wongoji ${meta.version} · Literary Archive · Dark`, custom_css: darkCss(css) + DARK_EXTRA };
+const dark = { ...theme, name: '원고지 테마 Wongoji Theme Black', custom_css: darkCss(css) + DARK_EXTRA };
 for (const k of COLOR_KEYS) dark[k] = darkColor(theme[k]);
 dark.main_text_color = 'rgba(198, 200, 205, 1)';
 dark.italics_text_color = 'rgba(140, 144, 149, 1)';
 dark.quote_text_color = 'rgba(134, 163, 192, 1)';
 
-// 이전 버전 파일은 지웁니다
+// 예전 이름의 파일은 지웁니다
 const themesDir = new URL('themes/', root);
 for (const file of await readdir(themesDir)) {
-    if (file.startsWith('원고지 Wongoji') && ![theme.name, dark.name].map(n => `${n}.json`).includes(file)) {
+    if (file.startsWith('원고지') && ![theme.name, dark.name].map(n => `${n}.json`).includes(file)) {
         await unlink(new URL(file, themesDir));
     }
 }
