@@ -59,8 +59,20 @@ const theme = {
 // 다크 버전 — 같은 테마에서 색만 바꿉니다
 const COLOR_KEYS = ['main_text_color', 'italics_text_color', 'underline_text_color', 'quote_text_color',
     'blur_tint_color', 'chat_tint_color', 'user_mes_blur_tint_color', 'bot_mes_blur_tint_color', 'border_color'];
-const dark = { ...theme, name: `원고지 Wongoji ${meta.version} · Literary Archive · Dark`, custom_css: darkCss(css) };
+// 다크 전용 보정 — 본문 글씨는 장식보다 한 단계 밝게
+const DARK_EXTRA = `
+/* Dark edition — 본문 글씨 밝기 */
+:root {
+    --wg-ink-body: #c6c8cd;
+    --wg-em: #8c9095;
+    --wg-quote: #86a3c0;
+}
+`;
+const dark = { ...theme, name: `원고지 Wongoji ${meta.version} · Literary Archive · Dark`, custom_css: darkCss(css) + DARK_EXTRA };
 for (const k of COLOR_KEYS) dark[k] = darkColor(theme[k]);
+dark.main_text_color = 'rgba(198, 200, 205, 1)';
+dark.italics_text_color = 'rgba(140, 144, 149, 1)';
+dark.quote_text_color = 'rgba(134, 163, 192, 1)';
 
 // 이전 버전 파일은 지웁니다
 const themesDir = new URL('themes/', root);
