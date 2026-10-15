@@ -2,6 +2,8 @@
 
 SillyTavern UI 테마입니다. 흰 바탕과 먹, 청회색으로 인쇄된 원고지 칸만으로 대화를 한 편의 원고처럼 보여 줍니다.
 
+**화이트**와 **다크** 두 가지가 있습니다. 다크는 화이트와 모든 디자인이 같고 색만 어둡게 바꾼 버전입니다.
+
 | 데스크톱 | 모바일 | 편집 |
 | --- | --- | --- |
 | ![desktop](preview/desktop.png) | ![mobile](preview/mobile.png) | ![edit](preview/edit.png) |
@@ -35,7 +37,7 @@ SillyTavern UI 테마입니다. 흰 바탕과 먹, 청회색으로 인쇄된 원
 
 ## 설치
 
-1. `themes/` 폴더의 `원고지 Wongoji 1.0.x.json` 파일을 내려받습니다.
+1. `themes/` 폴더에서 `원고지 Wongoji 1.0.x · Literary Archive · White.json`(화이트) 또는 `… · Dark.json`(다크) 파일을 내려받습니다. 둘 다 가져와 두고 목록에서 바꿔 가며 써도 됩니다.
 2. SillyTavern → **사용자 설정(User Settings)** → **UI Theme**에서 가져오기(Import) 버튼을 눌러 파일을 선택합니다.
 3. 테마 목록에서 `원고지 Wongoji 1.0.x`를 고릅니다.
 
@@ -81,7 +83,7 @@ SillyTavern → 사용자 설정 → **Custom CSS** 맨 위에서 아래 두 줄
 
 ## 개발
 
-원본 CSS는 `src/wongoji.css`에 있습니다. 수정한 뒤 아래 명령으로 버전을 올려 테마 JSON을 다시 만듭니다. 버전은 `version.json`에 기록되고, 이전 버전 JSON은 지워집니다.
+원본 CSS는 `src/wongoji.css`(화이트) 하나뿐입니다. 빌드할 때 `scripts/dark.mjs`가 CSS 안의 모든 색(SVG 그림 속 색 포함)을 OKLab 밝기만 뒤집어 다크 버전을 함께 만듭니다. 수정한 뒤 아래 명령으로 버전을 올려 두 테마 JSON을 다시 만듭니다. 버전은 `version.json`에 기록되고, 이전 버전 JSON은 지워집니다.
 
 ```sh
 node scripts/build.mjs --bump
