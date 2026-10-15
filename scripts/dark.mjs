@@ -4,7 +4,8 @@
 //   종이(흰색)      → 짙은 먹색 바탕
 //   먹(진한 글씨)   → 밝은 회백색 글씨
 //   청회색 인쇄선   → 비슷한 밝기의 청회색
-export const DARK = { floor: 0.19, span: 0.9, ceil: 0.93 };
+// knee 위의 밝은 색(먹 → 흰 선·글씨)은 soft 비율로 눌러, 새하얗게 쏘지 않게 합니다.
+export const DARK = { floor: 0.19, span: 0.9, ceil: 0.93, knee: 0.66, soft: 0.6 };
 
 const toLin = c => { c /= 255; return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
 const toSrgb = c => { c = c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055; return Math.round(Math.min(1, Math.max(0, c)) * 255); };
@@ -28,7 +29,8 @@ function oklabToRgb(L, a, b) {
 }
 export function darkRgb(r, g, b) {
     const [L, A, B] = rgbToOklab(r, g, b);
-    const L2 = Math.min(DARK.ceil, Math.max(DARK.floor, DARK.floor + (1 - L) * DARK.span));
+    let L2 = Math.min(DARK.ceil, Math.max(DARK.floor, DARK.floor + (1 - L) * DARK.span));
+    if (L2 > DARK.knee) L2 = DARK.knee + (L2 - DARK.knee) * DARK.soft;
     return oklabToRgb(L2, A, B);
 }
 const hex2 = n => n.toString(16).padStart(2, '0');
