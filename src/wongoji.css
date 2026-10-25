@@ -2303,9 +2303,32 @@ body:not(.big-avatars) #chat .mes .avatar img {
     border-radius: 0 !important;
 }
 
-#extensions_settings .inline-drawer-content .flex-container,
-#extensions_settings2 .inline-drawer-content .flex-container {
+#extensions_settings .inline-drawer-content .flex-container:not(.flexFlowColumn, .flexnowrap),
+#extensions_settings2 .inline-drawer-content .flex-container:not(.flexFlowColumn, .flexnowrap) {
     flex-wrap: wrap;
+}
+
+/* 정규식 목록 — 이름이 길어도 아이콘은 오른쪽 끝에 남게 */
+.regex-script-container {
+    flex-wrap: nowrap;
+}
+
+.regex-script-label {
+    flex-wrap: nowrap;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.regex-script-label .regex_script_name {
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.regex-script-label > :not(.regex_script_name) {
+    flex-shrink: 0;
 }
 
 #extensions_settings .inline-drawer-content .menu_button,
