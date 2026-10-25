@@ -1,9 +1,9 @@
 // src/wongoji.css 를 테마 JSON 의 custom_css 로 묶어 themes/ 에 내보냅니다.
 // 사용법: node scripts/build.mjs          — 지금 버전으로 다시 만들기
-//        node scripts/build.mjs --bump   — 버전을 올려서 만들기
+//        node scripts/build.mjs --bump   — 버전을 0.01 올려서 만들기 (v1.01 → v1.02)
 //
-// 테마 이름(= 파일 이름)은 버전 없이 고정입니다. 버전은 version.json 에만 기록합니다.
-// SillyTavern 은 이미 있는 이름의 테마를 가져오지 않으므로, 업데이트할 때는 예전 테마를 먼저 지우고 가져옵니다.
+// 테마 이름(= 파일 이름) 끝에 버전(v1.01)을 붙입니다.
+// SillyTavern 은 이미 있는 이름의 테마를 가져오지 않으므로, 버전이 오르면 새 이름으로 가져올 수 있습니다.
 import { readFile, writeFile, readdir, unlink } from 'node:fs/promises';
 import { darkCss, darkColor } from './dark.mjs';
 
@@ -13,13 +13,12 @@ const css = await readFile(new URL('src/wongoji.css', root), 'utf8');
 const versionUrl = new URL('version.json', root);
 const meta = JSON.parse(await readFile(versionUrl, 'utf8'));
 if (process.argv.includes('--bump')) {
-    const [major, minor, patch] = meta.version.split('.').map(Number);
-    meta.version = `${major}.${minor}.${patch + 1}`;
+    meta.version = (Number(meta.version) + 0.01).toFixed(2);
     await writeFile(versionUrl, JSON.stringify(meta, null, 4) + '\n');
 }
 
 const theme = {
-    name: '원고지 테마 Wongoji Theme White',
+    name: `원고지 테마 Wongoji Theme White v${meta.version}`,
     blur_strength: 0,
     main_text_color: 'rgba(42, 45, 49, 1)',
     italics_text_color: 'rgba(106, 109, 114, 1)',
@@ -68,7 +67,7 @@ const DARK_EXTRA = `
     --wg-quote: #86a3c0;
 }
 `;
-const dark = { ...theme, name: '원고지 테마 Wongoji Theme Black', custom_css: darkCss(css) + DARK_EXTRA };
+const dark = { ...theme, name: `원고지 테마 Wongoji Theme Black v${meta.version}`, custom_css: darkCss(css) + DARK_EXTRA };
 for (const k of COLOR_KEYS) dark[k] = darkColor(theme[k]);
 dark.main_text_color = 'rgba(198, 200, 205, 1)';
 dark.italics_text_color = 'rgba(140, 144, 149, 1)';
