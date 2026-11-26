@@ -6,7 +6,7 @@
 // SillyTavern 은 이미 있는 이름의 테마를 가져오지 않으므로, 버전이 오르면 새 이름으로 가져올 수 있습니다.
 import { readFile, writeFile, readdir, unlink } from 'node:fs/promises';
 import { darkCss, darkColor, mapCss, mapColor } from './dark.mjs';
-import { TINTS, tintRgb } from './tint.mjs';
+import { TINTS, tintRgb, bandCss } from './tint.mjs';
 
 const root = new URL('../', import.meta.url);
 const css = await readFile(new URL('src/wongoji.css', root), 'utf8');
@@ -77,7 +77,7 @@ dark.quote_text_color = 'rgba(134, 163, 192, 1)';
 // 베이지 · 연하늘(Sky) 버전 — 같은 테마에서 종이와 잉크 빛만 바꿉니다
 const tinted = Object.entries({ Beige: TINTS.beige, Sky: TINTS.sky }).map(([label, opts]) => {
     const fn = tintRgb(opts);
-    const t = { ...theme, name: `원고지 테마 Wongoji Theme ${label} v${meta.version}`, custom_css: mapCss(css, fn) };
+    const t = { ...theme, name: `원고지 테마 Wongoji Theme ${label} v${meta.version}`, custom_css: mapCss(css, fn) + bandCss(opts) };
     for (const k of COLOR_KEYS) t[k] = mapColor(theme[k], fn);
     return t;
 });
