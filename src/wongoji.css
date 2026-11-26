@@ -3018,3 +3018,22 @@ body #toast-container.toast-bottom-center > div.toast {
     line-gap-override: 0%;
     font-display: swap;
 }
+
+/* 숨긴 메시지 — 유령 표시를 원고지 이름표(原稿用紙) 앞에 찍습니다 */
+#chat .mes .mes_ghost {
+    display: none !important;
+}
+
+#chat .mes[is_system="true"] .tokenCounterDisplay::before,
+#chat .mes[is_system="true"] .ch_name::after {
+    font-family: var(--wg-title), 'Font Awesome 6 Free';
+}
+
+#chat .mes[is_system="true"] .tokenCounterDisplay::before {
+    content: '\f6e2\00A0' var(--wg-paper-label) '\00A0\00B7\00A0';
+}
+
+#chat .mes[is_system="true"] .tokenCounterDisplay:empty::before,
+body.no-tokenCount #chat .mes[is_system="true"] .ch_name::after {
+    content: '\f6e2\00A0' var(--wg-paper-label);
+}
