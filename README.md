@@ -2,7 +2,7 @@
 
 SillyTavern UI 테마입니다. 흰 바탕과 먹, 청회색으로 인쇄된 원고지 칸만으로 대화를 한 편의 원고처럼 보여 줍니다.
 
-**화이트**(White)와 **다크**(Black) 두 가지가 있습니다. 다크는 화이트와 모든 디자인이 같고 색만 어둡게 바꾼 버전입니다.
+**화이트**(White), **다크**(Black), **베이지**(Beige), **연하늘**(Sky) 네 가지가 있습니다. 모두 디자인은 같고 색만 다릅니다. 다크는 화이트를 어둡게, 베이지는 크림빛 종이에 갈색 잉크로, 연하늘은 채도 낮은 하늘빛 종이에 청회색 잉크로 바꾼 버전입니다.
 
 | 데스크톱 | 모바일 | 편집 |
 | --- | --- | --- |
@@ -37,9 +37,9 @@ SillyTavern UI 테마입니다. 흰 바탕과 먹, 청회색으로 인쇄된 원
 
 ## 설치
 
-1. `themes/` 폴더에서 `원고지 테마 Wongoji Theme White v1.xx.json`(화이트) 또는 `원고지 테마 Wongoji Theme Black v1.xx.json`(다크) 파일을 내려받습니다. 둘 다 가져와 두고 목록에서 바꿔 가며 써도 됩니다.
+1. `themes/` 폴더에서 `원고지 테마 Wongoji Theme White v1.xx.json`(화이트) 또는 `… Black v1.xx.json`(다크), `… Beige v1.xx.json`(베이지), `… Sky v1.xx.json`(연하늘) 파일을 내려받습니다. 여러 개 가져와 두고 목록에서 바꿔 가며 써도 됩니다.
 2. SillyTavern → **사용자 설정(User Settings)** → **UI Theme**에서 가져오기(Import) 버튼을 눌러 파일을 선택합니다.
-3. 테마 목록에서 `원고지 테마 Wongoji Theme White v1.xx` 또는 `… Black v1.xx`을 고릅니다.
+3. 테마 목록에서 `원고지 테마 Wongoji Theme White v1.xx` (또는 Black · Beige · Sky)을 고릅니다.
 
 > **업데이트할 때**: SillyTavern은 이미 있는 이름의 테마를 다시 가져오지 않습니다. 그래서 테마 이름 끝에 `v1.01`처럼 버전이 붙고, 고칠 때마다 번호가 올라갑니다. 새 버전 파일을 가져와 목록에서 고른 뒤, 예전 버전은 삭제 버튼으로 지우면 됩니다.
 
@@ -83,7 +83,7 @@ SillyTavern → 사용자 설정 → **Custom CSS** 맨 위에서 아래 두 줄
 
 ## 개발
 
-원본 CSS는 `src/wongoji.css`(화이트) 하나뿐입니다. 빌드할 때 `scripts/dark.mjs`가 CSS 안의 모든 색(SVG 그림 속 색 포함)을 OKLab 밝기만 뒤집어 다크 버전을 함께 만듭니다. 수정한 뒤 아래 명령으로 버전을 0.01 올려 두 테마 JSON을 다시 만듭니다. 버전은 `version.json`에 기록되어 테마 이름 끝에 붙고, 이전 버전 JSON은 지워집니다.
+원본 CSS는 `src/wongoji.css`(화이트) 하나뿐입니다. 빌드할 때 `scripts/dark.mjs`가 CSS 안의 모든 색(SVG 그림 속 색 포함)을 OKLab 밝기만 뒤집어 다크 버전을, `scripts/tint.mjs`가 밝기는 두고 색의 기운만 바꿔 베이지·연하늘 버전을 함께 만듭니다. 수정한 뒤 아래 명령으로 버전을 0.01 올려 두 테마 JSON을 다시 만듭니다. 버전은 `version.json`에 기록되어 테마 이름 끝에 붙고, 이전 버전 JSON은 지워집니다.
 
 ```sh
 node scripts/build.mjs --bump

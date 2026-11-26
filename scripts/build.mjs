@@ -5,7 +5,8 @@
 // 테마 이름(= 파일 이름) 끝에 버전(v1.01)을 붙입니다.
 // SillyTavern 은 이미 있는 이름의 테마를 가져오지 않으므로, 버전이 오르면 새 이름으로 가져올 수 있습니다.
 import { readFile, writeFile, readdir, unlink } from 'node:fs/promises';
-import { darkCss, darkColor } from './dark.mjs';
+import { darkCss, darkColor, mapCss, mapColor } from './dark.mjs';
+import { TINTS, tintRgb } from './tint.mjs';
 
 const root = new URL('../', import.meta.url);
 const css = await readFile(new URL('src/wongoji.css', root), 'utf8');
@@ -73,15 +74,24 @@ dark.main_text_color = 'rgba(198, 200, 205, 1)';
 dark.italics_text_color = 'rgba(140, 144, 149, 1)';
 dark.quote_text_color = 'rgba(134, 163, 192, 1)';
 
+// 베이지 · 연하늘(Sky) 버전 — 같은 테마에서 종이와 잉크 빛만 바꿉니다
+const tinted = Object.entries({ Beige: TINTS.beige, Sky: TINTS.sky }).map(([label, opts]) => {
+    const fn = tintRgb(opts);
+    const t = { ...theme, name: `원고지 테마 Wongoji Theme ${label} v${meta.version}`, custom_css: mapCss(css, fn) };
+    for (const k of COLOR_KEYS) t[k] = mapColor(theme[k], fn);
+    return t;
+});
+const editions = [theme, dark, ...tinted];
+
 // 예전 이름의 파일은 지웁니다
 const themesDir = new URL('themes/', root);
 for (const file of await readdir(themesDir)) {
-    if (file.startsWith('원고지') && ![theme.name, dark.name].map(n => `${n}.json`).includes(file)) {
+    if (file.startsWith('원고지') && !editions.map(t => t.name).map(n => `${n}.json`).includes(file)) {
         await unlink(new URL(file, themesDir));
     }
 }
 
-for (const t of [theme, dark]) {
+for (const t of editions) {
     const out = new URL(`${t.name}.json`, themesDir);
     await writeFile(out, JSON.stringify(t, null, 4) + '\n');
     console.log(`built ${decodeURIComponent(out.pathname)}`);
