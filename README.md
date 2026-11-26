@@ -83,7 +83,7 @@ SillyTavern → 사용자 설정 → **Custom CSS** 맨 위에서 아래 두 줄
 
 ## 개발
 
-원본 CSS는 `src/wongoji.css`(화이트) 하나뿐입니다. 빌드할 때 `scripts/dark.mjs`가 CSS 안의 모든 색(SVG 그림 속 색 포함)을 OKLab 밝기만 뒤집어 다크 버전을, `scripts/tint.mjs`가 밝기는 두고 색의 기운만 바꿔 베이지·연하늘 버전을 함께 만듭니다. 수정한 뒤 아래 명령으로 버전을 0.01 올려 두 테마 JSON을 다시 만듭니다. 버전은 `version.json`에 기록되어 테마 이름 끝에 붙고, 이전 버전 JSON은 지워집니다.
+원본 CSS는 `src/wongoji.css`(화이트) 하나뿐입니다. 빌드할 때 `scripts/dark.mjs`가 CSS 안의 모든 색(SVG 그림 속 색 포함)을 OKLab 밝기만 뒤집어 다크 버전을, `scripts/tint.mjs`가 밝기는 두고 색의 기운만 바꿔 베이지·연하늘 버전을 함께 만듭니다. 수정한 뒤 아래 명령으로 버전을 0.01 올려 네 테마 JSON을 다시 만듭니다. 버전은 `version.json`에 기록되어 테마 이름 끝에 붙고, 이전 버전 JSON은 지워집니다.
 
 ```sh
 node scripts/build.mjs --bump
