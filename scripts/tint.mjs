@@ -2,12 +2,12 @@
 // 밝기(OKLab L)는 거의 그대로 두고, 색의 기운만 바꿉니다.
 //   무채색(종이·먹·회색 선) → 종이(밝은 색)는 neutralHue 로, 먹과 검은 선은 inkHue 로 살짝 물들입니다.
 //                              새하얀 종이는 paperL 밝기로 조금 눌러 종이 빛을 냅니다.
-//   청회색(인쇄선·대사·도장) → 색상은 그대로, 채도만 accentScale 배로.
+//   청회색(인쇄선·대사·도장) → accentHue 가 있으면 그 색상으로, 채도는 accentScale 배로.
 import { rgbToOklab, oklabToRgb } from './dark.mjs';
 
 export const TINTS = {
-    // 아이보리 종이에 청회색 잉크 — 먹과 검은 선은 종이에 맞춰 살짝 따뜻한 먹색
-    beige: { neutralHue: 78, paperChroma: 0.014, inkChroma: 0.011, inkHue: 65, paperL: 0.962, accentScale: 0.85 },
+    // 리넨빛 종이 — 주황기 없이 노르스름한 회백색. 청회색 선·대사·도장은 차분한 회갈색(토프)으로
+    beige: { neutralHue: 92, paperChroma: 0.010, inkChroma: 0.008, inkHue: 85, paperL: 0.962, accentHue: 80, accentScale: 0.4 },
     // 안개 낀 하늘빛 종이 — 먹과 검은 선은 살짝 푸른 먹색
     sky:   { neutralHue: 242, paperChroma: 0.009, inkChroma: 0.017, inkHue: 250, paperL: 0.97, accentScale: 1.0 },
 };
@@ -31,7 +31,9 @@ export function tintRgb(t) {
             const b = t.inkChroma * Math.sin(ink) * (1 - k) + t.paperChroma * Math.sin(paper) * k;
             return oklabToRgb(L, a, b);
         }
-        // 청회색은 색상은 그대로, 채도만 accentScale 배로
-        return oklabToRgb(L, A * t.accentScale, B * t.accentScale);
+        // 청회색: accentHue 가 있으면 그 색상으로 돌리고, 채도는 accentScale 배로
+        if (t.accentHue === undefined) return oklabToRgb(L, A * t.accentScale, B * t.accentScale);
+        const h = t.accentHue * Math.PI / 180, c = C * t.accentScale;
+        return oklabToRgb(L, c * Math.cos(h), c * Math.sin(h));
     };
 }
