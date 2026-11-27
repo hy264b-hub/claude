@@ -1,8 +1,9 @@
 // src/wongoji.css 를 테마 JSON 의 custom_css 로 묶어 themes/ 에 내보냅니다.
 // 사용법: node scripts/build.mjs
 //
-// 테마 이름(= 파일 이름) 끝에 버전(v1.01)을 붙입니다. 버전은 판(White · Black · Beige · Sky)마다 따로이고,
+// White · Black 은 테마 이름(= 파일 이름) 끝에 버전(v1.01)을 붙입니다. 버전은 판마다 따로이고,
 // 내용이 바뀐 판만 0.01 올라갑니다. 바뀌지 않은 판은 이름도 파일도 그대로 둡니다.
+// Beige · Sky 는 버전 없이 고정된 이름으로 씁니다.
 // SillyTavern 은 이미 있는 이름의 테마를 가져오지 않으므로, 버전이 오르면 새 이름으로 가져올 수 있습니다.
 import { readFile, writeFile, readdir, unlink } from 'node:fs/promises';
 import { darkCss, darkColor, mapCss, mapColor } from './dark.mjs';
@@ -76,9 +77,17 @@ const tinted = Object.entries({ Beige: TINTS.beige, Sky: TINTS.sky }).map(([labe
     const fn = tintRgb(opts);
     const t = { ...theme, name: label, custom_css: mapCss(css, fn) };
     for (const k of COLOR_KEYS) t[k] = mapColor(theme[k], fn);
+    if (opts.quote) {
+        // 대사 색만 따로 한 단계 진하게
+        const [r, g, b] = opts.quote;
+        t.custom_css += `\n/* ${label} — 대사 색 */\n:root {\n    --wg-quote: rgb(${r}, ${g}, ${b});\n}\n`;
+        t.quote_text_color = `rgba(${r}, ${g}, ${b}, 1)`;
+    }
     return t;
 });
 const editions = [theme, dark, ...tinted];
+// 이름 끝에 버전을 붙이지 않는 판 — 이름이 늘 같으므로 고칠 때마다 파일을 덮어씁니다
+const UNVERSIONED = new Set(['Beige', 'Sky']);
 
 // 판마다 지금 파일과 비교해, 내용이 바뀐 판만 버전을 올려 새 이름으로 씁니다
 const themesDir = new URL('themes/', root);
@@ -86,6 +95,15 @@ const files = (await readdir(themesDir)).filter(f => f.startsWith(NAME));
 const body = t => JSON.stringify({ ...t, name: '' });
 for (const t of editions) {
     const label = t.name;
+    if (UNVERSIONED.has(label)) {
+        t.name = `${NAME} ${label}`;
+        for (const f of files.filter(f => f.startsWith(`${NAME} ${label} v`))) await unlink(new URL(f, themesDir));
+        delete versions[label];
+        const out = new URL(`${t.name}.json`, themesDir);
+        await writeFile(out, JSON.stringify(t, null, 4) + '\n');
+        console.log(`built ${decodeURIComponent(out.pathname)}`);
+        continue;
+    }
     const prefix = `${NAME} ${label} v`;
     const old = files.find(f => f.startsWith(prefix));
     let version = versions[label] ?? '1.00';

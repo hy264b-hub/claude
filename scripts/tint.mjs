@@ -7,7 +7,7 @@ import { rgbToOklab, oklabToRgb } from './dark.mjs';
 
 export const TINTS = {
     // 리넨빛 종이 — 주황기 없이 노르스름한 회백색. 청회색 선·대사·도장은 차분한 회갈색(토프)으로
-    beige: { neutralHue: 92, paperChroma: 0.010, inkChroma: 0.008, inkHue: 85, paperL: 0.962, accentHue: 80, accentScale: 0.4 },
+    beige: { neutralHue: 92, paperChroma: 0.010, inkChroma: 0.008, inkHue: 85, paperL: 0.962, accentHue: 80, accentScale: 0.4, quote: [78, 70, 58] },
     // 안개 낀 하늘빛 종이 — 먹과 검은 선은 살짝 푸른 먹색
     sky:   { neutralHue: 242, paperChroma: 0.009, inkChroma: 0.017, inkHue: 250, paperL: 0.97, accentScale: 1.0 },
 };

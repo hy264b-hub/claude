@@ -37,11 +37,11 @@ SillyTavern UI 테마입니다. 흰 바탕과 먹, 청회색으로 인쇄된 원
 
 ## 설치
 
-1. `themes/` 폴더에서 `원고지 테마 Wongoji Theme White v1.xx.json`(화이트) 또는 `… Black v1.xx.json`(다크), `… Beige v1.xx.json`(베이지), `… Sky v1.xx.json`(연하늘) 파일을 내려받습니다. 여러 개 가져와 두고 목록에서 바꿔 가며 써도 됩니다.
+1. `themes/` 폴더에서 `원고지 테마 Wongoji Theme White v1.xx.json`(화이트) 또는 `… Black v1.xx.json`(다크), `원고지 테마 Wongoji Theme Beige.json`(베이지), `원고지 테마 Wongoji Theme Sky.json`(연하늘) 파일을 내려받습니다. 여러 개 가져와 두고 목록에서 바꿔 가며 써도 됩니다.
 2. SillyTavern → **사용자 설정(User Settings)** → **UI Theme**에서 가져오기(Import) 버튼을 눌러 파일을 선택합니다.
 3. 테마 목록에서 `원고지 테마 Wongoji Theme White v1.xx` (또는 Black · Beige · Sky)을 고릅니다.
 
-> **업데이트할 때**: SillyTavern은 이미 있는 이름의 테마를 다시 가져오지 않습니다. 그래서 테마 이름 끝에 `v1.01`처럼 버전이 붙고, 고칠 때마다 번호가 올라갑니다. 버전은 판마다 따로라서, 바뀐 판만 번호가 오릅니다. 새 버전 파일을 가져와 목록에서 고른 뒤, 예전 버전은 삭제 버튼으로 지우면 됩니다.
+> **업데이트할 때**: SillyTavern은 이미 있는 이름의 테마를 다시 가져오지 않습니다. 그래서 화이트와 블랙은 테마 이름 끝에 `v1.01`처럼 버전이 붙고, 바뀐 판만 번호가 오릅니다. 베이지와 연하늘은 이름에 버전이 없으니, 업데이트할 때는 목록에서 예전 것을 먼저 삭제한 뒤 가져오세요. 새 버전 파일을 가져와 목록에서 고른 뒤, 예전 버전은 삭제 버튼으로 지우면 됩니다.
 
 > Chat Style은 **Flat**으로 두세요. 테마가 이 값을 자동으로 맞춥니다. Bubbles나 Document 스타일과는 함께 쓰도록 만들지 않았습니다.
 
@@ -83,7 +83,7 @@ SillyTavern → 사용자 설정 → **Custom CSS** 맨 위에서 아래 두 줄
 
 ## 개발
 
-원본 CSS는 `src/wongoji.css`(화이트) 하나뿐입니다. 빌드할 때 `scripts/dark.mjs`가 CSS 안의 모든 색(SVG 그림 속 색 포함)을 OKLab 밝기만 뒤집어 다크 버전을, `scripts/tint.mjs`가 종이에만 색을 들여 베이지·연하늘 버전을 함께 만듭니다. 수정한 뒤 아래 명령으로 네 테마 JSON을 다시 만듭니다. 빌드는 판마다 지금 파일과 내용을 비교해, 바뀐 판만 버전을 0.01 올리고 예전 파일을 지웁니다. 판별 버전은 `version.json`에 기록됩니다.
+원본 CSS는 `src/wongoji.css`(화이트) 하나뿐입니다. 빌드할 때 `scripts/dark.mjs`가 CSS 안의 모든 색(SVG 그림 속 색 포함)을 OKLab 밝기만 뒤집어 다크 버전을, `scripts/tint.mjs`가 종이에만 색을 들여 베이지·연하늘 버전을 함께 만듭니다. 수정한 뒤 아래 명령으로 네 테마 JSON을 다시 만듭니다. 빌드는 화이트·블랙을 지금 파일과 비교해 바뀐 판만 버전을 0.01 올리고(`version.json`에 기록), 베이지·연하늘은 버전 없는 같은 이름으로 덮어씁니다.
 
 ```sh
 node scripts/build.mjs
